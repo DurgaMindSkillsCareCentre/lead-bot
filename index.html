@@ -8,7 +8,7 @@
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
-        body { margin: 0; font-family: 'Inter', sans-serif; background: #050505; color: #f0ebe0; }
+        body { margin: 0; font-family: 'Inter', -apple-system, sans-serif; background: #050505; color: #f0ebe0; }
         .gold { color: #C8A84B; }
         .card { background: #111; border-radius: 12px; padding: 16px; margin-bottom: 12px; border: 1px solid #C8A84B33; }
         .btn-gold { background: linear-gradient(135deg, #C8A84B, #A07030); color: #000; border: none; border-radius: 8px; padding: 14px; font-weight: 800; font-size: 11px; cursor: pointer; width: 100%; text-transform: uppercase; letter-spacing: 1px; }
@@ -16,7 +16,7 @@
         .nav-tab.active { color: #C8A84B; border-bottom: 2px solid #C8A84B; background: #1a1408; }
         .full-img { width: 100%; border-radius: 8px; border: 1px solid #C8A84B33; margin-bottom: 12px; display: block; }
         .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-        .img-box { border-radius: 8px; border: 1px solid #333; overflow: hidden; }
+        .img-box { border-radius: 8px; border: 1px solid #333; overflow: hidden; background: #000; }
         .flyer-img { width: 100%; display: block; height: auto; }
         .section-title { font-size: 12px; font-weight: 800; margin: 15px 0 10px; color: #C8A84B; border-left: 3px solid #C8A84B; padding-left: 10px; text-transform: uppercase; }
     </style>
@@ -54,7 +54,7 @@
                                 <div className="gallery-grid">
                                     <div className="img-box"><img src="flyer_local.png" className="flyer-img" alt="Local" /></div>
                                     <div className="img-box"><img src="flyer_investor.png" className="flyer-img" alt="Investor" /></div>
-                                    <div className="img-box" style={{gridColumn: 'span 2'}}><img src="flyer_nri.png" className="flyer-img" alt="NRI Global" /></div>
+                                    <div className="img-box" style={{gridColumn: 'span 2'}}><img src="flyer_nri.png" className="flyer-img" alt="NRI" /></div>
                                 </div>
                                 
                                 <div className="section-title">SITE LOCATION ACCESS</div>
@@ -65,7 +65,7 @@
                                         <div style={{fontSize: '11px', color: '#bbb'}}>Direct navigation to Alagarkovil Highway Junction.</div>
                                     </div>
                                 </div>
-                                <button className="btn-gold" onClick={() => openWA("Site Location Link")}>Request Google Maps Link</button>
+                                <button className="btn-gold" onClick={() => openWA("Site Location")}>Request Location Link</button>
                             </div>
                         )}
 
