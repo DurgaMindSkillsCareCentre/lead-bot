@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Madurai Master v22.0 - Final</title>
+    <title>Madurai Master v24.0 - NRI Priority</title>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -13,14 +13,13 @@
         .card { background: #111; border-radius: 12px; padding: 15px; margin-bottom: 12px; border: 1px solid #C8A84B33; }
         .btn-gold { background: linear-gradient(135deg, #C8A84B, #A07030); color: #000; border: none; border-radius: 8px; padding: 14px; font-weight: 800; font-size: 11px; cursor: pointer; width: 100%; text-transform: uppercase; letter-spacing: 1px; margin-top: 8px; }
         .btn-outline { background: transparent; color: #C8A84B; border: 1px solid #C8A84B; padding: 12px; font-size: 10px; margin-bottom: 8px; text-align: left; width: 100%; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; }
-        .btn-bulk { background: #1a1408; border: 2px solid #C8A84B; color: #fff; font-weight: 900; margin-bottom: 15px; }
+        .btn-priority { background: #1a1408; color: #C8A84B; border: 1px solid #C8A84B; font-weight: 700; margin-bottom: 8px; font-size: 11px; border-left: 5px solid #C8A84B; }
         .nav-tab { flex: 1; padding: 12px 2px; border: none; background: transparent; color: #666; font-size: 10px; font-weight: 700; border-bottom: 2px solid transparent; text-transform: uppercase; }
         .nav-tab.active { color: #C8A84B; border-bottom: 2px solid #C8A84B; background: #1a1408; }
-        .select-gold { width: 100%; background: #222; color: #C8A84B; border: 1px solid #C8A84B; padding: 12px; border-radius: 8px; font-weight: bold; margin-bottom: 15px; font-size: 12px; appearance: none; }
         .section-title { font-size: 11px; font-weight: 800; margin: 20px 0 10px; color: #C8A84B; border-left: 3px solid #C8A84B; padding-left: 10px; text-transform: uppercase; letter-spacing: 1px; }
         .badge { background: #C8A84B; color: #000; padding: 2px 5px; border-radius: 3px; font-size: 8px; font-weight: 900; }
         .input-area { width: 100%; background: #000; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 8px; margin-bottom: 10px; box-sizing: border-box; font-size: 13px; font-family: inherit; }
-        .asset-img { width: 100%; border-radius: 8px; border: 1px solid #C8A84B33; margin-bottom: 15px; display: block; }
+        .asset-img { width: 100%; border-radius: 8px; border: 1px solid #C8A84B33; margin-bottom: 15px; display: block; background: #111; }
     </style>
 </head>
 <body>
@@ -38,38 +37,22 @@
                 window.open(`https://www.google.com/search?q=${encodeURIComponent(q)}&tbs=qdr:${timeframe}`, '_blank');
             };
 
-            const bulkLaunch = (category) => {
-                const sets = {
-                    corporate: ['"software company" land Madurai', '"corporate office" land Madurai', '"IT park" requirement Madurai'],
-                    hospitality: ['"service apartment" Madurai land', '"mini function hall" with restaurant Madurai', '"resort" land Madurai'],
-                    education: ['"international school" land Madurai', '"college campus" land Madurai', '"coaching center" Madurai']
-                };
-                sets[category].forEach(q => openSearch(q));
-            };
-
-            const setupAlerts = () => {
-                const queries = [
-                    'wanted land Madurai highway software IT',
-                    'hospital service apartment land Madurai',
-                    'showroom party hall restaurant land Madurai',
-                    'EV charging petrol bunk land Madurai',
-                    'warehouse cold storage land Madurai'
-                ];
-                alert("Setting up 5 Automated Lead Channels...");
-                queries.forEach(q => window.open(`https://www.google.com/alerts#create:q=${encodeURIComponent(q)}`, '_blank'));
-            };
-
             const scanNumbers = () => {
                 const matches = textToScan.match(/(?:\+91|91|0)?[6-9]\d{9}/g);
                 if (matches) setFoundNumber("91" + matches[0].replace(/^0|^91|^\+91/, ""));
                 else alert("No valid phone number detected.");
             };
 
+            const assetImages = [
+                "1.jpg", "2.jpg", "3.jpg", "4.jpg", 
+                "5.jpg", "6.jpg", "7.jpg", "8.jpg"
+            ];
+
             return (
                 <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
                     <header style={{ padding: '20px', background: '#111', borderBottom: '2px solid #C8A84B', textAlign: 'center' }}>
                         <div className="gold" style={{ fontWeight: 900, fontSize: '18px' }}>ALAGARKOVIL MADURAI PROJECT</div>
-                        <div style={{ fontSize: '10px', color: '#888' }}>MASTER COMMAND CENTER v22.0</div>
+                        <div style={{ fontSize: '10px', color: '#888' }}>MASTER v24.0 • NRI & CORPORATE ELITE</div>
                     </header>
 
                     <nav style={{ display: 'flex', background: '#050505', position: 'sticky', top: 0, zIndex: 100 }}>
@@ -81,48 +64,41 @@
                     <main style={{ padding: '15px' }}>
                         {tab === 'sniper' && (
                             <div>
-                                <div className="section-title">Freshness Control</div>
-                                <select className="select-gold" value={timeframe} onChange={(e) => setTimeframe(e.target.value)}>
-                                    <option value="d">Last 24 Hours (Immediate Response)</option>
+                                <div className="section-title">Step 1: Freshness Filter</div>
+                                <select className="btn-outline" style={{width:'100%', padding:'12px', background:'#222'}} value={timeframe} onChange={(e) => setTimeframe(e.target.value)}>
+                                    <option value="d">Last 24 Hours (Hottest Leads)</option>
                                     <option value="w">Last 1 Week (Active Market)</option>
-                                    <option value="m">Last 1 Month (Strategic Trends)</option>
+                                    <option value="m">Last 1 Month (Deep Insights)</option>
                                 </select>
 
-                                <div className="card" style={{borderColor: '#d93025'}}>
-                                    <button className="btn-gold" style={{background:'#d93025', color:'#fff'}} onClick={setupAlerts}>Activate 24/7 Lead Automation</button>
+                                <div className="section-title">💎 NRI & Global Investor Hub</div>
+                                <div className="card">
+                                    <button className="btn-priority" onClick={() => openSearch('site:skyscrapercity.com "Madurai" investment OR "NRI"')}>✈️ NRI: INFRASTRUCTURE HUB</button>
+                                    <button className="btn-priority" onClick={() => openSearch('site:facebook.com/groups "NRI Madurai" OR "Tamil NRI" land')}>✈️ NRI: GLOBAL FORUMS</button>
+                                    <button className="btn-priority" onClick={() => openSearch('site:investmentnetwork.in "Madurai" "NRI"')}>✈️ NRI: INVESTOR NETWORK</button>
+                                    <button className="btn-priority" onClick={() => openSearch('site:reddit.com/r/madurai OR site:reddit.com/r/TamilNadu "NRI" investment')}>✈️ NRI: REDDIT INTEL</button>
                                 </div>
 
-                                <div className="section-title">⚡ Sector Bulk Launch</div>
-                                <button className="btn-gold btn-bulk" onClick={() => bulkLaunch('corporate')}>🚀 Launch IT & Corporate</button>
-                                <button className="btn-gold btn-bulk" onClick={() => bulkLaunch('hospitality')}>🚀 Launch Hotel & Halls</button>
-                                <button className="btn-gold btn-bulk" onClick={() => bulkLaunch('education')}>🚀 Launch Education Sector</button>
+                                <div className="section-title">🌐 Social Intelligence</div>
+                                <div className="card">
+                                    <button className="btn-gold btn-priority" style={{borderLeft:'5px solid #0077b5'}} onClick={() => openSearch('site:linkedin.com "wanted land" Madurai')}>LINKEDIN: BRAND MANAGERS</button>
+                                    <button className="btn-gold btn-priority" style={{borderLeft:'5px solid #1877F2'}} onClick={() => openSearch('site:facebook.com "buying land" Madurai')}>FB: SECTOR BUYERS</button>
+                                    <button className="btn-gold btn-priority" style={{borderLeft:'5px solid #E4405F'}} onClick={() => openSearch('site:instagram.com "real estate" Madurai')}>INSTAGRAM SNIPER</button>
+                                    <button className="btn-gold btn-priority" style={{borderLeft:'5px solid #1DA1F2'}} onClick={() => openSearch('site:twitter.com "land requirement" Madurai')}>TWITTER (X) SNIPER</button>
+                                    <button className="btn-gold btn-priority" style={{borderLeft:'5px solid #ff4500'}} onClick={() => openSearch('site:reddit.com "land" Madurai wanted')}>REDDIT SNIPER</button>
+                                    <button className="btn-gold btn-priority" style={{borderLeft:'5px solid #b92b27'}} onClick={() => openSearch('site:quora.com "Madurai" land')}>QUORA SNIPER</button>
+                                    <button className="btn-gold btn-priority" style={{borderLeft:'5px solid #666'}} onClick={() => openSearch('intext:"looking for land" Madurai -site:magicbricks.com')}>DEEP WEB INTENT SEARCH</button>
+                                </div>
 
-                                <div className="section-title">1. Tech & Office Hubs</div>
+                                <div className="section-title">🏢 Industry Sectors</div>
                                 <div className="card">
                                     <button className="btn-outline" onClick={() => openSearch('"software company" OR "IT park" land Madurai')}>Software & Tech <span className="badge">IT</span></button>
-                                    <button className="btn-outline" onClick={() => openSearch('"corporate office" OR "regional headquarters" Madurai')}>Corporate Offices</button>
-                                    <button className="btn-outline" onClick={() => openSearch('"service apartment" OR "executive hostel" Madurai')}>Service Apartments</button>
-                                </div>
-
-                                <div className="section-title">2. Retail & Showrooms</div>
-                                <div className="card">
                                     <button className="btn-outline" onClick={() => openSearch('"automobile showroom" OR "car service" Madurai highway')}>Car Showrooms</button>
                                     <button className="btn-outline" onClick={() => openSearch('"mini function hall" OR "party hall" with restaurant Madurai')}>Mini Hall + Restaurant</button>
-                                    <button className="btn-outline" onClick={() => openSearch('"multiplex" OR "shopping mall" Madurai')}>Multiplex & Malls</button>
-                                </div>
-
-                                <div className="section-title">3. Institutional & Medical</div>
-                                <div className="card">
                                     <button className="btn-outline" onClick={() => openSearch('"international school" OR "college campus" Madurai')}>Education Institutes</button>
                                     <button className="btn-outline" onClick={() => openSearch('"specialty hospital" OR "medical center" Madurai')}>Specialty Hospitals</button>
-                                    <button className="btn-outline" onClick={() => openSearch('"old age home" OR "retirement community" Madurai')}>Senior Living</button>
-                                </div>
-
-                                <div className="section-title">4. Industrial & Green Energy</div>
-                                <div className="card">
+                                    <button className="btn-outline" onClick={() => openSearch('"service apartment" OR "executive hostel" Madurai')}>Service Apartments</button>
                                     <button className="btn-outline" onClick={() => openSearch('"warehouse" OR "cold storage" Madurai highway')}>Logistics & Warehouse</button>
-                                    <button className="btn-outline" onClick={() => openSearch('"EV charging station" land Madurai highway')}>EV Charging Hubs</button>
-                                    <button className="btn-outline" onClick={() => openSearch('"petrol bunk" OR "fuel station" Madurai')}>Petrol / LPG Bunks</button>
                                 </div>
                             </div>
                         )}
@@ -131,12 +107,11 @@
                             <div>
                                 <div className="section-title">WhatsApp Lead Extractor</div>
                                 <div className="card">
-                                    <div style={{fontSize:'10px', color:'#888', marginBottom:'10px'}}>Paste comments from Facebook, Quora, or LinkedIn to extract phone numbers.</div>
-                                    <textarea className="input-area" rows="8" placeholder="Paste lead text here..." value={textToScan} onChange={(e)=>setTextToScan(e.target.value)}></textarea>
+                                    <textarea className="input-area" rows="8" placeholder="Paste social media comments here..." value={textToScan} onChange={(e)=>setTextToScan(e.target.value)}></textarea>
                                     <button className="btn-gold" onClick={scanNumbers}>Search for Numbers</button>
                                     {foundNumber && (
                                         <div style={{marginTop:'20px', textAlign:'center', borderTop:'1px solid #333', paddingTop:'15px'}}>
-                                            <div className="gold" style={{fontSize:'22px', fontWeight:'900', letterSpacing:'1px'}}>+{foundNumber}</div>
+                                            <div className="gold" style={{fontSize:'22px', fontWeight:'900'}}>+{foundNumber}</div>
                                             <button className="btn-gold" style={{background:'#25D366', color:'#fff', marginTop:'10px'}} onClick={()=>window.open(`https://wa.me/${foundNumber}`)}>Chat on WhatsApp</button>
                                         </div>
                                     )}
@@ -146,14 +121,16 @@
 
                         {tab === 'assets' && (
                             <div>
-                                <div className="section-title">Marketing Materials</div>
-                                <div className="card">
-                                    <p style={{fontSize:'11px', color:'#888'}}>Present these flyers to potential corporate buyers.</p>
-                                    <img src="flyer_local.png" className="asset-img" alt="Local Flyer" />
-                                    <img src="flyer_investor.png" className="asset-img" alt="Investor Flyer" />
-                                    <img src="roi_chart.png" className="asset-img" alt="ROI Analysis" />
-                                    <button className="btn-gold" onClick={()=>setTab("sniper")}>Back to Sniper Mode</button>
+                                <div className="section-title">Marketing Assets Gallery (8 Files)</div>
+                                <div className="card" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'10px'}}>
+                                    {assetImages.map((img, index) => (
+                                        <div key={index}>
+                                            <img src={img} className="asset-img" alt={`Asset ${index + 1}`} onError={(e)=>{e.target.style.display='none'}} />
+                                            <div style={{fontSize:'8px', textAlign:'center', color:'#888'}}>Asset {index + 1}</div>
+                                        </div>
+                                    ))}
                                 </div>
+                                <button className="btn-gold" onClick={()=>setTab("sniper")}>Back to Command Center</button>
                             </div>
                         )}
                     </main>
