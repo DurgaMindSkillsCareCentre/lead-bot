@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Alagarkovil Madurai Project - Master v15</title>
+    <title>Alagarkovil Madurai Project - Master v16</title>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -12,14 +12,14 @@
         .gold { color: #C8A84B; }
         .card { background: #111; border-radius: 12px; padding: 16px; margin-bottom: 12px; border: 1px solid #C8A84B33; position: relative; }
         .btn-gold { background: linear-gradient(135deg, #C8A84B, #A07030); color: #000; border: none; border-radius: 8px; padding: 14px; font-weight: 800; font-size: 11px; cursor: pointer; width: 100%; text-transform: uppercase; letter-spacing: 1px; margin-top: 8px; }
-        .btn-outline { background: transparent; color: #C8A84B; border: 1px solid #C8A84B; padding: 10px; font-size: 10px; }
+        .btn-outline { background: transparent; color: #C8A84B; border: 1px solid #C8A84B; padding: 10px; font-size: 10px; margin-bottom: 6px; }
         .btn-bulk { background: #1a1a1a; color: #C8A84B; border: 1px solid #C8A84B; margin-top: 5px; font-size: 11px; padding: 16px; border-width: 2px; }
         .nav-tab { flex: 1; padding: 12px 2px; border: none; background: transparent; color: #666; font-size: 8px; font-weight: 700; border-bottom: 2px solid transparent; text-transform: uppercase; }
         .nav-tab.active { color: #C8A84B; border-bottom: 2px solid #C8A84B; background: #1a1408; }
         .input-area { width: 100%; background: #000; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 8px; margin-bottom: 10px; box-sizing: border-box; font-size: 13px; }
         .full-img { width: 100%; border-radius: 8px; border: 1px solid #C8A84B33; margin-bottom: 12px; display: block; }
         .section-title { font-size: 11px; font-weight: 800; margin: 15px 0 10px; color: #C8A84B; border-left: 3px solid #C8A84B; padding-left: 10px; text-transform: uppercase; }
-        .badge { background: #d93025; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: bold; margin-bottom: 5px; display: inline-block; }
+        .badge-alert { background: #d93025; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: bold; margin-bottom: 5px; display: inline-block; }
     </style>
 </head>
 <body>
@@ -41,8 +41,7 @@
                     openSearch('site:linkedin.com "expansion" "land" "Madurai" (petrol OR "food court" OR resort OR warehouse)');
                     openSearch('site:twitter.com "wanted" "land" "Madurai"');
                     openSearch('site:investmentnetwork.in "Madurai" "real estate"');
-                    openSearch('intext:"looking for land" Madurai highway -site:magicbricks.com');
-                } else if (type === 'nri') {
+                } else if (type === 'investor') {
                     openSearch('site:skyscrapercity.com "Madurai" "infrastructure" "highway"', 'w');
                     openSearch('site:nritalks.com "investment" "Madurai"', 'w');
                 }
@@ -63,11 +62,11 @@
                 <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
                     <header style={{ padding: '20px', background: '#111', borderBottom: '2px solid #C8A84B', textAlign: 'center' }}>
                         <div className="gold" style={{ fontWeight: 900, fontSize: '18px' }}>ALAGARKOVIL MADURAI PROJECT</div>
-                        <div style={{ fontSize: '10px', color: '#888', marginTop: '4px' }}>PROF. SURESH KUMAR • MASTER v15</div>
+                        <div style={{ fontSize: '10px', color: '#888' }}>PROF. SURESH KUMAR • MASTER v16</div>
                     </header>
 
                     <nav style={{ display: 'flex', background: '#050505', position: 'sticky', top: 0, zIndex: 100, borderBottom: '1px solid #222' }}>
-                        <button onClick={() => setTab("sniper")} className={`nav-tab ${tab === 'sniper' ? 'active' : ''}`}>📡 AI Sniper</button>
+                        <button onClick={() => setTab("sniper")} className={`nav-tab ${tab === 'sniper' ? 'active' : ''}`}>📡 Lead Sniper</button>
                         <button onClick={() => setTab("scanner")} className={`nav-tab ${tab === 'scanner' ? 'active' : ''}`}>✂️ Extractor</button>
                         <button onClick={() => setTab("gallery")} className={`nav-tab ${tab === 'gallery' ? 'active' : ''}`}>🖼️ Assets</button>
                         <button onClick={() => setTab("plan")} className={`nav-tab ${tab === 'plan' ? 'active' : ''}`}>📏 Plans</button>
@@ -77,32 +76,35 @@
                         {tab === 'sniper' && (
                             <div>
                                 <div className="card" style={{borderColor: '#d93025'}}>
-                                    <div className="badge">24/7 AUTOMATION</div>
+                                    <div className="badge-alert">24/7 AUTOMATION</div>
                                     <button className="btn-gold" style={{background:'#d93025', color:'#fff'}} onClick={setupAlerts}>Activate 24/7 Email Leads</button>
                                 </div>
 
                                 <div className="section-title">Bulk Launch Commands</div>
                                 <div className="card">
                                     <button className="btn-gold btn-bulk" onClick={() => launchBulk('all')}>🚀 Launch All Sector Searches</button>
-                                    <button className="btn-gold btn-bulk" onClick={() => launchBulk('nri')}>✈️ Launch All NRI Searches</button>
+                                    <button className="btn-gold btn-bulk" onClick={() => launchBulk('investor')}>🚀 Launch All Investor Searches</button>
                                 </div>
 
                                 <div className="section-title">Individual Search Targets</div>
                                 <div className="card">
-                                    <button className="btn-gold btn-outline" onClick={() => openSearch('site:linkedin.com "expansion" "land" "Madurai" (petrol OR restaurant OR warehouse)')}>LinkedIn: Corporate</button>
-                                    <button className="btn-gold btn-outline" onClick={() => openSearch('site:twitter.com "wanted" "land" "Madurai" OR "investment"')}>Twitter: Live Leads</button>
-                                    <button className="btn-gold btn-outline" onClick={() => openSearch('site:instagram.com "property" "investment" "Madurai"')}>Instagram: Visuals</button>
-                                    <button className="btn-gold btn-outline" onClick={() => openSearch('intext:"looking for land" Madurai highway -site:magicbricks.com')}>Deep Web: Personal Needs</button>
-                                    <button className="btn-gold btn-outline" onClick={() => openSearch('site:investmentnetwork.in "Madurai" "real estate"')}>Pure Investor Network</button>
+                                    <button className="btn-gold btn-outline" onClick={() => openSearch('site:linkedin.com "expansion" "land" "Madurai" (petrol OR restaurant OR warehouse)')}>1. LinkedIn: Corporate Brands</button>
+                                    <button className="btn-gold btn-outline" onClick={() => openSearch('site:facebook.com "wanted" "land" "Madurai" (petrol OR warehouse)')}>2. Facebook: Local Buyers</button>
+                                    <button className="btn-gold btn-outline" onClick={() => openSearch('site:twitter.com "wanted" "land" "Madurai" OR "investment"')}>3. Twitter: Real-Time Leads</button>
+                                    <button className="btn-gold btn-outline" onClick={() => openSearch('site:instagram.com "property" "investment" "Madurai"')}>4. Instagram: Property Visuals</button>
+                                    <button className="btn-gold btn-outline" onClick={() => openSearch('intext:"looking for land" Madurai highway -site:magicbricks.com')}>5. Deep Web: Personal Needs</button>
+                                    <button className="btn-gold btn-outline" onClick={() => openSearch('site:investmentnetwork.in "Madurai" "real estate"')}>6. Pure Investor Network</button>
+                                    <button className="btn-gold btn-outline" onClick={() => openSearch('"commercial land" "Alagar Kovil" (resort OR hotel)','w')}>7. Resort/Hospitality Focus</button>
+                                    <button className="btn-gold btn-outline" onClick={() => openSearch('site:skyscrapercity.com "Madurai" "infrastructure" "highway"', 'w')}>8. NRI: Infrastructure Tracker</button>
                                 </div>
                             </div>
                         )}
 
                         {tab === 'scanner' && (
                             <div>
-                                <div className="section-title">WhatsApp Phone Extractor</div>
+                                <div className="section-title">WhatsApp Lead Extractor</div>
                                 <div className="card">
-                                    <textarea className="input-area" rows="6" placeholder="Paste social media comments here..." value={textToScan} onChange={(e)=>setTextToScan(e.target.value)}></textarea>
+                                    <textarea className="input-area" rows="6" placeholder="Paste messy text here..." value={textToScan} onChange={(e)=>setTextToScan(e.target.value)}></textarea>
                                     <button className="btn-gold" onClick={scanNumbers}>Extract Number</button>
                                     {foundNumber && (
                                         <div style={{marginTop:'15px', textAlign:'center'}}>
@@ -116,7 +118,7 @@
 
                         {tab === 'gallery' && (
                             <div>
-                                <div className="section-title">Presentations</div>
+                                <div className="section-title">Marketing Flyers</div>
                                 <img src="flyer_local.png" className="full-img" />
                                 <img src="flyer_investor.png" className="full-img" />
                                 <img src="flyer_nri.png" className="full-img" />
@@ -125,7 +127,7 @@
 
                         {tab === 'plan' && (
                             <div>
-                                <div className="section-title">Specifications</div>
+                                <div className="section-title">Project Layout</div>
                                 <img src="exact_plan.png" className="full-img" />
                                 <img src="roi_chart.png" className="full-img" />
                                 <img src="view_3d_1.png" className="full-img" />
