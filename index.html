@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Global Master Portal v6 - Prof. Suresh Kumar</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body { margin: 0; font-family: 'Inter', sans-serif; background: #050505; color: #f0ebe0; }
+        .gold { color: #C8A84B; }
+        .card { background: #111; border-radius: 12px; padding: 16px; margin-bottom: 12px; border: 1px solid #C8A84B33; position: relative; }
+        .btn-gold { background: linear-gradient(135deg, #C8A84B, #A07030); color: #000; border: none; border-radius: 8px; padding: 14px; font-weight: 800; font-size: 11px; cursor: pointer; width: 100%; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-tab { flex: 1; padding: 15px 5px; border: none; background: transparent; color: #666; font-size: 9px; font-weight: 700; border-bottom: 2px solid transparent; text-transform: uppercase; }
+        .nav-tab.active { color: #C8A84B; border-bottom: 2px solid #C8A84B; background: #1a1408; }
+        .full-img { width: 100%; border-radius: 8px; border: 1px solid #C8A84B33; margin-bottom: 12px; display: block; }
+        .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+        .img-box { border-radius: 8px; border: 1px solid #333; overflow: hidden; }
+        .flyer-img { width: 100%; display: block; height: auto; }
+        .section-title { font-size: 12px; font-weight: 800; margin: 15px 0 10px; color: #C8A84B; border-left: 3px solid #C8A84B; padding-left: 10px; text-transform: uppercase; }
+        .blueprint-img { width: 100%; border-radius: 8px; border: 2px solid #C8A84B; margin-bottom: 10px; box-shadow: 0 0 15px rgba(200, 168, 75, 0.3); }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState } = React;
+
+        function App() {
+            const [tab, setTab] = useState("gallery");
+
+            const openWA = (subject) => {
+                const msg = encodeURIComponent(`Hi Prof. Suresh, I am interested in the ${subject} regarding your Alagarkovil plot.`);
+                window.open(`https://wa.me/919884198930?text=${msg}`, '_blank');
+            };
+
+            return (
+                <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+                    <header style={{ padding: '20px', background: '#111', borderBottom: '2px solid #C8A84B', textAlign: 'center' }}>
+                        <div className="gold" style={{ fontWeight: 900, fontSize: '20px', letterSpacing: '2px' }}>OBRE GLOBAL MASTER</div>
+                        <div style={{ fontSize: '10px', color: '#888', marginTop: '5px' }}>PROF. SURESH KUMAR • DIRECT OWNER SALES</div>
+                    </header>
+
+                    <div style={{ display: 'flex', background: '#050505', position: 'sticky', top: 0, zIndex: 100 }}>
+                        <button onClick={() => setTab("gallery")} className={`nav-tab ${tab === 'gallery' ? 'active' : ''}`}>🖼️ Gallery</button>
+                        <button onClick={() => setTab("plan")} className={`nav-tab ${tab === 'plan' ? 'active' : ''}`}>📏 Site Plan</button>
+                        <button onClick={() => setTab("roi")} className={`nav-tab ${tab === 'roi' ? 'active' : ''}`}>📊 ROI & 3D</button>
+                    </div>
+
+                    <main style={{ flex: 1, padding: '15px' }}>
+                        {tab === 'gallery' && (
+                            <div>
+                                <div className="section-title">GLOBAL MARKETING FLYERS</div>
+                                <div className="gallery-grid">
+                                    <div className="img-box"><img src="flyer_local.png" className="flyer-img" alt="Local" /></div>
+                                    <div className="img-box"><img src="flyer_investor.png" className="flyer-img" alt="Investor" /></div>
+                                    <div className="img-box" style={{gridColumn: 'span 2'}}><img src="flyer_nri.png" className="flyer-img" alt="NRI Global" /></div>
+                                </div>
+                                
+                                <div className="section-title">SITE LOCATION ACCESS</div>
+                                <div className="card" style={{display: 'flex', alignItems: 'center', gap: '15px', border: '1px solid #1877F244'}}>
+                                    <img src="map_qr.png" style={{width: '80px', borderRadius: '5px', border: '2px solid white'}} alt="Map QR" />
+                                    <div>
+                                        <div className="gold" style={{fontSize: '14px', fontWeight: 'bold'}}>Google Maps Access</div>
+                                        <div style={{fontSize: '11px', color: '#bbb'}}>Scan QR code or click below to view the plot location at Alagarkovil Highway Junction.</div>
+                                    </div>
+                                }
+                                <button className="btn-gold" style={{background: '#1877F2', color: 'white', fontWeight: 'bold'}} onClick={() => openWA("Site Location Link")}>Request Google Maps Link</button>
+                            </div>
+                        )}
+
+                        {tab === 'plan' && (
+                            <div>
+                                <div className="section-title">EXACT SITE BLUEPRINT</div>
+                                <div className="card" style={{background: '#000', border: '2px solid #C8A84B'}}>
+                                    <img src="exact_plan.png" className="blueprint-img" alt="Exact Site Plan" />
+                                    <div className="gold" style={{fontSize: '14px', fontWeight: 'bold', textAlign: 'center', marginBottom: '5px'}}>23.5 CENTS CORNER PLOT</div>
+                                    <div style={{fontSize: '11px', color: '#bbb', textAlign: 'center', lineHeight: '1.6'}}>
+                                        This technical plan clearly shows the plot boundaries:<br/>
+                                        <b>46ft Frontage</b> on Alagarkovil Highway<br/>
+                                        <b>62\'3" Backage</b><br/>
+                                        Abutting <b>Natham Alanganallur High Road</b>.
+                                    </div>
+                                </div>
+                                <button className="btn-gold" onClick={() => openWA("Technical Site Plan")}>Discuss Dimensions</button>
+                            </div>
+                        )}
+
+                        {tab === 'roi' && (
+                            <div>
+                                <div className="section-title">PROPOSED 3D PROJECT VISION</div>
+                                <img src="view_3d_1.png" className="full-img" alt="3D View 1" />
+                                <img src="view_3d_2.png" className="full-img" alt="3D View 2" />
+
+                                <div className="section-title">INVESTMENT & ROI PROJECTION</div>
+                                <img src="roi_chart.png" className="full-img" alt="ROI Chart" />
+                                <div className="card">
+                                    <div className="gold" style={{fontSize: '13px', fontWeight: 'bold'}}>12% Projected Annual ROI</div>
+                                    <p style={{fontSize: '11px', color: '#bbb', lineHeight: '1.6'}}>
+                                        Our revenue model is based on prime highway franchise leasing (Fuel Station, QSR, Logistics). This corner junction guarantees high visibility and footfall.
+                                    </p>
+                                    <button className="btn-gold" onClick={() => openWA("Revenue Model & ROI")}>Discuss Revenue Model</button>
+                                </div>
+                            </div>
+                        )}
+                    </main>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
