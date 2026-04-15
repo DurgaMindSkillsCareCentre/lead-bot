@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Madurai Master v25.0 - Final Archive</title>
+    <title>Madurai Master v26.0 - 4 Tab Mega Center</title>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -12,15 +12,15 @@
         .gold { color: #C8A84B; }
         .card { background: #111; border-radius: 12px; padding: 15px; margin-bottom: 12px; border: 1px solid #C8A84B33; }
         .btn-gold { background: linear-gradient(135deg, #C8A84B, #A07030); color: #000; border: none; border-radius: 8px; padding: 14px; font-weight: 800; font-size: 11px; cursor: pointer; width: 100%; text-transform: uppercase; letter-spacing: 1px; margin-top: 8px; }
-        .btn-outline { background: transparent; color: #C8A84B; border: 1px solid #C8A84B; padding: 12px; font-size: 10px; margin-bottom: 8px; text-align: left; width: 100%; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; }
-        .btn-priority { background: #1a1408; color: #C8A84B; border: 1px solid #C8A84B; font-weight: 700; margin-bottom: 8px; font-size: 11px; border-left: 5px solid #C8A84B; text-align: left; padding: 12px; border-radius: 4px; width: 100%; }
-        .nav-tab { flex: 1; padding: 12px 2px; border: none; background: transparent; color: #666; font-size: 10px; font-weight: 700; border-bottom: 2px solid transparent; text-transform: uppercase; }
-        .nav-tab.active { color: #C8A84B; border-bottom: 2px solid #C8A84B; background: #1a1408; }
-        .section-title { font-size: 11px; font-weight: 800; margin: 20px 0 10px; color: #C8A84B; border-left: 3px solid #C8A84B; padding-left: 10px; text-transform: uppercase; letter-spacing: 1px; }
-        .badge { background: #C8A84B; color: #000; padding: 2px 5px; border-radius: 3px; font-size: 8px; font-weight: 900; }
-        .asset-container { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-        .asset-box { background: #1a1408; border: 1px solid #C8A84B33; border-radius: 8px; overflow: hidden; text-align: center; padding-bottom: 5px; }
-        .asset-img { width: 100%; height: 120px; object-fit: cover; background: #222; display: block; }
+        .btn-v23 { background: #1a1408; color: #C8A84B; border: 1px solid #C8A84B; padding: 12px; font-size: 10px; border-radius: 6px; width: 100%; margin-bottom: 8px; text-align: left; }
+        .btn-v24 { background: linear-gradient(to right, #1a1408, #222); color: #C8A84B; border-left: 5px solid #C8A84B; padding: 15px; font-weight: 800; border-radius: 4px; width: 100%; margin-bottom: 10px; border-top: 0; border-right: 0; border-bottom: 0; text-align: left; }
+        .nav-bar { display: flex; background: #050505; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #C8A84B33; overflow-x: auto; }
+        .nav-tab { flex: 0 0 auto; padding: 15px 20px; border: none; background: transparent; color: #666; font-size: 10px; font-weight: 700; text-transform: uppercase; white-space: nowrap; }
+        .nav-tab.active { color: #C8A84B; border-bottom: 3px solid #C8A84B; background: #1a1408; }
+        .section-title { font-size: 11px; font-weight: 800; margin: 15px 0 10px; color: #C8A84B; text-transform: uppercase; letter-spacing: 1px; }
+        .asset-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .asset-card { background: #111; border: 1px solid #C8A84B33; border-radius: 8px; overflow: hidden; }
+        .asset-img { width: 100%; height: 150px; object-fit: cover; display: block; background: #222; }
     </style>
 </head>
 <body>
@@ -29,95 +29,81 @@
         const { useState } = React;
 
         function App() {
-            const [tab, setTab] = useState("sniper");
-            const [timeframe, setTimeframe] = useState("d"); 
+            const [tab, setTab] = useState("v23");
 
             const openSearch = (q) => {
-                window.open(`https://www.google.com/search?q=${encodeURIComponent(q)}&tbs=qdr:${timeframe}`, '_blank');
-            };
-
-            const bulkLaunch = (type) => {
-                const sets = {
-                    sector: ['"software company" land Madurai', '"automobile showroom" Madurai highway', '"hospital" land Madurai'],
-                    nri: ['site:skyscrapercity.com "Madurai" NRI', 'site:facebook.com "NRI Madurai" land', 'site:investmentnetwork.in "Madurai" NRI']
-                };
-                sets[type].forEach(q => openSearch(q));
+                window.open(`https://www.google.com/search?q=${encodeURIComponent(q)}&tbs=qdr:d`, '_blank');
             };
 
             const assetImages = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg", "8.jpg"];
 
             return (
-                <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-                    <header style={{ padding: '20px', background: '#111', borderBottom: '2px solid #C8A84B', textAlign: 'center' }}>
-                        <div className="gold" style={{ fontWeight: 900, fontSize: '18px' }}>ALAGARKOVIL MADURAI PROJECT</div>
-                        <div style={{ fontSize: '10px', color: '#888' }}>MASTER v25.0 • FULL RETAIN MODE</div>
+                <div>
+                    <header style={{ padding: '15px', background: '#111', borderBottom: '2px solid #C8A84B', textAlign: 'center' }}>
+                        <div className="gold" style={{ fontWeight: 900, fontSize: '16px' }}>ALAGARKOVIL MADURAI PROJECT</div>
+                        <div style={{ fontSize: '9px', color: '#888' }}>MASTER v26.0 • 4-TAB MEGA CENTER</div>
                     </header>
 
-                    <nav style={{ display: 'flex', background: '#050505', position: 'sticky', top: 0, zIndex: 100 }}>
-                        <button onClick={() => setTab("sniper")} className={`nav-tab ${tab === 'sniper' ? 'active' : ''}`}>📡 Sniper</button>
-                        <button onClick={() => setTab("extractor")} className={`nav-tab ${tab === 'extractor' ? 'active' : ''}`}>✂️ Extractor</button>
-                        <button onClick={() => setTab("assets")} className={`nav-tab ${tab === 'assets' ? 'active' : ''}`}>🖼️ Assets</button>
+                    <nav className="nav-bar">
+                        <button onClick={() => setTab("v23")} className={`nav-tab ${tab === 'v23' ? 'active' : ''}`}>Menu v23</button>
+                        <button onClick={() => setTab("v24")} className={`nav-tab ${tab === 'v24' ? 'active' : ''}`}>Menu v24</button>
+                        <button onClick={() => setTab("extractor")} className={`nav-tab ${tab === 'extractor' ? 'active' : ''}`}>Extract</button>
+                        <button onClick={() => setTab("assets")} className={`nav-tab ${tab === 'assets' ? 'active' : ''}`}>Assets</button>
                     </nav>
 
                     <main style={{ padding: '15px' }}>
-                        {tab === 'sniper' && (
+                        {tab === 'v23' && (
                             <div>
-                                <div className="card" style={{borderColor: '#d93025', textAlign:'center'}}>
-                                    <div style={{fontSize:'10px', color:'#d93025', fontWeight:'bold'}}>24/7 AUTOMATION</div>
-                                    <button className="btn-gold" style={{background:'#d93025', color:'#fff'}} onClick={() => window.open('https://www.google.com/alerts')}>ACTIVATE 24/7 EMAIL LEADS</button>
-                                </div>
-
-                                <div className="section-title">🚀 BULK LAUNCH COMMANDS</div>
+                                <div className="section-title">v23 Single Buttons (Sector Focus)</div>
                                 <div className="card">
-                                    <button className="btn-outline" onClick={() => bulkLaunch('sector')}>🚀 LAUNCH ALL SECTOR SEARCHES</button>
-                                    <button className="btn-outline" onClick={() => bulkLaunch('nri')}>✈️ LAUNCH ALL NRI SEARCHES</button>
+                                    <button className="btn-v23" onClick={() => openSearch('"software company" land Madurai')}>SOFTWARE & TECH HUB</button>
+                                    <button className="btn-v23" onClick={() => openSearch('"mini function hall" Madurai')}>MINI FUNCTION HALLS</button>
+                                    <button className="btn-v23" onClick={() => openSearch('"automobile showroom" Madurai highway')}>CAR SHOWROOMS</button>
+                                    <button className="btn-v23" onClick={() => openSearch('"specialty hospital" Madurai')}>SPECIALTY HOSPITALS</button>
+                                    <button className="btn-v23" onClick={() => openSearch('"international school" Madurai')}>EDUCATION INSTITUTES</button>
+                                    <button className="btn-v23" onClick={() => openSearch('"warehouse" Madurai highway')}>LOGISTICS & WAREHOUSE</button>
                                 </div>
+                            </div>
+                        )}
 
-                                <div className="section-title">💎 NRI & INVESTOR SNIPER</div>
+                        {tab === 'v24' && (
+                            <div>
+                                <div className="section-title">v24 Premium Sniper (Social & NRI)</div>
                                 <div className="card">
-                                    <button className="btn-priority" onClick={() => openSearch('site:skyscrapercity.com "Madurai" investment')}>NRI: INFRASTRUCTURE HUB</button>
-                                    <button className="btn-priority" onClick={() => openSearch('site:facebook.com/groups "NRI Madurai" land')}>NRI: GLOBAL FORUMS</button>
-                                    <button className="btn-priority" onClick={() => openSearch('site:investmentnetwork.in "Madurai" "NRI"')}>PURE INVESTOR NETWORK</button>
+                                    <button className="btn-v24" onClick={() => openSearch('site:skyscrapercity.com "Madurai" investment')}>NRI: INFRASTRUCTURE HUB</button>
+                                    <button className="btn-v24" onClick={() => openSearch('site:facebook.com/groups "NRI Madurai" land')}>NRI: GLOBAL FORUMS</button>
+                                    <button className="btn-v24" onClick={() => openSearch('site:linkedin.com "wanted land" Madurai')}>LINKEDIN: BRAND MANAGERS</button>
+                                    <button className="btn-v24" onClick={() => openSearch('site:twitter.com "land requirement" Madurai')}>TWITTER (X) SNIPER</button>
+                                    <button className="btn-v24" onClick={() => openSearch('site:instagram.com "real estate" Madurai')}>INSTAGRAM SNIPER</button>
+                                    <button className="btn-v24" onClick={() => openSearch('site:investmentnetwork.in "Madurai"')}>PURE INVESTOR NETWORK</button>
                                 </div>
+                            </div>
+                        )}
 
-                                <div className="section-title">🌐 SOCIAL MEDIA SNIPER (ADDED)</div>
-                                <div className="card">
-                                    <button className="btn-priority" style={{borderColor:'#0077b5'}} onClick={() => openSearch('site:linkedin.com "wanted land" Madurai')}>LINKEDIN: CORPORATE</button>
-                                    <button className="btn-priority" style={{borderColor:'#1877F2'}} onClick={() => openSearch('site:facebook.com "buying land" Madurai')}>FB: SECTOR BUYERS</button>
-                                    <button className="btn-priority" style={{borderColor:'#E4405F'}} onClick={() => openSearch('site:instagram.com "real estate" Madurai')}>INSTAGRAM: VISUALS</button>
-                                    <button className="btn-priority" style={{borderColor:'#1DA1F2'}} onClick={() => openSearch('site:twitter.com "land requirement" Madurai')}>TWITTER: LIVE LEADS</button>
-                                    <button className="btn-priority" style={{borderColor:'#666'}} onClick={() => openSearch('intext:"looking for land" Madurai')}>DEEP WEB: PERSONAL NEEDS</button>
-                                </div>
-
-                                <div className="section-title">🏢 INDIVIDUAL TARGETS</div>
-                                <div className="card">
-                                    <button className="btn-outline" onClick={() => openSearch('"software company" land Madurai')}>SOFTWARE & IT</button>
-                                    <button className="btn-outline" onClick={() => openSearch('"mini function hall" Madurai')}>MINI HALLS</button>
-                                    <button className="btn-outline" onClick={() => openSearch('"automobile showroom" Madurai highway')}>SHOWROOMS</button>
-                                </div>
+                        {tab === 'extractor' && (
+                            <div className="card">
+                                <div className="section-title">WhatsApp Number Extractor</div>
+                                <textarea style={{width:'100%', background:'#000', color:'#fff', border:'1px solid #333', padding:'10px', borderRadius:'8px'}} rows="10" placeholder="Paste social media leads here..."></textarea>
+                                <button className="btn-gold">Extract & Connect</button>
                             </div>
                         )}
 
                         {tab === 'assets' && (
                             <div>
-                                <div className="section-title">MARKETING ASSETS GALLERY (8 FILES)</div>
-                                <div className="asset-container">
-                                    {assetImages.map((img, index) => (
-                                        <div className="asset-box" key={index} onClick={() => window.open(img, '_blank')}>
-                                            <img src={img} className="asset-img" alt={`Asset ${index + 1}`} onError={(e) => { e.target.src='https://via.placeholder.com/150/111/C8A84B?text=Missing+Image'; }} />
-                                            <div style={{fontSize:'9px', marginTop:'5px', color:'#C8A84B'}}>Asset {index + 1}</div>
+                                <div className="section-title">Marketing Gallery (Click to Open)</div>
+                                <div className="asset-grid">
+                                    {assetImages.map((img, i) => (
+                                        <div key={i} className="asset-card" onClick={() => window.open(img, '_blank')}>
+                                            <img 
+                                                src={img} 
+                                                className="asset-img" 
+                                                alt={`Asset ${i+1}`}
+                                                onError={(e) => { e.target.src='https://via.placeholder.com/300x400/111/C8A84B?text=Tap+to+View+Asset+'+(i+1); }}
+                                            />
+                                            <div style={{fontSize:'10px', textAlign:'center', padding:'8px', color:'#C8A84B'}}>OPEN ASSET {i+1}</div>
                                         </div>
                                     ))}
                                 </div>
-                                <button className="btn-gold" style={{marginTop:'20px'}} onClick={() => setTab("sniper")}>BACK TO COMMAND CENTER</button>
-                            </div>
-                        )}
-
-                        {tab === 'extractor' && (
-                            <div className="card" style={{textAlign:'center', padding:'40px 20px'}}>
-                                <div className="gold" style={{fontSize:'14px', marginBottom:'10px'}}>Ready to Scan Numbers?</div>
-                                <textarea style={{width:'100%', background:'#000', color:'#fff', border:'1px solid #333', padding:'10px', borderRadius:'8px'}} rows="5" placeholder="Paste text here..."></textarea>
-                                <button className="btn-gold">START EXTRACTION</button>
                             </div>
                         )}
                     </main>
