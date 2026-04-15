@@ -2,8 +2,10 @@ const { useState, useEffect } = React;
 
 function App() {
 
+  const [tab, setTab] = useState("feed");
   const [leads, setLeads] = useState([]);
   const [dmText, setDmText] = useState("");
+  const [loading, setLoading] = useState(true);
 
   // ===== SCORING =====
   const scoreLead = (text) => {
@@ -19,15 +21,24 @@ function App() {
     return score;
   };
 
-  const getHeat = (score) => {
-    if (score >= 70) return "hot";
-    if (score >= 40) return "warm";
-    return "cold";
+  const getBadge = (score) => {
+    if (score >= 70) return {label:"HOT ", cls:"hot"};
+    if (score >= 40) return {label:"WARM ", cls:"warm"};
+    return {label:"COLD ", cls:"cold"};
   };
 
-  // ===== AUTO FETCH =====
+  // ===== FALLBACK =====
+  const demo = [
+    { text:"Need commercial land Madurai urgent", score:85 },
+    { text:"Looking petrol bunk land highway", score:75 },
+    { text:"Investment land Tamil Nadu", score:45 }
+  ];
+
+  // ===== FETCH =====
   const fetchLeads = async () => {
-    const url = "https://news.google.com/rss/search?q=commercial+land+requirement+india";
+    setLoading(true);
+
+    const url = "https://news.google.com/rss/search?q=commercial+land+india";
 
     try {
       const res = await fetch("https://api.allorigins.win/get?url=" + encodeURIComponent(url));
@@ -36,89 +47,114 @@ function App() {
       const xml = new DOMParser().parseFromString(data.contents, "text/xml");
       const items = [...xml.querySelectorAll("item")];
 
-      const parsed = items.map(i => {
-        const title = i.querySelector("title")?.textContent;
+      const parsed = items.map(i => ({
+        text: i.querySelector("title")?.textContent,
+        link: i.querySelector("link")?.textContent,
+        score: scoreLead(i.querySelector("title")?.textContent || "")
+      }));
 
-        return {
-          text: title,
-          link: i.querySelector("link")?.textContent,
-          score: scoreLead(title)
-        };
-      });
+      setLeads(parsed.length ? parsed : demo);
 
-      setLeads(parsed);
+    } catch {
+      setLeads(demo);
+    }
 
-      if (parsed.length > 0) {
-        alert("🔥 New buyer leads found!");
-      }
-
-    } catch (e) {}
+    setLoading(false);
   };
 
   useEffect(() => {
     fetchLeads();
-    setInterval(fetchLeads, 600000);
   }, []);
 
   // ===== DM =====
   const generateDM = () => {
-    const msg = `Hi, saw your requirement.
+    setDmText(`Hi, saw your requirement.
 
 Premium commercial land at Alagarkovil Highway, Madurai.
 
-📞 WhatsApp:
-https://wa.me/919884198930`;
-
-    setDmText(msg);
-  };
-
-  // ===== AUTO EMAIL LINK =====
-  const autoEmail = (lead) => {
-    const subject = "New Buyer Lead AUTO";
-    const body = `New Lead Found:
-
-${lead.text}
-
-${lead.link}`;
-
-    // Gmail compose (fastest possible method)
-    window.open(
-      `https://mail.google.com/mail/?view=cm&fs=1&to=smartpos.systems@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    );
+Call/WhatsApp:
+https://wa.me/919884198930`);
+    setTab("dm");
   };
 
   return (
-    <div style={{padding:"10px"}}>
+    <div>
 
-      <h2>🚀 Lead Bot AI</h2>
+      <div className="header"> Lead Bot PRO</div>
 
-      {leads.map((l,i)=>(
-        <div className={`card ${getHeat(l.score)}`} key={i}>
-          <b>{l.text}</b>
-          <p>Score: {l.score}</p>
+      <div className="container">
 
-          <button onClick={()=>window.open(l.link)}>
-            🔗 Open
-          </button>
+        {tab==="feed" && (
+          <>
+            <button onClick={fetchLeads}> Refresh Leads</button>
 
-          <button onClick={generateDM}>
-            📲 WhatsApp
-          </button>
+            {loading && <p>Loading...</p>}
 
-          <button onClick={()=>autoEmail(l)}>
-            📧 Auto Email
-          </button>
-        </div>
-      ))}
+            {leads.map((l,i)=>{
+              const b = getBadge(l.score);
 
-      <div className="card cold">
-        <textarea rows="6" value={dmText} readOnly />
+              return (
+                <div className="card" key={i}>
+                  <b>{l.text}</b>
 
-        <button onClick={()=>{
-          navigator.clipboard.writeText(dmText);
-        }}>
-          Copy
-        </button>
+                  <div className={`badge ${b.cls}`}>{b.label}</div>
+
+                  {l.link && (
+                    <button onClick={()=>window.open(l.link)}>
+                       Open Source
+                    </button>
+                  )}
+
+                  <button onClick={generateDM}>
+                     WhatsApp DM
+                  </button>
+                </div>
+              );
+            })}
+          </>
+        )}
+
+        {tab==="search" && (
+          <div className="card">
+            <button onClick={()=>window.open("https://www.google.com/search?q=need+land+madurai")}>
+               Google Buyers
+            </button>
+
+            <button onClick={()=>window.open("https://www.facebook.com/search/posts?q=land%20requirement")}>
+               Facebook Posts
+            </button>
+
+            <button onClick={()=>window.open("https://www.facebook.com/groups/search/?q=real%20estate")}>
+               Facebook Groups
+            </button>
+          </div>
+        )}
+
+        {tab==="dm" && (
+          <div className="card">
+            <textarea rows="6" value={dmText} readOnly />
+
+            <button onClick={()=>{
+              navigator.clipboard.writeText(dmText);
+            }}>
+               Copy
+            </button>
+
+            <button onClick={()=>{
+              window.open("https://wa.me/919884198930?text=" + encodeURIComponent(dmText));
+            }}>
+               WhatsApp
+            </button>
+          </div>
+        )}
+
+      </div>
+
+      {/* BOTTOM NAV */}
+      <div className="bottom-nav">
+        <button onClick={()=>setTab("feed")}> Leads</button>
+        <button onClick={()=>setTab("search")}> Search</button>
+        <button onClick={()=>setTab("dm")}> DM</button>
       </div>
 
     </div>

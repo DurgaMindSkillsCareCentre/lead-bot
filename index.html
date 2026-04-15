@@ -2,42 +2,102 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Lead Bot Ultimate AI</title>
+
+  <!-- 🔴 MUST for mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Lead Bot PRO</title>
 
   <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <style>
-    body { margin:0; font-family: Arial; background:#0b0b0b; color:white; }
+    * { box-sizing: border-box; }
+
+    body {
+      margin:0;
+      font-family: -apple-system, Arial;
+      background: linear-gradient(135deg, #0f172a, #020617);
+      color:white;
+    }
+
+    .header {
+      position: sticky;
+      top:0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
+      padding:12px;
+      text-align:center;
+      font-weight:bold;
+      font-size:16px;
+      border-bottom:1px solid rgba(255,255,255,0.1);
+    }
+
+    .container {
+      max-width:600px;
+      margin:auto;
+      padding:10px;
+      padding-bottom:80px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(12px);
+      padding:12px;
+      margin-top:10px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.08);
+    }
+
+    .badge {
+      font-size:11px;
+      padding:3px 8px;
+      border-radius:10px;
+      display:inline-block;
+      margin-top:5px;
+    }
+
+    .hot { background:#7f1d1d; }
+    .warm { background:#78350f; }
+    .cold { background:#1e293b; }
 
     button {
       width:100%;
       padding:10px;
-      margin:5px 0;
+      margin-top:6px;
       border:none;
-      border-radius:8px;
-      background:#1f1f1f;
+      border-radius:10px;
+      background:#2563eb;
       color:white;
+      font-size:14px;
     }
 
     textarea {
       width:100%;
-      padding:8px;
-      margin:8px 0;
-      border-radius:6px;
+      padding:10px;
+      border-radius:10px;
       border:none;
+      background:#020617;
+      color:white;
     }
 
-    .card {
-      padding:12px;
-      margin:10px;
-      border-radius:12px;
+    .bottom-nav {
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      display:flex;
+      background:#020617;
+      border-top:1px solid rgba(255,255,255,0.1);
     }
 
-    .hot { background:#3a0000; }
-    .warm { background:#3a2a00; }
-    .cold { background:#1a1a1a; }
+    .bottom-nav button {
+      flex:1;
+      border-radius:0;
+      background:none;
+      font-size:12px;
+    }
   </style>
 </head>
 
