@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>OBRE Global Master - Prof. Suresh Kumar</title>
+    <title>Alagarkovil Madurai Project - Master Sniper v12</title>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -16,10 +16,8 @@
         .nav-tab.active { color: #C8A84B; border-bottom: 2px solid #C8A84B; background: #1a1408; }
         .input-area { width: 100%; background: #000; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 8px; margin-bottom: 10px; box-sizing: border-box; font-size: 13px; }
         .full-img { width: 100%; border-radius: 8px; border: 1px solid #C8A84B33; margin-bottom: 12px; display: block; }
-        .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .img-box { border-radius: 8px; border: 1px solid #333; overflow: hidden; background: #000; }
         .section-title { font-size: 11px; font-weight: 800; margin: 15px 0 10px; color: #C8A84B; border-left: 3px solid #C8A84B; padding-left: 10px; text-transform: uppercase; }
-        .alert-box { background: #1C1200; border: 1px dashed #C8A84B; padding: 10px; border-radius: 8px; font-family: monospace; font-size: 11px; margin-bottom: 10px; }
+        .badge { background: #C8A84B; color: #000; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: bold; margin-bottom: 5px; display: inline-block; }
     </style>
 </head>
 <body>
@@ -38,45 +36,51 @@
                 if (matches) {
                     let clean = matches[0].replace(/^0|^91|^\+91/, "");
                     setFoundNumber("91" + clean);
-                } else {
-                    alert("No valid Indian WhatsApp numbers found in this text.");
-                }
+                } else { alert("No valid number found."); }
             };
 
-            const openSearch = (q) => {
-                window.open(`https://www.google.com/search?q=${encodeURIComponent(q)}&tbs=qdr:d`, '_blank');
+            const openSearch = (q, time = 'd') => {
+                window.open(`https://www.google.com/search?q=${encodeURIComponent(q)}&tbs=qdr:${time}`, '_blank');
             };
 
             return (
                 <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
                     <header style={{ padding: '20px', background: '#111', borderBottom: '2px solid #C8A84B', textAlign: 'center' }}>
-                        <div className="gold" style={{ fontWeight: 900, fontSize: '18px', letterSpacing: '2px' }}>OBRE GLOBAL PORTAL</div>
-                        <div style={{ fontSize: '10px', color: '#888', marginTop: '4px' }}>PROF. SURESH KUMAR • DIRECT OWNER STRATEGY</div>
+                        <div className="gold" style={{ fontWeight: 900, fontSize: '18px', letterSpacing: '1px' }}>ALAGARKOVIL MADURAI PROJECT</div>
+                        <div style={{ fontSize: '10px', color: '#888', marginTop: '4px' }}>PROF. SURESH KUMAR • MASTER PORTAL</div>
                     </header>
 
                     <nav style={{ display: 'flex', background: '#050505', position: 'sticky', top: 0, zIndex: 100, borderBottom: '1px solid #222' }}>
-                        <button onClick={() => setTab("sniper")} className={`nav-tab ${tab === 'sniper' ? 'active' : ''}`}>📡 Sniper</button>
-                        <button onClick={() => setTab("scanner")} className={`nav-tab ${tab === 'scanner' ? 'active' : ''}`}>✂️ Scanner</button>
-                        <button onClick={() => setTab("gallery")} className={`nav-tab ${tab === 'gallery' ? 'active' : ''}`}>🖼️ Gallery</button>
-                        <button onClick={() => setTab("plan")} className={`nav-tab ${tab === 'plan' ? 'active' : ''}`}>📏 Site Info</button>
+                        <button onClick={() => setTab("sniper")} className={`nav-tab ${tab === 'sniper' ? 'active' : ''}`}>📡 AI Sniper</button>
+                        <button onClick={() => setTab("scanner")} className={`nav-tab ${tab === 'scanner' ? 'active' : ''}`}>✂️ Extractor</button>
+                        <button onClick={() => setTab("gallery")} className={`nav-tab ${tab === 'gallery' ? 'active' : ''}`}>🖼️ Assets</button>
+                        <button onClick={() => setTab("plan")} className={`nav-tab ${tab === 'plan' ? 'active' : ''}`}>📏 Plans</button>
                     </nav>
 
                     <main style={{ flex: 1, padding: '15px' }}>
                         {tab === 'sniper' && (
                             <div>
-                                <div className="section-title">24-Hour Lead Discovery</div>
+                                <div className="section-title">Deep Web & Social Intelligence</div>
                                 <div className="card">
-                                    <p style={{fontSize:'11px', color:'#888'}}>Instantly find people who posted "Wanted Land in Madurai" in the <b>last 24 hours</b>.</p>
-                                    <button className="btn-gold" onClick={() => openSearch('site:facebook.com "wanted" "land" "Madurai"')}>Facebook Sniper</button>
-                                    <button className="btn-gold" onClick={() => openSearch('site:youtube.com "wanted" "land" "Madurai"')}>YouTube Scanner</button>
-                                    <button className="btn-gold" onClick={() => openSearch('site:quora.com "investment" "Madurai" "land"')}>Quora/Web Sniper</button>
+                                    <div className="badge">REAL-TIME TRENDS</div>
+                                    <button className="btn-gold" onClick={() => openSearch('site:twitter.com "wanted" "land" "Madurai" OR "investment" "Tamil Nadu"')}>Twitter (X) Sniper</button>
+                                    <button className="btn-gold" onClick={() => openSearch('site:instagram.com "property" "investment" "Madurai" OR #MaduraiRealEstate')}>Instagram Sniper</button>
+                                    <button className="btn-gold" onClick={() => openSearch('intext:"looking for land" Madurai highway (petrol OR resort OR warehouse) -site:magicbricks.com')}>Deep Web Intent Search</button>
                                 </div>
 
-                                <div className="section-title">🔔 Auto-Alert Setup</div>
+                                <div className="section-title">Corporate & Franchise Sniper</div>
                                 <div className="card">
-                                    <p style={{fontSize:'11px', color:'#888'}}>Copy this query into <b>Google Alerts</b> to get email leads instantly:</p>
-                                    <div className="alert-box">"wanted" "land" "Madurai" OR "commercial plot" "Alagarkovil"</div>
-                                    <button className="btn-gold" onClick={() => window.open('https://www.google.com/alerts', '_blank')}>Set Google Alerts</button>
+                                    <div className="badge">SECTOR SPECIFIC</div>
+                                    <button className="btn-gold" onClick={() => openSearch('site:linkedin.com "expansion" "land" "Madurai" (petrol OR "food court" OR resort OR warehouse)')}>LinkedIn: Brand Managers</button>
+                                    <button className="btn-gold" onClick={() => openSearch('site:facebook.com "wanted" "land" (petrol bunk OR restaurant) "Madurai"')}>FB: Sector Buyers</button>
+                                </div>
+
+                                <div className="section-title">Pure Investor & NRI Sniper</div>
+                                <div className="card">
+                                    <div className="badge">ROI / YIELD FOCUS</div>
+                                    <button className="btn-gold" onClick={() => openSearch('site:investmentnetwork.in "Madurai" "real estate" (investor OR "joint venture")')}>Pure Investor Network</button>
+                                    <button className="btn-gold" onClick={() => openSearch('site:skyscrapercity.com "Madurai" "infrastructure" "highway" OR "bypassing"', 'w')}>NRI: Infrastructure Hub</button>
+                                    <button className="btn-gold" onClick={() => openSearch('site:nritalks.com "investment" "property" "Madurai" OR "Tamil Nadu"', 'w')}>NRI: Global Forums</button>
                                 </div>
                             </div>
                         )}
@@ -85,44 +89,42 @@
                             <div>
                                 <div className="section-title">AI Phone Extractor</div>
                                 <div className="card">
-                                    <p style={{fontSize:'11px', color:'#888'}}>Paste a messy comment or paragraph below to pull the WhatsApp number.</p>
-                                    <textarea className="input-area" rows="5" placeholder="Paste text here..." value={textToScan} onChange={(e)=>setTextToScan(e.target.value)}></textarea>
-                                    <button className="btn-gold" onClick={scanForNumbers}>Extract Number</button>
+                                    <textarea className="input-area" rows="6" placeholder="Paste whole paragraphs or social media comments here..." value={textToScan} onChange={(e)=>setTextToScan(e.target.value)}></textarea>
+                                    <button className="btn-gold" onClick={scanForNumbers}>Instantly Pull WhatsApp</button>
                                     {foundNumber && (
-                                        <div style={{marginTop:'20px', textAlign:'center'}}>
+                                        <div style={{marginTop:'15px', textAlign:'center'}}>
                                             <div className="gold" style={{fontSize:'22px', fontWeight:'800'}}>+{foundNumber}</div>
-                                            <button className="btn-gold" style={{background:'#25D366', color:'#fff', marginTop:'10px'}} onClick={()=>window.open(`https://wa.me/${foundNumber}`)}>Open WhatsApp Chat</button>
+                                            <button className="btn-gold" style={{background:'#25D366', color:'#fff'}} onClick={()=>window.open(`https://wa.me/${foundNumber}`)}>Direct WhatsApp Chat</button>
                                         </div>
                                     )}
+                                </div>
+                                <div className="card" style={{borderStyle:'dashed'}}>
+                                    <div style={{fontSize:'10px', color:'#888'}}>This tool automatically cleans messy text and extracts Indian mobile numbers for 1-click WhatsApp messaging.</div>
                                 </div>
                             </div>
                         )}
 
                         {tab === 'gallery' && (
                             <div>
-                                <div className="section-title">Investor Gallery</div>
-                                <div className="gallery-grid">
-                                    <div className="img-box"><img src="flyer_local.png" style={{width:'100%'}} alt="Local" /></div>
-                                    <div className="img-box"><img src="flyer_investor.png" style={{width:'100%'}} alt="Investor" /></div>
-                                    <div className="img-box" style={{gridColumn:'span 2'}}><img src="flyer_nri.png" style={{width:'100%'}} alt="NRI" /></div>
-                                </div>
-                                <div className="section-title">Visualized Potential</div>
-                                <img src="view_3d_1.png" className="full-img" alt="3D" />
-                                <img src="view_3d_2.png" className="full-img" alt="3D" />
+                                <div className="section-title">Investor Presentation</div>
+                                <img src="flyer_local.png" className="full-img" alt="Local" />
+                                <img src="flyer_investor.png" className="full-img" alt="Investor" />
+                                <img src="flyer_nri.png" className="full-img" alt="NRI" />
                             </div>
                         )}
 
                         {tab === 'plan' && (
                             <div>
-                                <div className="section-title">Technical Site Plan</div>
-                                <img src="exact_plan.png" className="full-img" alt="Site Plan" />
-                                <div className="section-title">Google Maps QR</div>
-                                <div className="card" style={{display:'flex', alignItems:'center', gap:'15px'}}>
-                                    <img src="map_qr.png" style={{width:'80px', border:'2px solid #fff'}} />
-                                    <div style={{fontSize:'11px', color:'#bbb'}}>Scan to visit the Alagarkovil Highway Junction plot exactly.</div>
-                                </div>
-                                <div className="section-title">Revenue Strategy</div>
+                                <div className="section-title">Site Layout & Potential</div>
+                                <img src="exact_plan.png" className="full-img" alt="Plan" />
                                 <img src="roi_chart.png" className="full-img" alt="ROI" />
+                                <div className="section-title">3D Vision</div>
+                                <img src="view_3d_1.png" className="full-img" alt="3D" />
+                                <img src="view_3d_2.png" className="full-img" alt="3D" />
+                                <div className="card" style={{display:'flex', alignItems:'center', gap:'10px'}}>
+                                    <img src="map_qr.png" style={{width:'80px', border:'2px solid #fff'}} alt="QR" />
+                                    <div style={{fontSize:'11px'}}>Scan for exact Alagarkovil Highway GPS location.</div>
+                                </div>
                             </div>
                         )}
                     </main>
