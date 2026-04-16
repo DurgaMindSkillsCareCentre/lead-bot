@@ -3,31 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BALEE GARDEN - Money Matrix v37.0</title>
+    <title>BALEE GARDEN - Omni Sniper v35.0</title>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
-        body { margin: 0; font-family: 'Inter', sans-serif; background: #050505; color: #f0ebe0; }
+        body { margin: 0; font-family: 'Inter', -apple-system, sans-serif; background: #050505; color: #f0ebe0; }
         .gold { color: #C8A84B; }
         .card { background: #111; border-radius: 12px; padding: 15px; margin-bottom: 12px; border: 1px solid #C8A84B33; }
         
-        /* THE GLOBAL DROPBOX PANEL */
-        .global-panel { background: #1a1408; padding: 15px; border-bottom: 2px solid #C8A84B; position: sticky; top: 0; z-index: 120; box-shadow: 0 4px 25px rgba(0,0,0,1); }
-        .control-row { display: flex; flex-direction: column; gap: 10px; }
-        .label { font-size: 10px; font-weight: 900; color: #C8A84B; text-transform: uppercase; letter-spacing: 1px; }
-        select { background: #000; color: #C8A84B; border: 1px solid #C8A84B; padding: 12px; border-radius: 8px; font-size: 12px; font-weight: 700; outline: none; width: 100%; appearance: none; }
+        /* Sniper Control Panel */
+        .sniper-panel { background: #1a1408; padding: 15px; border-bottom: 2px solid #C8A84B; position: sticky; top: 0; z-index: 120; box-shadow: 0 4px 20px rgba(0,0,0,0.8); }
+        .control-row { display: flex; flex-direction: column; gap: 8px; }
+        .label { font-size: 9px; font-weight: 900; color: #C8A84B; text-transform: uppercase; letter-spacing: 1px; }
+        select { background: #000; color: #C8A84B; border: 1px solid #C8A84B; padding: 10px; border-radius: 6px; font-size: 11px; font-weight: 700; outline: none; width: 100%; }
 
-        .nav-scroll { display: flex; background: #050505; position: sticky; top: 155px; z-index: 100; border-bottom: 1px solid #333; overflow-x: auto; scrollbar-width: none; }
+        /* Navigation */
+        .nav-scroll { display: flex; background: #050505; position: sticky; top: 135px; z-index: 100; border-bottom: 1px solid #333; overflow-x: auto; scrollbar-width: none; }
         .nav-tab { flex: 0 0 auto; padding: 15px 20px; border: none; background: transparent; color: #666; font-size: 10px; font-weight: 800; text-transform: uppercase; white-space: nowrap; }
         .nav-tab.active { color: #C8A84B; border-bottom: 3px solid #C8A84B; background: #111; }
 
-        .btn-v22 { background: #111; color: #C8A84B; border: 1px solid #C8A84B44; padding: 14px; font-size: 10px; border-radius: 6px; width: 100%; margin-bottom: 6px; text-align: left; font-weight: 600; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; }
-        .btn-v22:after { content: '→'; opacity: 0.5; }
-        .btn-red { background: #d93025; color: #fff; border: none; padding: 18px; border-radius: 8px; width: 100%; font-weight: 900; margin-bottom: 15px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(217,48,37,0.4); }
+        /* Buttons */
+        .btn-v22 { background: #111; color: #C8A84B; border: 1px solid #C8A84B44; padding: 12px; font-size: 9px; border-radius: 4px; width: 100%; margin-bottom: 6px; text-align: left; font-weight: 600; text-transform: uppercase; }
+        .btn-v24 { background: linear-gradient(135deg, #C8A84B, #8A6D29); color: #000; border: none; padding: 14px; font-weight: 800; border-radius: 6px; width: 100%; margin-bottom: 10px; text-transform: uppercase; font-size: 9px; text-align: left; box-shadow: 0 2px 8px rgba(200,168,75,0.2); }
+        .btn-red { background: #d93025; color: #fff; border: none; padding: 16px; border-radius: 8px; width: 100%; font-weight: 900; margin-bottom: 15px; font-size: 12px; text-transform: uppercase; }
         
-        .section-title { font-size: 11px; font-weight: 800; margin: 15px 0 10px; color: #C8A84B; text-transform: uppercase; border-left: 4px solid #C8A84B; padding-left: 10px; }
+        .section-title { font-size: 11px; font-weight: 800; margin: 15px 0 10px; color: #C8A84B; text-transform: uppercase; border-left: 3px solid #C8A84B; padding-left: 10px; }
         .asset-img { width: 100%; border-radius: 8px; margin-bottom: 15px; border: 1px solid #C8A84B33; }
+        textarea { width: 100%; background: #000; color: #fff; border: 1px solid #333; padding: 12px; border-radius: 8px; box-sizing: border-box; font-family: monospace; }
     </style>
 </head>
 <body>
@@ -38,28 +41,75 @@
         function App() {
             const [tab, setTab] = useState("v22");
             const [timeFrame, setTimeFrame] = useState("d");
-            const [moneySource, setMoneySource] = useState("tax");
+            const [sniperMode, setSniperMode] = useState("direct");
 
-            // GLOBAL MONEY INTENT OPTIONS
-            const moneyOptions = [
-                { id: "tax", n: "💰 TAX SAVER: Capital Gains / 54EC Re-investment" },
-                { id: "corp", n: "🏢 CORP BUDGET: Branch Expansion / New Market" },
-                { id: "pilgrim", n: "🕉️ PILGRIM MONEY: Temple Tourism / Retreats" },
-                { id: "hni", n: "💎 HNI WEALTH: Private Wealth / Land Banking" },
-                { id: "inst", n: "🎓 INSTI FUNDS: Trust / NGO / CSR Projects" },
-                { id: "nri", n: "🌍 GLOBAL TAMIL: NRI / Expat Repatriation" }
+            const sniperOptions = [
+                { id: "direct", n: "1. Direct Buyers (Wanted/Required)" },
+                { id: "urgent", n: "2. Urgent Sniper (Immediate Cash)" },
+                { id: "nri", n: "3. NRI Investor Hub (Global Tamil)" },
+                { id: "corp", n: "4. Corporate Acquisition (Expansion)" },
+                { id: "inst", n: "5. Institutional Tenders (Schools/Gov)" },
+                { id: "hni", n: "6. HNI / Premium Portfolio Leads" },
+                { id: "agri", n: "7. Agro-Tech / Farm Enthusiasts" },
+                { id: "hosp", n: "8. Healthcare / Hospital Chain Site" },
+                { id: "ware", n: "9. Logistics / Warehousing Intent" },
+                { id: "jv", n: "10. Joint Venture (JV) Opportunities" },
+                { id: "retail", n: "11. Retail Giants / Mall Developers" },
+                { id: "hotel", n: "12. Hospitality / Resort Buyers" },
+                { id: "it", n: "13. IT / Tech Park Infrastructure" },
+                { id: "social", n: "14. FB/Social Intent (Looking For)" },
+                { id: "forum", n: "15. Forum Discussions (Buying Tips)" },
+                { id: "class", n: "16. Classifieds Sniper (OLX/Sulekha)" },
+                { id: "b2b", n: "17. B2B Industrial Lead Scraper" },
+                { id: "broker", n: "18. Top Broker Network (Madurai)" },
+                { id: "cashed", n: "19. Recently Sold (Re-investment)" },
+                { id: "trust", n: "20. Temple/NGO/Trust Land Need" },
+                { id: "highway", n: "21. Highway Frontage Requirement" },
+                { id: "sports", n: "22. Sports/Turf Ground Wanted" },
+                { id: "senior", n: "23. Retirement Home Developers" },
+                { id: "factory", n: "24. SIDCO / Manufacturing Demand" },
+                { id: "plot", n: "25. Gated Community Developers" },
+                { id: "startup", n: "26. Co-working / Startup Hubs" },
+                { id: "export", n: "27. Export Zone / SEZ Investors" },
+                { id: "budget", n: "28. Budget Commercial Buyers" },
+                { id: "luxury", n: "29. Ultra-Luxury Villa Buyers" },
+                { id: "ghost", n: "30. Deep Web Intent (Hidden Leads)" }
             ];
 
             const getQuery = (base) => {
                 const map = {
-                    tax: `"${base}" Madurai "land for tax saving" OR "reinvestment"`,
-                    corp: `"${base}" Madurai "expansion budget" OR "new branch"`,
-                    pilgrim: `"${base}" Alagarkovil "spiritual retreat" OR "ashram land"`,
-                    hni: `"${base}" Madurai "private family office" OR "land bank"`,
-                    inst: `"${base}" Madurai "educational trust land" OR "NGO project"`,
-                    nri: `"${base}" Madurai "NRI investment" OR "buying land"`
+                    direct: `"${base}" wanted Madurai OR "requirement"`,
+                    urgent: `"${base}" Madurai "urgent" OR "immediate cash buyer"`,
+                    nri: `"${base}" Madurai investment "NRI" OR "Expat"`,
+                    corp: `"${base}" Madurai "corporate expansion" OR "acquisition"`,
+                    inst: `"${base}" Madurai "institutional land" OR "tender"`,
+                    hni: `"${base}" Madurai "HNI buyer" OR "luxury portfolio"`,
+                    agri: `"${base}" Madurai "organic farm" OR "polyhouse"`,
+                    hosp: `"${base}" Madurai "hospital site" wanted`,
+                    ware: `"${base}" Madurai "godown" OR "logistics" requirement`,
+                    jv: `"${base}" Madurai "joint venture" OR "JV"`,
+                    retail: `"${base}" Madurai "retail space" OR "showroom site"`,
+                    hotel: `"${base}" Madurai "resort land" OR "hotel project"`,
+                    it: `"${base}" Madurai "IT park land" OR "software office"`,
+                    social: `site:facebook.com "${base}" Madurai "looking for"`,
+                    forum: `site:skyscrapercity.com "${base}" Madurai "project"`,
+                    class: `site:olx.in "${base}" Madurai "wanted"`,
+                    b2b: `site:indiamart.com "${base}" Madurai "buyer"`,
+                    broker: `"${base}" Madurai "real estate agents" list`,
+                    cashed: `"${base}" Madurai "recent land sale" investors`,
+                    trust: `"${base}" Madurai "trust" OR "ashram" land needed`,
+                    highway: `"${base}" Madurai "highway frontage" site`,
+                    sports: `"${base}" Madurai "turf" OR "sports academy"`,
+                    senior: `"${base}" Madurai "senior living" OR "retirement"`,
+                    factory: `"${base}" Madurai "industrial plot" wanted`,
+                    plot: `"${base}" Madurai "promoter" OR "developer" wanted`,
+                    startup: `"${base}" Madurai "startup hub" OR "coworking"`,
+                    export: `"${base}" Madurai "SEZ" OR "export unit"`,
+                    budget: `"${base}" Madurai "affordable commercial" wanted`,
+                    luxury: `"${base}" Madurai "ultra luxury villa" plots`,
+                    ghost: `intext:"buying land" Madurai "${base}"`
                 };
-                return map[moneySource] || `"${base}" Madurai land`;
+                return map[sniperMode] || `"${base}" Madurai land`;
             };
 
             const openSearch = (q) => {
@@ -67,34 +117,67 @@
             };
 
             const sectors = [
-                "Software Park", "IT Campus", "Auto Showroom", "Solar Farm", "Multi Specialty Hospital",
-                "Film City Studio", "International School", "Arts College", "Logistics Hub", "Warehouse",
-                "Marriage Mahal", "Convention Center", "Textile Unit", "Garment Factory", "Eco Resort",
-                "Agro Farm House", "Yoga Retreat", "Food Processing", "Gated Community", "Villa Project",
-                "Petrol Bunk", "Manufacturing Unit", "Engineering College", "Medical College", "Sports Turf",
-                "Spiritual Center", "Bank Zonal Office", "Central Kitchen", "Cloud Kitchen", "Retirement Villa"
+                "Software Company", "IT Hub / Park", "Automobile Showroom", "EV Charging Station", "Multi Specialty Hospital",
+                "Nursing Home", "International School", "CBSE Academy", "Logistics Godown", "Warehouse Park",
+                "Marriage Mahal", "Mini Function Hall", "Textile Showroom", "Garment Unit", "Luxury Resort",
+                "Agro Farm House", "Cold Storage Unit", "Food Processing", "Gated Community", "Villa Township",
+                "Petrol Bunk", "SIDCO Industrial Plot", "Engineering College", "Arts & Science College", "Sports Turf",
+                "Badminton Academy", "Bank Zonal Office", "Central Kitchen", "Cloud Kitchen Hub", "Convention Center"
+            ];
+
+            const intelSources = [
+                { n: "FB: Investor Groups", s: "site:facebook.com/groups" },
+                { n: "LI: Corporate Leads", s: "site:linkedin.com" },
+                { n: "SSC: NRI Infrastructure", s: "site:skyscrapercity.com" },
+                { n: "Reddit: Madurai Intel", s: "site:reddit.com" },
+                { n: "Quora: Investment", s: "site:quora.com" },
+                { n: "Angel Investor Net", s: "site:investmentnetwork.in" },
+                { n: "MagicBricks Wanted", s: "site:magicbricks.com" },
+                { n: "99Acres Hot Buyers", s: "site:99acres.com" },
+                { n: "OLX Direct Buyers", s: "site:olx.in" },
+                { n: "Twitter: Real-time", s: "site:twitter.com" },
+                { n: "Insta: Visual Intent", s: "site:instagram.com" },
+                { n: "IndiaMart B2B", s: "site:indiamart.com" },
+                { n: "NoBroker Plots", s: "site:nobroker.in" },
+                { n: "CommonFloor", s: "site:commonfloor.com" },
+                { n: "Sulekha Business", s: "site:sulekha.com" },
+                { n: "Click.in Classifieds", s: "site:click.in" },
+                { n: "Housing.com Leads", s: "site:housing.com" },
+                { n: "MouthShut Reviews", s: "site:mouthshut.com" },
+                { n: "Global Tamil NRI", s: 'intext:"Tamil NRI"' },
+                { n: "Urgent Buyer Sniper", s: 'intext:"land wanted"' },
+                { n: "PropTiger Leads", s: "site:proptiger.com" },
+                { n: "SquareYards", s: "site:squareyards.com" },
+                { n: "Locanto Classifieds", s: "site:locanto.net" },
+                { n: "Gumtree Investors", s: "site:gumtree.com" },
+                { n: "YouTube Real Estate", s: "site:youtube.com" },
+                { n: "Telegram Lead Sync", s: "site:t.me" },
+                { n: "Zameen Intel", s: "site:zameen.com" },
+                { n: "Realtor Forum", s: "site:realtor.com" },
+                { n: "Pinterest Property", s: "site:pinterest.com" },
+                { n: "Deep Web Sniper", s: 'intext:"urgent buyer"' }
             ];
 
             return (
                 <div>
-                    <div className="global-panel">
-                        <header style={{ textAlign: 'center', marginBottom: '15px' }}>
-                            <div className="gold" style={{ fontWeight: 900, fontSize: '20px', letterSpacing: '2px' }}>BALEE GARDEN</div>
-                            <div style={{ fontSize: '10px', color: '#888', fontWeight: '800' }}>MONEY-SOURCE LEAD MATRIX</div>
+                    <div className="sniper-panel">
+                        <header style={{ textAlign: 'center', marginBottom: '12px' }}>
+                            <div className="gold" style={{ fontWeight: 900, fontSize: '20px', letterSpacing: '1px' }}>BALEE GARDEN</div>
+                            <div style={{ fontSize: '10px', color: '#888', fontWeight: '800' }}>ALAGARKOVIL MADURAI PROJECT</div>
                         </header>
                         <div className="control-row">
-                            <div>
-                                <span className="label">1. Follow The Money (Global Intent)</span>
-                                <select value={moneySource} onChange={(e)=>setMoneySource(e.target.value)}>
-                                    {moneyOptions.map(opt => <option key={opt.id} value={opt.id}>{opt.n}</option>)}
+                            <div style={{flex:1}}>
+                                <span className="label">Lead Sniper Mode (30 Combinations)</span>
+                                <select value={sniperMode} onChange={(e)=>setSniperMode(e.target.value)}>
+                                    {sniperOptions.map(opt => <option key={opt.id} value={opt.id}>{opt.n}</option>)}
                                 </select>
                             </div>
-                            <div>
-                                <span className="label">2. Target Freshness</span>
+                            <div style={{flex:1}}>
+                                <span className="label">Search Time Window</span>
                                 <select value={timeFrame} onChange={(e)=>setTimeFrame(e.target.value)}>
-                                    <option value="d">Last 24 Hours (Immediate Buyers)</option>
-                                    <option value="w">Last 1 Week (Active Pipeline)</option>
-                                    <option value="m">Last 1 Month (Market Research)</option>
+                                    <option value="d">Last 24 Hours (Fresh)</option>
+                                    <option value="w">Last 1 Week (Active)</option>
+                                    <option value="m">Last 1 Month (Historical)</option>
                                 </select>
                             </div>
                         </div>
@@ -102,15 +185,16 @@
 
                     <nav className="nav-scroll">
                         <button onClick={() => setTab("v22")} className={`nav-tab ${tab === 'v22' ? 'active' : ''}`}>Sector Matrix (30)</button>
-                        <button onClick={() => setTab("extractor")} className={`nav-tab ${tab === 'extractor' ? 'active' : ''}`}>Extract Numbers</button>
-                        <button onClick={() => setTab("assets")} className={`nav-tab ${tab === 'assets' ? 'active' : ''}`}>Flyers</button>
+                        <button onClick={() => setTab("v24")} className={`nav-tab ${tab === 'v24' ? 'active' : ''}`}>Platform Intel (30)</button>
+                        <button onClick={() => setTab("extractor")} className={`nav-tab ${tab === 'extractor' ? 'active' : ''}`}>Extract</button>
+                        <button onClick={() => setTab("assets")} className={`nav-tab ${tab === 'assets' ? 'active' : ''}`}>Assets</button>
                     </nav>
 
                     <main style={{ padding: '15px' }}>
                         {tab === 'v22' && (
                             <div>
-                                <button className="btn-red" onClick={() => window.open('https://www.google.com/alerts')}>🚨 ACTIVATE LIVE LEAD ALERTS</button>
-                                <div className="section-title">Industry Targets • Searching for {moneySource.toUpperCase()}</div>
+                                <button className="btn-red" onClick={() => window.open('https://www.google.com/alerts')}>🚨 START AUTO-LEAD RADAR</button>
+                                <div className="section-title">Industry Targets • Mode: {sniperMode.toUpperCase()}</div>
                                 <div style={{display:'grid', gridTemplateColumns:'1fr', gap:'2px'}}>
                                     {sectors.map((sec, i) => (
                                         <button key={i} className="btn-v22" onClick={() => openSearch(sec)}>
@@ -121,18 +205,32 @@
                             </div>
                         )}
 
+                        {tab === 'v24' && (
+                            <div>
+                                <div className="section-title">Global Web Sniper • {timeFrame === 'd' ? '24 HOURS' : 'LATEST'}</div>
+                                <div style={{display:'grid', gridTemplateColumns:'1fr', gap:'2px'}}>
+                                    {intelSources.map((src, i) => (
+                                        <button key={i} className="btn-v24" onClick={() => openSearch(`${src.s} "Madurai" land`)}>
+                                            {i+1}. {src.n}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
                         {tab === 'extractor' && (
                             <div className="card">
-                                <textarea rows="14" placeholder="Paste social media comments or buyer lists here..."></textarea>
-                                <button className="btn-red" style={{marginTop:'12px', background:'#C8A84B', color:'#000'}}>⚡ SCRAPE CONTACTS</button>
+                                <div className="section-title">Number Scraper</div>
+                                <textarea rows="14" placeholder="Paste lead text/comments here..."></textarea>
+                                <button className="btn-v24" style={{marginTop:'12px', textAlign:'center'}}>⚡ SCRAPE CONTACTS</button>
                             </div>
                         )}
 
                         {tab === 'assets' && (
                             <div style={{textAlign:'center'}}>
-                                <img src="flyer_local.png" className="asset-img" alt="Local" />
-                                <img src="flyer_investor.png" className="asset-img" alt="Investor" />
-                                <img src="flyer_nri.png" className="asset-img" alt="NRI" />
+                                <img src="flyer_local.png" className="asset-img" alt="Local Flyer" />
+                                <img src="flyer_investor.png" className="asset-img" alt="Investor Flyer" />
+                                <img src="flyer_nri.png" className="asset-img" alt="NRI Flyer" />
                             </div>
                         )}
                     </main>
