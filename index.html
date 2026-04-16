@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BALEE GARDEN - Omni Sniper v35.1</title>
+    <title>BALEE GARDEN - Omni Sniper v35.2</title>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -11,25 +11,18 @@
         body { margin: 0; font-family: 'Inter', -apple-system, sans-serif; background: #050505; color: #f0ebe0; }
         .gold { color: #C8A84B; }
         .card { background: #111; border-radius: 12px; padding: 15px; margin-bottom: 12px; border: 1px solid #C8A84B33; }
-        
-        /* Sniper Control Panel */
         .sniper-panel { background: #1a1408; padding: 15px; border-bottom: 2px solid #C8A84B; position: sticky; top: 0; z-index: 120; box-shadow: 0 4px 20px rgba(0,0,0,0.8); }
         .control-row { display: flex; flex-direction: column; gap: 8px; }
         .label { font-size: 9px; font-weight: 900; color: #C8A84B; text-transform: uppercase; letter-spacing: 1px; }
         select { background: #000; color: #C8A84B; border: 1px solid #C8A84B; padding: 10px; border-radius: 6px; font-size: 11px; font-weight: 700; outline: none; width: 100%; }
-
-        /* Navigation */
-        .nav-scroll { display: flex; background: #050505; position: sticky; top: 135px; z-index: 100; border-bottom: 1px solid #333; overflow-x: auto; scrollbar-width: none; }
-        .nav-tab { flex: 0 0 auto; padding: 15px 20px; border: none; background: transparent; color: #666; font-size: 10px; font-weight: 800; text-transform: uppercase; white-space: nowrap; }
+        .nav-scroll { display: flex; background: #050505; position: sticky; top: 135px; z-index: 100; border-bottom: 1px solid #333; overflow-x: auto; white-space: nowrap; }
+        .nav-tab { flex: 1; padding: 15px 10px; border: none; background: transparent; color: #666; font-size: 9px; font-weight: 800; text-transform: uppercase; }
         .nav-tab.active { color: #C8A84B; border-bottom: 3px solid #C8A84B; background: #111; }
-
-        /* Buttons */
         .btn-v22 { background: #111; color: #C8A84B; border: 1px solid #C8A84B44; padding: 12px; font-size: 9px; border-radius: 4px; width: 100%; margin-bottom: 6px; text-align: left; font-weight: 600; text-transform: uppercase; }
-        .btn-v24 { background: linear-gradient(135deg, #C8A84B, #8A6D29); color: #000; border: none; padding: 14px; font-weight: 800; border-radius: 6px; width: 100%; margin-bottom: 10px; text-transform: uppercase; font-size: 9px; text-align: left; box-shadow: 0 2px 8px rgba(200,168,75,0.2); }
-        .btn-red { background: #d93025; color: #fff; border: none; padding: 16px; border-radius: 8px; width: 100%; font-weight: 900; margin-bottom: 15px; font-size: 12px; text-transform: uppercase; }
-        
+        .btn-v24 { background: linear-gradient(135deg, #C8A84B, #8A6D29); color: #000; border: none; padding: 14px; font-weight: 800; border-radius: 6px; width: 100%; margin-bottom: 10px; text-transform: uppercase; font-size: 9px; text-align: left; }
         .section-title { font-size: 11px; font-weight: 800; margin: 15px 0 10px; color: #C8A84B; text-transform: uppercase; border-left: 3px solid #C8A84B; padding-left: 10px; }
-        textarea { width: 100%; background: #000; color: #fff; border: 1px solid #333; padding: 12px; border-radius: 8px; box-sizing: border-box; font-family: monospace; }
+        .asset-img { width: 100%; border-radius: 8px; margin-bottom: 15px; border: 1px solid #C8A84B33; }
+        textarea { width: 100%; background: #000; color: #fff; border: 1px solid #333; padding: 12px; border-radius: 8px; box-sizing: border-box; }
     </style>
 </head>
 <body>
@@ -39,50 +32,20 @@
 
         function App() {
             const [tab, setTab] = useState("v22");
-            const [timeFrame, setTimeFrame] = useState("d");
+            const [timeFrame, setTimeFrame] = useState("m");
             const [sniperMode, setSniperMode] = useState("direct");
+            const [activeSector, setActiveSector] = useState("Multi Specialty Hospital");
 
             const sniperOptions = [
                 { id: "direct", n: "1. Direct Buyers (Wanted/Required)", tag: "land wanted" },
                 { id: "urgent", n: "2. Urgent Sniper (Immediate Cash)", tag: "urgent cash buyer" },
                 { id: "nri", n: "3. NRI Investor Hub (Global Tamil)", tag: "NRI investment" },
                 { id: "corp", n: "4. Corporate Acquisition (Expansion)", tag: "corporate expansion acquisition" },
-                { id: "inst", n: "5. Institutional Tenders (Schools/Gov)", tag: "institutional land" },
-                { id: "hni", n: "6. HNI / Premium Portfolio Leads", tag: "luxury investment" },
-                { id: "agri", n: "7. Agro-Tech / Farm Enthusiasts", tag: "organic farm house" },
                 { id: "hosp", n: "8. Healthcare / Hospital Chain Site", tag: "hospital site wanted" },
-                { id: "ware", n: "9. Logistics / Warehousing Intent", tag: "warehouse godown requirement" },
-                { id: "jv", n: "10. Joint Venture (JV) Opportunities", tag: "joint venture JV" },
-                { id: "retail", n: "11. Retail Giants / Mall Developers", tag: "showroom retail site" },
-                { id: "hotel", n: "12. Hospitality / Resort Buyers", tag: "resort hotel project" },
-                { id: "it", n: "13. IT / Tech Park Infrastructure", tag: "IT park software park" },
-                { id: "social", n: "14. FB/Social Intent (Looking For)", tag: "looking for land" },
-                { id: "forum", n: "15. Forum Discussions (Buying Tips)", tag: "project update" },
-                { id: "class", n: "16. Classifieds Sniper (OLX/Sulekha)", tag: "wanted" },
-                { id: "b2b", n: "17. B2B Industrial Lead Scraper", tag: "buyer" },
-                { id: "broker", n: "18. Top Broker Network (Madurai)", tag: "real estate agents" },
-                { id: "cashed", n: "19. Recently Sold (Re-investment)", tag: "reinvestment requirement" },
-                { id: "trust", n: "20. Temple/NGO/Trust Land Need", tag: "trust ashram land" },
-                { id: "highway", n: "21. Highway Frontage Requirement", tag: "highway frontage" },
-                { id: "sports", n: "22. Sports/Turf Ground Wanted", tag: "sports turf academy" },
-                { id: "senior", n: "23. Retirement Home Developers", tag: "senior living retirement" },
-                { id: "factory", n: "24. SIDCO / Manufacturing Demand", tag: "industrial plot" },
-                { id: "plot", n: "25. Gated Community Developers", tag: "promoter developer" },
-                { id: "startup", n: "26. Co-working / Startup Hubs", tag: "coworking startup" },
-                { id: "export", n: "27. Export Zone / SEZ Investors", tag: "SEZ export unit" },
-                { id: "budget", n: "28. Budget Commercial Buyers", tag: "affordable commercial" },
-                { id: "luxury", n: "29. Ultra-Luxury Villa Buyers", tag: "luxury villa plots" },
-                { id: "ghost", n: "30. Deep Web Intent (Hidden Leads)", tag: "buying land" }
+                { id: "plot", n: "25. Gated Community Developers", tag: "promoter developer" }
             ];
 
-            const sectors = [
-                "Software Company", "IT Hub / Park", "Automobile Showroom", "EV Charging Station", "Multi Specialty Hospital",
-                "Nursing Home", "International School", "CBSE Academy", "Logistics Godown", "Warehouse Park",
-                "Marriage Mahal", "Mini Function Hall", "Textile Showroom", "Garment Unit", "Luxury Resort",
-                "Agro Farm House", "Cold Storage Unit", "Food Processing", "Gated Community", "Villa Township",
-                "Petrol Bunk", "SIDCO Industrial Plot", "Engineering College", "Arts & Science College", "Sports Turf",
-                "Badminton Academy", "Bank Zonal Office", "Central Kitchen", "Cloud Kitchen Hub", "Convention Center"
-            ];
+            const sectors = ["Software Company", "IT Hub / Park", "Automobile Showroom", "Multi Specialty Hospital", "Nursing Home", "International School", "Logistics Godown", "Warehouse Park", "Gated Community", "Villa Township", "Petrol Bunk", "Sports Turf"];
 
             const intelSources = [
                 { n: "LI: Corporate Leads", s: "site:linkedin.com" },
@@ -95,92 +58,86 @@
                 { n: "YouTube Real Estate", s: "site:youtube.com" },
                 { n: "Quora: Investment", s: "site:quora.com" },
                 { n: "IndiaMart B2B", s: "site:indiamart.com" },
-                { n: "SSC: Infrastructure", s: "site:skyscrapercity.com" },
-                { n: "CommonFloor", s: "site:commonfloor.com" },
                 { n: "NoBroker Plots", s: "site:nobroker.in" },
+                { n: "CommonFloor", s: "site:commonfloor.com" },
                 { n: "Sulekha Business", s: "site:sulekha.com" },
-                { n: "Instagram Intent", s: "site:instagram.com" }
-                // Add more as needed...
+                { n: "Instagram Intent", s: "site:instagram.com" },
+                { n: "Telegram Lead Sync", s: "site:t.me" }
             ];
 
-            const openSearch = (sectorName, platformPrefix = "") => {
-                const selectedSniper = sniperOptions.find(o => o.id === sniperMode) || sniperOptions[0];
-                let finalQuery = "";
-
-                if (platformPrefix) {
-                    // INTEL TAB AI LOGIC (Soft Search to prevent Blank Pages)
-                    finalQuery = `${platformPrefix} Madurai ${sectorName} ${selectedSniper.tag} -resale -marketing`;
-                } else {
-                    // SECTOR TAB LOGIC (Strict Context Search)
-                    finalQuery = `"${sectorName}" Madurai "${selectedSniper.tag}"`;
-                }
-
-                window.open(`https://www.google.com/search?q=${encodeURIComponent(finalQuery)}&tbs=qdr:${timeFrame}`, '_blank');
+            const openSearch = (sector, platform = "") => {
+                const mode = sniperOptions.find(o => o.id === sniperMode);
+                // The TRIPLE-LOCK logic: Platform + Sector + Sniper Tag
+                const q = platform 
+                    ? `${platform} Madurai "${sector}" ${mode.tag} -resale` 
+                    : `"${sector}" Madurai "${mode.tag}"`;
+                
+                window.open(`https://www.google.com/search?q=${encodeURIComponent(q)}&tbs=qdr:${timeFrame}`, '_blank');
             };
 
             return (
                 <div>
                     <div className="sniper-panel">
                         <header style={{ textAlign: 'center', marginBottom: '12px' }}>
-                            <div className="gold" style={{ fontWeight: 900, fontSize: '20px', letterSpacing: '1px' }}>BALEE GARDEN</div>
-                            <div style={{ fontSize: '10px', color: '#888', fontWeight: '800' }}>AI TRIPLE-LOCK SNIPER v35.1</div>
+                            <div className="gold" style={{ fontWeight: 900, fontSize: '20px' }}>BALEE GARDEN</div>
+                            <div style={{ fontSize: '10px', color: '#888' }}>AI TRIPLE-LOCK v35.2</div>
                         </header>
                         <div className="control-row">
-                            <div style={{flex:1}}>
-                                <span className="label">1. Lock Sniper Mode</span>
-                                <select value={sniperMode} onChange={(e)=>setSniperMode(e.target.value)}>
-                                    {sniperOptions.map(opt => <option key={opt.id} value={opt.id}>{opt.n}</option>)}
-                                </select>
-                            </div>
-                            <div style={{flex:1}}>
-                                <span className="label">2. Lock Time Window</span>
-                                <select value={timeFrame} onChange={(e)=>setTimeFrame(e.target.value)}>
-                                    <option value="d">Last 24 Hours (Fresh)</option>
-                                    <option value="w">Last 1 Week (Active)</option>
-                                    <option value="m">Last 1 Month (Historical)</option>
-                                </select>
-                            </div>
+                            <span className="label">1. Lock Sniper Mode</span>
+                            <select value={sniperMode} onChange={(e)=>setSniperMode(e.target.value)}>
+                                {sniperOptions.map(opt => <option key={opt.id} value={opt.id}>{opt.n}</option>)}
+                            </select>
+                            <span className="label">2. Lock Time Window</span>
+                            <select value={timeFrame} onChange={(e)=>setTimeFrame(e.target.value)}>
+                                <option value="d">Last 24 Hours</option>
+                                <option value="w">Last 1 Week</option>
+                                <option value="m">Last 1 Month</option>
+                            </select>
                         </div>
                     </div>
 
                     <nav className="nav-scroll">
-                        <button onClick={() => setTab("v22")} className={`nav-tab ${tab === 'v22' ? 'active' : ''}`}>Sector Matrix (30)</button>
-                        <button onClick={() => setTab("v24")} className={`nav-tab ${tab === 'v24' ? 'active' : ''}`}>Platform Intel (30)</button>
+                        <button onClick={() => setTab("v22")} className={`nav-tab ${tab === 'v22' ? 'active' : ''}`}>Sector Matrix</button>
+                        <button onClick={() => setTab("v24")} className={`nav-tab ${tab === 'v24' ? 'active' : ''}`}>Platform Intel</button>
+                        <button onClick={() => setTab("assets")} className={`nav-tab ${tab === 'assets' ? 'active' : ''}`}>Assets</button>
                         <button onClick={() => setTab("extractor")} className={`nav-tab ${tab === 'extractor' ? 'active' : ''}`}>Extract</button>
                     </nav>
 
                     <main style={{ padding: '15px' }}>
-                        {tab === 'v22' && (
+                        {tab === "v22" && (
                             <div>
-                                <div className="section-title">Step 3: Industry Target</div>
-                                <div style={{display:'grid', gridTemplateColumns:'1fr', gap:'2px'}}>
-                                    {sectors.map((sec, i) => (
-                                        <button key={i} className="btn-v22" onClick={() => openSearch(sec)}>
-                                            {i+1}. {sec}
-                                        </button>
-                                    ))}
-                                </div>
+                                <div className="section-title">Step 3: Industry Target (Select to Lock)</div>
+                                {sectors.map((sec, i) => (
+                                    <button key={i} className="btn-v22" style={{borderColor: activeSector === sec ? '#C8A84B' : ''}} 
+                                        onClick={() => { setActiveSector(sec); openSearch(sec); }}>
+                                        {i+1}. {sec} {activeSector === sec ? "✅" : ""}
+                                    </button>
+                                ))}
                             </div>
                         )}
 
-                        {tab === 'v24' && (
+                        {tab === "v24" && (
                             <div>
-                                <div className="section-title">Step 4: Platform Intel Source</div>
-                                <div style={{display:'grid', gridTemplateColumns:'1fr', gap:'2px'}}>
-                                    {intelSources.map((src, i) => (
-                                        <button key={i} className="btn-v24" onClick={() => openSearch("Land", src.s)}>
-                                            {i+1}. {src.n}
-                                        </button>
-                                    ))}
-                                </div>
+                                <div className="section-title">Step 4: Intel for {activeSector}</div>
+                                {intelSources.map((src, i) => (
+                                    <button key={i} className="btn-v24" onClick={() => openSearch(activeSector, src.s)}>
+                                        {i+1}. {src.n}
+                                    </button>
+                                ))}
                             </div>
                         )}
 
-                        {tab === 'extractor' && (
+                        {tab === "assets" && (
+                            <div style={{textAlign:'center'}}>
+                                <img src="flyer_local.png" className="asset-img" alt="Flyer 1" />
+                                <img src="flyer_investor.png" className="asset-img" alt="Flyer 2" />
+                            </div>
+                        )}
+
+                        {tab === "extractor" && (
                             <div className="card">
-                                <div className="section-title">Number Scraper</div>
-                                <textarea rows="14" placeholder="Paste lead text/comments here..."></textarea>
-                                <button className="btn-v24" style={{marginTop:'12px', textAlign:'center'}}>⚡ SCRAPE CONTACTS</button>
+                                <textarea rows="10" placeholder="Paste lead text here..."></textarea>
+                                <button className="btn-v24" style={{marginTop:'10px'}}>⚡ Scrape Contacts</button>
                             </div>
                         )}
                     </main>
