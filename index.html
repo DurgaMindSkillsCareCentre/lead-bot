@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BALEE GARDEN - BUYER RADAR v3.0</title>
+    <title>BALEE GARDEN - ALAGARKOVIL MADURAI PROJECT</title>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -58,7 +58,32 @@
                 { id: "urgent", n: "2. Urgent Sniper (Immediate Cash)", tag: '("urgent buyer" OR "immediate cash") land' },
                 { id: "nri", n: "3. NRI Investor Hub (Global)", tag: '("NRI" OR "Tamil Expat") "investment" land' },
                 { id: "corp", n: "4. Corporate Acquisition", tag: '("expansion" OR "acquisition" OR "corporate office") land' },
-                { id: "hosp", n: "5. Hospital/School Tenders", tag: '("tender" OR "procurement" OR "institution") land' }
+                { id: "inst", n: "5. Institutional Tenders", tag: '("educational trust" OR "institutional") land' },
+                { id: "hni", n: "6. HNI / Premium Portfolio", tag: '("HNI" OR "Wealth Management") buyer land' },
+                { id: "agri", n: "7. Agro-Tech / Farm Enthusiasts", tag: '("organic farm" OR "polyhouse") land' },
+                { id: "hosp", n: "8. Healthcare / Hospital Chain", tag: '("hospital site" OR "nursing home") wanted' },
+                { id: "ware", n: "9. Logistics / Warehousing", tag: '("warehouse" OR "godown" OR "logistics") requirement' },
+                { id: "jv", n: "10. Joint Venture (JV)", tag: '("joint venture" OR "JV" OR "partner") land' },
+                { id: "retail", n: "11. Retail Giants / Malls", tag: '("retail space" OR "mall developer" OR "showroom") site' },
+                { id: "hotel", n: "12. Hospitality / Resorts", tag: '("resort" OR "hotel" OR "leisure") land project' },
+                { id: "it", n: "13. IT / Tech Infrastructure", tag: '("software park" OR "IT hub") land needed' },
+                { id: "social", n: "14. FB/Social Intent", tag: '("looking for" OR "suggest") land buy' },
+                { id: "forum", n: "15. Forum Discussions", tag: '("buying" OR "project") land suggestions' },
+                { id: "class", n: "16. Classifieds Sniper", tag: '("wanted" OR "buyer")' },
+                { id: "b2b", n: "17. B2B Industrial Leads", tag: '("factory site" OR "industrial unit") buyer' },
+                { id: "broker", n: "18. Top Broker Network", tag: '("real estate brokers" OR "agents") Madurai' },
+                { id: "cashed", n: "19. Recently Sold Re-investment", tag: '("land sold" OR "reinvestment") requirement' },
+                { id: "trust", n: "20. Temple/NGO/Trust", tag: '("trust land" OR "NGO office" OR "temple") need' },
+                { id: "highway", n: "21. Highway Frontage", tag: '("highway side" OR "frontage") land wanted' },
+                { id: "sports", n: "22. Sports/Turf Ground", tag: '("sports turf" OR "badminton academy") site' },
+                { id: "senior", n: "23. Retirement Homes", tag: '("senior living" OR "retirement home") land' },
+                { id: "factory", n: "24. SIDCO / Manufacturing", tag: '("manufacturing unit" OR "industrial plot")' },
+                { id: "plot", n: "25. Gated Community", tag: '("layout promoter" OR "township developer")' },
+                { id: "startup", n: "26. Co-working Hubs", tag: '("startup hub" OR "coworking") site' },
+                { id: "export", n: "27. Export SEZ Investors", tag: '("SEZ" OR "export zone") investment' },
+                { id: "budget", n: "28. Budget Commercial", tag: '("affordable commercial" OR "shop site")' },
+                { id: "luxury", n: "29. Ultra-Luxury Villa", tag: '("luxury villa" OR "residential project") plots' },
+                { id: "ghost", n: "30. Deep Web Intent", tag: 'intext:"interested in buying land"' }
             ];
 
             const sectors = [
@@ -79,20 +104,38 @@
                 { n: "99Acres Hot Buyers", s: "site:99acres.com" },
                 { n: "OLX Direct Buyers", s: "site:olx.in" },
                 { n: "Twitter: Real-time", s: "site:twitter.com" },
+                { n: "Insta: Visual Intent", s: "site:instagram.com" },
                 { n: "IndiaMart B2B", s: "site:indiamart.com" },
+                { n: "NoBroker Plots", s: "site:nobroker.in" },
+                { n: "CommonFloor", s: "site:commonfloor.com" },
                 { n: "Sulekha Business", s: "site:sulekha.com" },
-                { n: "Global Tamil NRI", s: "site:tamils.com" }
+                { n: "SSC: Infrastructure", s: "site:skyscrapercity.com" },
+                { n: "Global Tamil NRI", s: "site:tamils.com" },
+                { n: "YouTube Real Estate", s: "site:youtube.com" },
+                { n: "Telegram Lead Sync", s: "site:t.me" },
+                { n: "Click.in Classifieds", s: "site:click.in" },
+                { n: "Locanto Investors", s: "site:locanto.net" },
+                { n: "PropTiger Leads", s: "site:proptiger.com" },
+                { n: "SquareYards", s: "site:squareyards.com" },
+                { n: "Housing.com Hot", s: "site:housing.com" },
+                { n: "Pinterest Property", s: "site:pinterest.com" },
+                { n: "Angel Investor Net", s: "site:investmentnetwork.in" },
+                { n: "Gumtree NRI Hub", s: "site:gumtree.com" },
+                { n: "MouthShut Reviews", s: "site:mouthshut.com" },
+                { n: "Zameen Global", s: "site:zameen.com" },
+                { n: "Realtor Forum", s: "site:realtor.com" },
+                { n: "Tumblr Property", s: "site:tumblr.com" },
+                { n: "Google: Natural Web", s: "" }
             ];
 
             const executeOmniSearch = (index) => {
                 const location = 'Madurai "Alagar Kovil"';
-                // Strict AI Semantic Buyer Logic
-                const buyerIntent = '("wanted land" OR "buyer" OR "looking to buy" OR "requirement" OR "acquisition")';
-                const exclusions = '-selling -broker -resale -marketing -listed -agent';
+                const buyerIntent = '("wanted" OR "buyer" OR "looking to buy" OR "requirement" OR "tender" OR "acquisition")';
+                const exclusions = '-selling -broker -resale -marketing -listing -agent';
                 
                 const clusters = [
                     { name: "SOCIAL", sites: "site:facebook.com OR site:linkedin.com/posts/ OR site:twitter.com" },
-                    { name: "PORTALS", sites: "site:magicbricks.com OR site:99acres.com OR site:housing.com OR site:nobroker.in" },
+                    { name: "PORTALS", sites: "site:magicbricks.com OR site:99acres.com OR site:housing.com" },
                     { name: "B2B", sites: "site:indiamart.com OR site:sulekha.com OR site:olx.in" },
                     { name: "GLOBAL", sites: "site:quora.com OR site:tamils.com OR site:investmentnetwork.in" },
                     { name: "FORUMS", sites: "site:skyscrapercity.com OR inurl:forum OR inurl:classifieds" }
@@ -121,11 +164,11 @@
                     <div className="sniper-panel">
                         <header style={{textAlign:'center', marginBottom:'12px'}}>
                             <div className="gold" style={{fontWeight:900, fontSize:'20px', letterSpacing:'1px'}}>BALEE GARDEN</div>
-                            <div style={{fontSize:'10px', color:'#888', fontWeight:'800', textTransform:'uppercase'}}>PROFESSIONAL BUYER RADAR</div>
+                            <div style={{fontSize:'10px', color:'#888', fontWeight:'800', textTransform:'uppercase'}}>ALAGARKOVIL MADURAI PROJECT</div>
                         </header>
                         
                         <button className="omni-btn" onClick={launchAll}>
-                             LAUNCH FULL BUYER RADAR (DEEP SCAN ALL SITES)
+                            🚀 LAUNCH FULL BUYER RADAR (DEEP SCAN ALL)
                         </button>
 
                         <div className="sniper-grid">
@@ -137,11 +180,15 @@
                         </div>
 
                         <div className="control-row">
-                            <span className="label">Lead Freshness Filter</span>
+                            <span className="label">1. Lock Sniper Buyer Intent</span>
+                            <select value={sniperMode} onChange={(e)=>setSniperMode(e.target.value)}>
+                                {sniperOptions.map(o => <option key={o.id} value={o.id}>{o.n}</option>)}
+                            </select>
+                            <span className="label">2. Lock Freshness Window</span>
                             <select value={timeFrame} onChange={(e)=>setTimeFrame(e.target.value)}>
-                                <option value="m">Last 1 Month</option>
+                                <option value="d">Last 24 Hours</option>
                                 <option value="w">Last 1 Week</option>
-                                <option value="y">Last 1 Year</option>
+                                <option value="m">Last 1 Month</option>
                             </select>
                         </div>
                     </div>
@@ -160,7 +207,7 @@
                                     <button key={i} className={`btn-v22 ${activeSector===s?'active':''}`} 
                                             onClick={()=>{setActiveSector(s); executeSearch(s);}}>
                                         <span>{i+1}. {s}</span>
-                                        {activeSector===s && <span className="gold"></span>}
+                                        {activeSector===s && <span className="gold">✅</span>}
                                     </button>
                                 ))}
                             </div>
@@ -177,16 +224,16 @@
                         )}
 
                         {tab === 'assets' && (
-                            <div style={{textAlign: 'center', padding: '10px'}}>
-                                <img src="flyer_local.png" className="asset-img" alt="Balee Garden Flyer 1" />
-                                <img src="flyer_investor.png" className="asset-img" alt="Balee Garden Flyer 2" />
+                            <div style={{textAlign: 'center'}}>
+                                <img src="flyer_local.png" className="asset-img" alt="Local Flyer" />
+                                <img src="flyer_investor.png" className="asset-img" alt="Investor Flyer" />
                             </div>
                         )}
 
                         {tab === 'extract' && (
                             <div>
-                                <textarea placeholder="Paste result text here to extract buyer contact details..."></textarea>
-                                <div style={{padding:'0 15px'}}><button className="btn-v24" style={{width:'100%', textAlign:'center'}}> EXTRACT CONTACTS</button></div>
+                                <textarea placeholder="Paste text here to extract leads..."></textarea>
+                                <div style={{padding:'0 15px'}}><button className="btn-v24" style={{width:'100%', textAlign:'center'}}>⚡ EXTRACT CONTACTS</button></div>
                             </div>
                         )}
                     </main>
