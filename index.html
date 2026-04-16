@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BALEE GARDEN - Omni Sniper v35.0</title>
+    <title>BALEE GARDEN - Omni Sniper v35.1</title>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -29,7 +29,6 @@
         .btn-red { background: #d93025; color: #fff; border: none; padding: 16px; border-radius: 8px; width: 100%; font-weight: 900; margin-bottom: 15px; font-size: 12px; text-transform: uppercase; }
         
         .section-title { font-size: 11px; font-weight: 800; margin: 15px 0 10px; color: #C8A84B; text-transform: uppercase; border-left: 3px solid #C8A84B; padding-left: 10px; }
-        .asset-img { width: 100%; border-radius: 8px; margin-bottom: 15px; border: 1px solid #C8A84B33; }
         textarea { width: 100%; background: #000; color: #fff; border: 1px solid #333; padding: 12px; border-radius: 8px; box-sizing: border-box; font-family: monospace; }
     </style>
 </head>
@@ -44,77 +43,37 @@
             const [sniperMode, setSniperMode] = useState("direct");
 
             const sniperOptions = [
-                { id: "direct", n: "1. Direct Buyers (Wanted/Required)" },
-                { id: "urgent", n: "2. Urgent Sniper (Immediate Cash)" },
-                { id: "nri", n: "3. NRI Investor Hub (Global Tamil)" },
-                { id: "corp", n: "4. Corporate Acquisition (Expansion)" },
-                { id: "inst", n: "5. Institutional Tenders (Schools/Gov)" },
-                { id: "hni", n: "6. HNI / Premium Portfolio Leads" },
-                { id: "agri", n: "7. Agro-Tech / Farm Enthusiasts" },
-                { id: "hosp", n: "8. Healthcare / Hospital Chain Site" },
-                { id: "ware", n: "9. Logistics / Warehousing Intent" },
-                { id: "jv", n: "10. Joint Venture (JV) Opportunities" },
-                { id: "retail", n: "11. Retail Giants / Mall Developers" },
-                { id: "hotel", n: "12. Hospitality / Resort Buyers" },
-                { id: "it", n: "13. IT / Tech Park Infrastructure" },
-                { id: "social", n: "14. FB/Social Intent (Looking For)" },
-                { id: "forum", n: "15. Forum Discussions (Buying Tips)" },
-                { id: "class", n: "16. Classifieds Sniper (OLX/Sulekha)" },
-                { id: "b2b", n: "17. B2B Industrial Lead Scraper" },
-                { id: "broker", n: "18. Top Broker Network (Madurai)" },
-                { id: "cashed", n: "19. Recently Sold (Re-investment)" },
-                { id: "trust", n: "20. Temple/NGO/Trust Land Need" },
-                { id: "highway", n: "21. Highway Frontage Requirement" },
-                { id: "sports", n: "22. Sports/Turf Ground Wanted" },
-                { id: "senior", n: "23. Retirement Home Developers" },
-                { id: "factory", n: "24. SIDCO / Manufacturing Demand" },
-                { id: "plot", n: "25. Gated Community Developers" },
-                { id: "startup", n: "26. Co-working / Startup Hubs" },
-                { id: "export", n: "27. Export Zone / SEZ Investors" },
-                { id: "budget", n: "28. Budget Commercial Buyers" },
-                { id: "luxury", n: "29. Ultra-Luxury Villa Buyers" },
-                { id: "ghost", n: "30. Deep Web Intent (Hidden Leads)" }
+                { id: "direct", n: "1. Direct Buyers (Wanted/Required)", tag: "land wanted" },
+                { id: "urgent", n: "2. Urgent Sniper (Immediate Cash)", tag: "urgent cash buyer" },
+                { id: "nri", n: "3. NRI Investor Hub (Global Tamil)", tag: "NRI investment" },
+                { id: "corp", n: "4. Corporate Acquisition (Expansion)", tag: "corporate expansion acquisition" },
+                { id: "inst", n: "5. Institutional Tenders (Schools/Gov)", tag: "institutional land" },
+                { id: "hni", n: "6. HNI / Premium Portfolio Leads", tag: "luxury investment" },
+                { id: "agri", n: "7. Agro-Tech / Farm Enthusiasts", tag: "organic farm house" },
+                { id: "hosp", n: "8. Healthcare / Hospital Chain Site", tag: "hospital site wanted" },
+                { id: "ware", n: "9. Logistics / Warehousing Intent", tag: "warehouse godown requirement" },
+                { id: "jv", n: "10. Joint Venture (JV) Opportunities", tag: "joint venture JV" },
+                { id: "retail", n: "11. Retail Giants / Mall Developers", tag: "showroom retail site" },
+                { id: "hotel", n: "12. Hospitality / Resort Buyers", tag: "resort hotel project" },
+                { id: "it", n: "13. IT / Tech Park Infrastructure", tag: "IT park software park" },
+                { id: "social", n: "14. FB/Social Intent (Looking For)", tag: "looking for land" },
+                { id: "forum", n: "15. Forum Discussions (Buying Tips)", tag: "project update" },
+                { id: "class", n: "16. Classifieds Sniper (OLX/Sulekha)", tag: "wanted" },
+                { id: "b2b", n: "17. B2B Industrial Lead Scraper", tag: "buyer" },
+                { id: "broker", n: "18. Top Broker Network (Madurai)", tag: "real estate agents" },
+                { id: "cashed", n: "19. Recently Sold (Re-investment)", tag: "reinvestment requirement" },
+                { id: "trust", n: "20. Temple/NGO/Trust Land Need", tag: "trust ashram land" },
+                { id: "highway", n: "21. Highway Frontage Requirement", tag: "highway frontage" },
+                { id: "sports", n: "22. Sports/Turf Ground Wanted", tag: "sports turf academy" },
+                { id: "senior", n: "23. Retirement Home Developers", tag: "senior living retirement" },
+                { id: "factory", n: "24. SIDCO / Manufacturing Demand", tag: "industrial plot" },
+                { id: "plot", n: "25. Gated Community Developers", tag: "promoter developer" },
+                { id: "startup", n: "26. Co-working / Startup Hubs", tag: "coworking startup" },
+                { id: "export", n: "27. Export Zone / SEZ Investors", tag: "SEZ export unit" },
+                { id: "budget", n: "28. Budget Commercial Buyers", tag: "affordable commercial" },
+                { id: "luxury", n: "29. Ultra-Luxury Villa Buyers", tag: "luxury villa plots" },
+                { id: "ghost", n: "30. Deep Web Intent (Hidden Leads)", tag: "buying land" }
             ];
-
-            const getQuery = (base) => {
-                const map = {
-                    direct: `"${base}" wanted Madurai OR "requirement"`,
-                    urgent: `"${base}" Madurai "urgent" OR "immediate cash buyer"`,
-                    nri: `"${base}" Madurai investment "NRI" OR "Expat"`,
-                    corp: `"${base}" Madurai "corporate expansion" OR "acquisition"`,
-                    inst: `"${base}" Madurai "institutional land" OR "tender"`,
-                    hni: `"${base}" Madurai "HNI buyer" OR "luxury portfolio"`,
-                    agri: `"${base}" Madurai "organic farm" OR "polyhouse"`,
-                    hosp: `"${base}" Madurai "hospital site" wanted`,
-                    ware: `"${base}" Madurai "godown" OR "logistics" requirement`,
-                    jv: `"${base}" Madurai "joint venture" OR "JV"`,
-                    retail: `"${base}" Madurai "retail space" OR "showroom site"`,
-                    hotel: `"${base}" Madurai "resort land" OR "hotel project"`,
-                    it: `"${base}" Madurai "IT park land" OR "software office"`,
-                    social: `site:facebook.com "${base}" Madurai "looking for"`,
-                    forum: `site:skyscrapercity.com "${base}" Madurai "project"`,
-                    class: `site:olx.in "${base}" Madurai "wanted"`,
-                    b2b: `site:indiamart.com "${base}" Madurai "buyer"`,
-                    broker: `"${base}" Madurai "real estate agents" list`,
-                    cashed: `"${base}" Madurai "recent land sale" investors`,
-                    trust: `"${base}" Madurai "trust" OR "ashram" land needed`,
-                    highway: `"${base}" Madurai "highway frontage" site`,
-                    sports: `"${base}" Madurai "turf" OR "sports academy"`,
-                    senior: `"${base}" Madurai "senior living" OR "retirement"`,
-                    factory: `"${base}" Madurai "industrial plot" wanted`,
-                    plot: `"${base}" Madurai "promoter" OR "developer" wanted`,
-                    startup: `"${base}" Madurai "startup hub" OR "coworking"`,
-                    export: `"${base}" Madurai "SEZ" OR "export unit"`,
-                    budget: `"${base}" Madurai "affordable commercial" wanted`,
-                    luxury: `"${base}" Madurai "ultra luxury villa" plots`,
-                    ghost: `intext:"buying land" Madurai "${base}"`
-                };
-                return map[sniperMode] || `"${base}" Madurai land`;
-            };
-
-            const openSearch = (q) => {
-                window.open(`https://www.google.com/search?q=${encodeURIComponent(getQuery(q))}&tbs=qdr:${timeFrame}`, '_blank');
-            };
 
             const sectors = [
                 "Software Company", "IT Hub / Park", "Automobile Showroom", "EV Charging Station", "Multi Specialty Hospital",
@@ -126,54 +85,55 @@
             ];
 
             const intelSources = [
-                { n: "FB: Investor Groups", s: "site:facebook.com/groups" },
                 { n: "LI: Corporate Leads", s: "site:linkedin.com" },
-                { n: "SSC: NRI Infrastructure", s: "site:skyscrapercity.com" },
+                { n: "FB: Investor Groups", s: "site:facebook.com" },
+                { n: "Twitter: Real-time", s: "site:twitter.com" },
                 { n: "Reddit: Madurai Intel", s: "site:reddit.com" },
-                { n: "Quora: Investment", s: "site:quora.com" },
-                { n: "Angel Investor Net", s: "site:investmentnetwork.in" },
                 { n: "MagicBricks Wanted", s: "site:magicbricks.com" },
                 { n: "99Acres Hot Buyers", s: "site:99acres.com" },
                 { n: "OLX Direct Buyers", s: "site:olx.in" },
-                { n: "Twitter: Real-time", s: "site:twitter.com" },
-                { n: "Insta: Visual Intent", s: "site:instagram.com" },
-                { n: "IndiaMart B2B", s: "site:indiamart.com" },
-                { n: "NoBroker Plots", s: "site:nobroker.in" },
-                { n: "CommonFloor", s: "site:commonfloor.com" },
-                { n: "Sulekha Business", s: "site:sulekha.com" },
-                { n: "Click.in Classifieds", s: "site:click.in" },
-                { n: "Housing.com Leads", s: "site:housing.com" },
-                { n: "MouthShut Reviews", s: "site:mouthshut.com" },
-                { n: "Global Tamil NRI", s: 'intext:"Tamil NRI"' },
-                { n: "Urgent Buyer Sniper", s: 'intext:"land wanted"' },
-                { n: "PropTiger Leads", s: "site:proptiger.com" },
-                { n: "SquareYards", s: "site:squareyards.com" },
-                { n: "Locanto Classifieds", s: "site:locanto.net" },
-                { n: "Gumtree Investors", s: "site:gumtree.com" },
                 { n: "YouTube Real Estate", s: "site:youtube.com" },
-                { n: "Telegram Lead Sync", s: "site:t.me" },
-                { n: "Zameen Intel", s: "site:zameen.com" },
-                { n: "Realtor Forum", s: "site:realtor.com" },
-                { n: "Pinterest Property", s: "site:pinterest.com" },
-                { n: "Deep Web Sniper", s: 'intext:"urgent buyer"' }
+                { n: "Quora: Investment", s: "site:quora.com" },
+                { n: "IndiaMart B2B", s: "site:indiamart.com" },
+                { n: "SSC: Infrastructure", s: "site:skyscrapercity.com" },
+                { n: "CommonFloor", s: "site:commonfloor.com" },
+                { n: "NoBroker Plots", s: "site:nobroker.in" },
+                { n: "Sulekha Business", s: "site:sulekha.com" },
+                { n: "Instagram Intent", s: "site:instagram.com" }
+                // Add more as needed...
             ];
+
+            const openSearch = (sectorName, platformPrefix = "") => {
+                const selectedSniper = sniperOptions.find(o => o.id === sniperMode) || sniperOptions[0];
+                let finalQuery = "";
+
+                if (platformPrefix) {
+                    // INTEL TAB AI LOGIC (Soft Search to prevent Blank Pages)
+                    finalQuery = `${platformPrefix} Madurai ${sectorName} ${selectedSniper.tag} -resale -marketing`;
+                } else {
+                    // SECTOR TAB LOGIC (Strict Context Search)
+                    finalQuery = `"${sectorName}" Madurai "${selectedSniper.tag}"`;
+                }
+
+                window.open(`https://www.google.com/search?q=${encodeURIComponent(finalQuery)}&tbs=qdr:${timeFrame}`, '_blank');
+            };
 
             return (
                 <div>
                     <div className="sniper-panel">
                         <header style={{ textAlign: 'center', marginBottom: '12px' }}>
                             <div className="gold" style={{ fontWeight: 900, fontSize: '20px', letterSpacing: '1px' }}>BALEE GARDEN</div>
-                            <div style={{ fontSize: '10px', color: '#888', fontWeight: '800' }}>ALAGARKOVIL MADURAI PROJECT</div>
+                            <div style={{ fontSize: '10px', color: '#888', fontWeight: '800' }}>AI TRIPLE-LOCK SNIPER v35.1</div>
                         </header>
                         <div className="control-row">
                             <div style={{flex:1}}>
-                                <span className="label">Lead Sniper Mode (30 Combinations)</span>
+                                <span className="label">1. Lock Sniper Mode</span>
                                 <select value={sniperMode} onChange={(e)=>setSniperMode(e.target.value)}>
                                     {sniperOptions.map(opt => <option key={opt.id} value={opt.id}>{opt.n}</option>)}
                                 </select>
                             </div>
                             <div style={{flex:1}}>
-                                <span className="label">Search Time Window</span>
+                                <span className="label">2. Lock Time Window</span>
                                 <select value={timeFrame} onChange={(e)=>setTimeFrame(e.target.value)}>
                                     <option value="d">Last 24 Hours (Fresh)</option>
                                     <option value="w">Last 1 Week (Active)</option>
@@ -187,14 +147,12 @@
                         <button onClick={() => setTab("v22")} className={`nav-tab ${tab === 'v22' ? 'active' : ''}`}>Sector Matrix (30)</button>
                         <button onClick={() => setTab("v24")} className={`nav-tab ${tab === 'v24' ? 'active' : ''}`}>Platform Intel (30)</button>
                         <button onClick={() => setTab("extractor")} className={`nav-tab ${tab === 'extractor' ? 'active' : ''}`}>Extract</button>
-                        <button onClick={() => setTab("assets")} className={`nav-tab ${tab === 'assets' ? 'active' : ''}`}>Assets</button>
                     </nav>
 
                     <main style={{ padding: '15px' }}>
                         {tab === 'v22' && (
                             <div>
-                                <button className="btn-red" onClick={() => window.open('https://www.google.com/alerts')}>🚨 START AUTO-LEAD RADAR</button>
-                                <div className="section-title">Industry Targets • Mode: {sniperMode.toUpperCase()}</div>
+                                <div className="section-title">Step 3: Industry Target</div>
                                 <div style={{display:'grid', gridTemplateColumns:'1fr', gap:'2px'}}>
                                     {sectors.map((sec, i) => (
                                         <button key={i} className="btn-v22" onClick={() => openSearch(sec)}>
@@ -207,10 +165,10 @@
 
                         {tab === 'v24' && (
                             <div>
-                                <div className="section-title">Global Web Sniper • {timeFrame === 'd' ? '24 HOURS' : 'LATEST'}</div>
+                                <div className="section-title">Step 4: Platform Intel Source</div>
                                 <div style={{display:'grid', gridTemplateColumns:'1fr', gap:'2px'}}>
                                     {intelSources.map((src, i) => (
-                                        <button key={i} className="btn-v24" onClick={() => openSearch(`${src.s} "Madurai" land`)}>
+                                        <button key={i} className="btn-v24" onClick={() => openSearch("Land", src.s)}>
                                             {i+1}. {src.n}
                                         </button>
                                     ))}
@@ -223,14 +181,6 @@
                                 <div className="section-title">Number Scraper</div>
                                 <textarea rows="14" placeholder="Paste lead text/comments here..."></textarea>
                                 <button className="btn-v24" style={{marginTop:'12px', textAlign:'center'}}>⚡ SCRAPE CONTACTS</button>
-                            </div>
-                        )}
-
-                        {tab === 'assets' && (
-                            <div style={{textAlign:'center'}}>
-                                <img src="flyer_local.png" className="asset-img" alt="Local Flyer" />
-                                <img src="flyer_investor.png" className="asset-img" alt="Investor Flyer" />
-                                <img src="flyer_nri.png" className="asset-img" alt="NRI Flyer" />
                             </div>
                         )}
                     </main>
