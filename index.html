@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BALEE GARDEN - OMNI BUYER SNIPER v7.0</title>
+    <title>BALEE GARDEN - OMNI SEMANTIC SNIPER v10.0</title>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -17,7 +17,8 @@
         
         .omni-btn { 
             background: linear-gradient(135deg, #C8A84B, #8A6D29, #C8A84B, #B8860B); 
-            background-size: 300% auto; color: #000; border: none; padding: 18px; font-weight: 900; border-radius: 8px; 
+            background-size: 300% auto;
+            color: #000; border: none; padding: 18px; font-weight: 900; border-radius: 8px; 
             text-transform: uppercase; font-size: 11px; width: 100%; cursor: pointer; 
             margin-bottom: 12px; box-shadow: 0 0 25px rgba(200,168,75,0.5);
             animation: flow 4s ease infinite;
@@ -25,11 +26,10 @@
         @keyframes flow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
         .sniper-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
-        .mini-btn { background: #1a1408; color: #C8A84B; border: 1px solid #C8A84B; padding: 10px; font-size: 9px; font-weight: 800; text-transform: uppercase; border-radius: 4px; cursor: pointer; transition: 0.3s; position: relative; }
+        .mini-btn { background: #1a1408; color: #C8A84B; border: 1px solid #C8A84B; padding: 10px; font-size: 9px; font-weight: 800; text-transform: uppercase; border-radius: 4px; cursor: pointer; transition: 0.3s; }
         .mini-btn:active { background: #C8A84B; color: #000; }
-        .badge { position: absolute; top: -5px; right: -5px; background: #C8A84B; color: #000; font-size: 8px; padding: 2px 4px; border-radius: 10px; font-weight: 900; }
 
-        .nav-scroll { display: flex; background: #050505; position: sticky; top: 310px; z-index: 100; border-bottom: 1px solid #333; overflow-x: auto; scrollbar-width: none; }
+        .nav-scroll { display: flex; background: #050505; position: sticky; top: 295px; z-index: 100; border-bottom: 1px solid #333; overflow-x: auto; scrollbar-width: none; }
         .nav-tab { flex: 1; padding: 15px 5px; border: none; background: transparent; color: #666; font-size: 9px; font-weight: 800; text-transform: uppercase; white-space: nowrap; text-align: center; cursor: pointer; }
         .nav-tab.active { color: #C8A84B; border-bottom: 3px solid #C8A84B; background: #111; }
         
@@ -39,7 +39,6 @@
         .btn-v24 { background: #1a1a1a; color: #C8A84B; border: 1px solid #C8A84B; padding: 16px; font-weight: 900; border-radius: 6px; text-transform: uppercase; font-size: 10px; text-align: left; cursor: pointer; }
         
         textarea { width: calc(100% - 30px); margin: 15px; background: #080808; color: #fff; border: 1px solid #333; padding: 15px; border-radius: 8px; box-sizing: border-box; font-family: monospace; font-size: 13px; min-height: 200px; }
-        .asset-img { width: calc(100% - 30px); margin: 15px; border: 1px solid #C8A84B; border-radius: 8px; }
     </style>
 </head>
 <body>
@@ -50,19 +49,41 @@
         function App() {
             const [tab, setTab] = useState("sector");
             const [timeFrame, setTimeFrame] = useState("m");
-            const [sniperMode, setSniperMode] = useState("direct");
+            const [sniperMode, setSniperMode] = useState("1");
             const [activeSector, setActiveSector] = useState("Multi Specialty Hospital");
-            const [offsets, setOffsets] = useState({0:0, 1:0, 2:0, 3:0, 4:0});
 
-            const loc = 'Madurai "Alagar Kovil" commercial land';
-            const intent = '("wanted" OR "buyer" OR "looking to buy" OR "requirement" OR "acquisition")';
-            const excl = '-selling -resale -listing -agent -broker';
-
+            // ── 30 INCORPORATED AI SEMANTIC SNIPER OPTIONS ────────────────
             const sniperOptions = [
-                { id: "direct", n: "Step 1: Lock Buyer Intent (Wanted/Required)", tag: '(requirement OR wanted OR "looking for")' },
-                { id: "urgent", n: "Step 1: Lock Urgent Sniper (Immediate Cash)", tag: '("urgent buyer" OR "immediate cash")' },
-                { id: "corp", n: "Step 1: Lock Corporate Acquisition", tag: '("expansion" OR "acquisition" OR "corporate office")' },
-                { id: "nri", n: "Step 1: Lock NRI Investor Hub (Global)", tag: '("NRI" OR "Tamil Expat") "investment"' }
+                { id: "1", n: "1. Direct Buyer Intent", tag: '("looking for land" OR "want to buy" OR "buyer")' },
+                { id: "2", n: "2. Urgent Requirements", tag: '("urgent buyer" OR "immediate requirement")' },
+                { id: "3", n: "3. Corporate Expansion", tag: '("expansion plans" OR "new branch" OR "office space")' },
+                { id: "4", n: "4. Institutional / Trust", tag: '("educational trust" OR "institutional land")' },
+                { id: "5", n: "5. Hospitality Developers", tag: '("resort project" OR "hotel site" OR "stay")' },
+                { id: "6", n: "6. Industrial / SIDCO", tag: '("factory site" OR "industrial unit" OR "manufacturing")' },
+                { id: "7", n: "7. Healthcare Chains", tag: '("hospital land" OR "medical college" OR "clinic")' },
+                { id: "8", n: "8. Retail & Showrooms", tag: '("prime commercial" OR "showroom site" OR "retail")' },
+                { id: "9", n: "9. Logistics & Storage", tag: '("warehouse space" OR "godown requirement")' },
+                { id: "10", n: "10. NRI Global Investors", tag: '("NRI investment" OR "Tamil expat" OR "foreign direct")' },
+                { id: "11", n: "11. High-Net-Worth (HNI)", tag: '("wealth management" OR "premium investment")' },
+                { id: "12", n: "12. Joint Venture (JV)", tag: '("joint venture" OR "JV development" OR "partner")' },
+                { id: "13", n: "13. Agro-Tech / Organic", tag: '("farm land wanted" OR "organic farming" OR "polyhouse")' },
+                { id: "14", n: "14. Senior Living Hubs", tag: '("retirement home" OR "senior community" OR "assisted living")' },
+                { id: "15", n: "15. Education Academies", tag: '("CBSE school" OR "coaching center" OR "university")' },
+                { id: "16", n: "16. Petrol Bunk / Fuel", tag: '("petrol pump site" OR "gas station" OR "fuel outlet")' },
+                { id: "17", n: "17. Marriage / Convention", tag: '("marriage mahal" OR "convention center" OR "function hall")' },
+                { id: "18", n: "18. IT & Software Park", tag: '("IT park" OR "tech hub" OR "data center")' },
+                { id: "19", n: "19. Sports & Recreation", tag: '("sports turf" OR "badminton academy" OR "stadium")' },
+                { id: "20", n: "20. Temple & Spiritual", tag: '("ashram site" OR "spiritual center" OR "temple trust")' },
+                { id: "21", n: "21. Highway Frontage", tag: '("highway side frontage" OR "bypass land")' },
+                { id: "22", n: "22. Re-Investment Leads", tag: '("property swap" OR "cashed out" OR "reinvesting")' },
+                { id: "23", n: "23. Startup Incubators", tag: '("startup incubator" OR "coworking land" OR "lab")' },
+                { id: "24", n: "24. Food Processing", tag: '("food park" OR "cold storage" OR "processing unit")' },
+                { id: "25", n: "25. Luxury Townships", tag: '("villa project" OR "gated community" OR "layout promoter")' },
+                { id: "26", n: "26. Shopping Complexes", tag: '("market site" OR "shopping mall" OR "arcade")' },
+                { id: "27", n: "27. Textile / Garments", tag: '("textile unit" OR "garment factory" OR "spinning mill")' },
+                { id: "28", n: "28. Water & Chemical", tag: '("RO plant" OR "industrial plant" OR "processing")' },
+                { id: "29", n: "29. Real Estate Syndicates", tag: '("land pool" OR "investor group" OR "consortium")' },
+                { id: "30", n: "30. Community Advice", tag: '("suggest land" OR "recommend" OR "best area to buy")' }
             ];
 
             const sectors = [
@@ -75,128 +96,102 @@
             ];
 
             const intelSources = [
-                { n: "FB: Investor Groups", s: "site:facebook.com/groups/" },
-                { n: "LI: Corporate Leads", s: "site:linkedin.com/posts/" },
-                { n: "Reddit: Madurai Intel", s: "site:reddit.com" },
+                { n: "FB: Intent Search", s: "site:facebook.com" },
+                { n: "LI: Corporate Leads", s: "site:linkedin.com" },
+                { n: "Reddit: Discussions", s: "site:reddit.com" },
                 { n: "Quora: Investment", s: "site:quora.com" },
-                { n: "MagicBricks Wanted", s: "site:magicbricks.com/post-requirement/" },
-                { n: "99Acres Hot Buyers", s: "site:99acres.com/wanted-property/" },
+                { n: "MagicBricks Buyer", s: "site:magicbricks.com" },
+                { n: "99Acres Requirement", s: "site:99acres.com" },
                 { n: "OLX Direct Buyers", s: "site:olx.in" },
                 { n: "Twitter: Real-time", s: "site:twitter.com" },
                 { n: "Insta: Visual Intent", s: "site:instagram.com" },
                 { n: "IndiaMart B2B", s: "site:indiamart.com" },
-                { n: "NoBroker Plots", s: "site:nobroker.in" },
-                { n: "CommonFloor", s: "site:commonfloor.com" },
+                { n: "NoBroker Leads", s: "site:nobroker.in" },
+                { n: "CommonFloor Wanted", s: "site:commonfloor.com" },
                 { n: "Sulekha Business", s: "site:sulekha.com" },
                 { n: "SSC: Infrastructure", s: "site:skyscrapercity.com" },
                 { n: "Global Tamil NRI", s: "site:tamils.com" },
-                { n: "YouTube Real Estate", s: "site:youtube.com" },
-                { n: "Telegram Lead Sync", s: "site:t.me" },
+                { n: "YouTube Investment", s: "site:youtube.com" },
                 { n: "Click.in Classifieds", s: "site:click.in" },
                 { n: "Locanto Investors", s: "site:locanto.net" },
                 { n: "PropTiger Leads", s: "site:proptiger.com" },
                 { n: "SquareYards", s: "site:squareyards.com" },
                 { n: "Housing.com Hot", s: "site:housing.com" },
-                { n: "Pinterest Property", s: "site:pinterest.com" },
                 { n: "Angel Investor Net", s: "site:investmentnetwork.in" },
                 { n: "Gumtree NRI Hub", s: "site:gumtree.com" },
-                { n: "MouthShut Reviews", s: "site:mouthshut.com" },
-                { n: "Zameen Global", s: "site:zameen.com" },
-                { n: "Realtor Forum", s: "site:realtor.com" },
-                { n: "Tumblr Property", s: "site:tumblr.com" },
-                { n: "Google: Natural Web", s: "" }
+                { n: "Makaan.com", s: "site:makaan.com" },
+                { n: "JustDial Leads", s: "site:justdial.com" },
+                { n: "SBNRI investment", s: "site:sbnri.com" },
+                { n: "TradeIndia B2B", s: "site:tradeindia.com" },
+                { n: "NRIway Madurai", s: "site:nriway.com" },
+                { n: "PropertyWala", s: "site:propertywala.com" },
+                { n: "Google Natural Web", s: "" }
             ];
 
-            const library = {
-                0: [ 
-                    `site:facebook.com/groups/ ${loc} ${intent}`, `site:linkedin.com/posts/ ${loc} "investor"`, `site:twitter.com ${loc} "buyer"`, `site:facebook.com/events/ Madurai investment`, `site:linkedin.com "acquisition" Madurai`,
-                    `site:facebook.com "wanted land" Alagar Kovil`, `site:linkedin.com/in/ "real estate investor" Madurai`, `site:x.com "commercial plot" Madurai`, `site:facebook.com "land requirement"`, `site:linkedin.com "expansion" Madurai`,
-                    `site:facebook.com "looking for land" Madurai`, `site:linkedin.com "new branch" Madurai`, `site:twitter.com "land needed" Madurai`, `site:facebook.com "NRI investors"`, `site:linkedin.com "industrial land" wanted`,
-                    `site:facebook.com "hotel project" Madurai`, `site:linkedin.com "hospital site" Madurai`, `site:twitter.com "warehouse wanted"`, `site:facebook.com "petrol bunk" land`, `site:linkedin.com "retail expansion"`
-                ],
-                1: [
-                    `site:magicbricks.com/post-requirement/ Madurai`, `site:99acres.com/wanted-property/ Madurai`, `site:housing.com Madurai buyer`, `site:nobroker.in Madurai wanted`, `site:commonfloor.com Madurai wanted`,
-                    `site:magicbricks.com "commercial land" Madurai`, `site:99acres.com "highway land" Madurai`, `site:proptiger.com Madurai requirement`, `site:makaan.com Madurai buyer`, `site:squareyards.com Madurai`,
-                    `site:magicbricks.com "wanted" Alagar Kovil`, `site:99acres.com "looking to buy" Alagar Kovil`, `site:housing.com "commercial plot"`, `site:indiahomes.com Madurai`, `site:nobroker.in "industrial plot"`,
-                    `site:magicbricks.com "hospital land"`, `site:99acres.com "resort land"`, `site:housing.com "warehouse land"`, `site:commonfloor.com "corner plot"`, `site:proptiger.com "investment plot"`
-                ],
-                2: [
-                    `site:indiamart.com "commercial land" Madurai`, `site:olx.in "wanted land" Madurai`, `site:sulekha.com Madurai land buyer`, `site:justdial.com Madurai investors`, `site:quikr.com Madurai wanted`,
-                    `site:indiamart.com "industrial plot" wanted`, `site:olx.in "buyer" Alagar Kovil`, `site:tradeindia.com "commercial land"`, `site:exportersindia.com Madurai land`, `site:yellowpages.in Madurai investors`,
-                    `site:indiamart.com "warehouse space" Madurai`, `site:olx.in "looking to buy" commercial`, `site:click.in Madurai land buyer`, `site:locanto.net Madurai wanted`, `site:gumtree.com Madurai investor`,
-                    `site:indiamart.com "factory land" Madurai`, `site:olx.in "petrol pump land"`, `site:sulekha.com "commercial plot"`, `site:tradeindia.com "land for development"`, `site:indiamart.com "school land"`
-                ],
-                3: [
-                    `site:reddit.com/r/IndiaInvestments Madurai`, `site:reddit.com/r/NRI "Madurai" land`, `site:quora.com "invest in Madurai"`, `site:skyscrapercity.com Madurai "commercial"`, `site:tamils.com "NRI investment"`,
-                    `site:reddit.com/r/TamilNadu Madurai land`, `site:sbnri.com Madurai real estate`, `site:nrione.in "invest in Tamil Nadu"`, `site:wisenri.com Madurai property`, `site:reddit.com/r/India "land in Madurai"`,
-                    `site:quora.com "buying land in Alagar Kovil"`, `site:skyscrapercity.com "Madurai infrastructure"`, `site:reddit.com "Madurai bypass" land`, `site:tamils.com "business investment"`, `site:nriway.com Madurai land`,
-                    `site:reddit.com/r/Madurai "investment"`, `site:skyscrapercity.com "Madurai airport" land`, `site:quora.com "best area for commercial"`, `site:reddit.com "Chennai to Madurai highway"`, `site:nriservices.com Madurai`
-                ],
-                4: [
-                    `"looking to buy commercial land" Madurai`, `"wanted to buy land" Alagar Kovil`, `"requirement for commercial land"`, `"tender for land acquisition" Madurai`, `"land needed for hospital"`,
-                    `"urgent requirement for highway land"`, `"investor looking for commercial plot"`, `"wanted land for warehouse"`, `"requirement for petrol bunk site"`, `"land acquisition for showroom"`,
-                    `"looking for investors" Madurai land`, `"we want to buy land" Madurai`, `"seeking commercial plot" Alagar Kovil`, `"company looking for land" Madurai`, `"trust looking for land"`,
-                    `"land required for school" Madurai`, `"land needed for factory"`, `"highway frontage land wanted"`, `"buying corner plot" Madurai`, `"budget for commercial land" Madurai`
-                ]
+            const loc = 'Madurai "Alagar Kovil"';
+            const softExcl = '-resale -broker';
+
+            const executeOmniSearch = (index) => {
+                const tf = `&tbs=qdr:${timeFrame}`;
+                const mode = sniperOptions.find(o => o.id === sniperMode);
+                const intent = mode ? mode.tag : '("looking for land" OR "buyer")';
+                
+                const queries = [
+                    `site:facebook.com ${loc} ${intent} ${softExcl}`,
+                    `site:magicbricks.com ${loc} intext:"buyer" ${softExcl}`,
+                    `site:olx.in ${loc} "wanted" ${softExcl}`,
+                    `site:reddit.com ${loc} "investment" ${softExcl}`,
+                    `"who is looking to buy land in Madurai Alagar Kovil" ${softExcl}`
+                ];
+
+                window.open(`https://www.google.com/search?q=${encodeURIComponent(queries[index])}${tf}`, '_blank');
             };
 
-            const rotateSearch = (index) => {
-                const currentOffset = offsets[index];
-                const links = library[index].slice(currentOffset * 5, (currentOffset * 5) + 5);
-                links.forEach((q, i) => {
-                    setTimeout(() => {
-                        window.open(`https://www.google.com/search?q=${encodeURIComponent(q + ' ' + excl)}&tbs=qdr:${timeFrame}`, '_blank');
-                    }, i * 800);
-                });
-                setOffsets(prev => ({ ...prev, [index]: (currentOffset + 1) % 4 }));
+            const launchAll = () => {
+                [0, 1, 2, 3, 4].forEach((i) => setTimeout(() => executeOmniSearch(i), i * 1500));
             };
 
             const executeSearch = (sector, platform = "") => {
                 const mode = sniperOptions.find(o => o.id === sniperMode);
-                const query = `${platform} Madurai "Alagar Kovil" "${sector}" ${mode.tag} ${excl}`;
+                const query = `${platform} ${loc} "${sector}" ${mode.tag} ${softExcl}`;
                 window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}&tbs=qdr:${timeFrame}`, '_blank');
-            };
-
-            const launchAll = () => {
-                [0, 1, 2, 3, 4].forEach((i) => setTimeout(() => rotateSearch(i), i * 5000));
             };
 
             return (
                 <div>
                     <div className="sniper-panel">
-                        <header style={{textAlign:'center', marginBottom:'15px'}}>
-                            <div className="gold" style={{fontWeight:900, fontSize:'22px'}}>BALEE GARDEN</div>
-                            <div style={{fontSize:'10px', color:'#888', fontWeight:'800'}}>100+ CHANNEL ROTATING SNIPER</div>
+                        <header style={{textAlign:'center', marginBottom:'12px'}}>
+                            <div className="gold" style={{fontWeight:900, fontSize:'20px', letterSpacing:'1px'}}>BALEE GARDEN</div>
+                            <div style={{fontSize:'10px', color:'#888', fontWeight:'800', textTransform:'uppercase'}}>AI SEMANTIC OMNI-SNIPER v10.0</div>
                         </header>
                         
-                        <button className="omni-btn" onClick={launchAll}>🚀 LAUNCH 25-CHANNEL SCAN (STAGGERED)</button>
+                        <button className="omni-btn" onClick={launchAll}>🚀 LAUNCH FULL BUYER RADAR (SEMANTIC SCAN)</button>
 
                         <div className="sniper-grid">
-                            <button className="mini-btn" onClick={() => rotateSearch(0)}>1. SOCIAL<span className="badge">{offsets[0]+1}/4</span></button>
-                            <button className="mini-btn" onClick={() => rotateSearch(1)}>2. RE PORTALS<span className="badge">{offsets[1]+1}/4</span></button>
-                            <button className="mini-btn" onClick={() => rotateSearch(2)}>3. B2B LEADS<span className="badge">{offsets[2]+1}/4</span></button>
-                            <button className="mini-btn" onClick={() => rotateSearch(3)}>4. GLOBAL/NRI<span className="badge">{offsets[3]+1}/4</span></button>
-                            <button className="mini-btn" style={{gridColumn:'span 2'}} onClick={() => rotateSearch(4)}>5. DEEP INTENT SNIPER<span className="badge">{offsets[4]+1}/4</span></button>
+                            <button className="mini-btn" onClick={() => executeOmniSearch(0)}>1. SOCIAL<br/><span style={{fontSize:'7px',opacity:0.7}}>FB+LI+X</span></button>
+                            <button className="mini-btn" onClick={() => executeOmniSearch(1)}>2. RE PORTALS<br/><span style={{fontSize:'7px',opacity:0.7}}>99acres+MB</span></button>
+                            <button className="mini-btn" onClick={() => executeOmniSearch(2)}>3. B2B & OLX<br/><span style={{fontSize:'7px',opacity:0.7}}>OLX+IndiaMart</span></button>
+                            <button className="mini-btn" onClick={() => executeOmniSearch(3)}>4. GLOBAL/NRI<br/><span style={{fontSize:'7px',opacity:0.7}}>Reddit+Quora</span></button>
+                            <button className="mini-btn" style={{gridColumn: 'span 2'}} onClick={() => executeOmniSearch(4)}>5. NATURAL LANGUAGE SCANNER</button>
                         </div>
 
                         <div className="control-row">
-                            <span className="label">Step 1: Lock Mode</span>
+                            <span className="label">1. Lock Semantic Intent (30 Options)</span>
                             <select value={sniperMode} onChange={(e)=>setSniperMode(e.target.value)}>
                                 {sniperOptions.map(o => <option key={o.id} value={o.id}>{o.n}</option>)}
                             </select>
-                            <span className="label">Step 2: Freshness</span>
+                            <span className="label">2. Lead Freshness</span>
                             <select value={timeFrame} onChange={(e)=>setTimeFrame(e.target.value)}>
-                                <option value="m">Last 1 Month</option>
                                 <option value="w">Last 1 Week</option>
+                                <option value="m">Last 1 Month</option>
                                 <option value="y">Last 1 Year</option>
                             </select>
                         </div>
                     </div>
 
                     <nav className="nav-scroll">
-                        <button onClick={()=>setTab("sector")} className={`nav-tab ${tab==='sector'?'active':''}`}>Step 3: Sectors</button>
-                        <button onClick={()=>setTab("intel")} className={`nav-tab ${tab==='intel'?'active':''}`}>Step 4: Intel</button>
-                        <button onClick={()=>setTab("assets")} className={`nav-tab ${tab==='assets'?'active':''}`}>Assets</button>
+                        <button onClick={()=>setTab("sector")} className={`nav-tab ${tab==='sector'?'active':''}`}>30 Sectors</button>
+                        <button onClick={()=>setTab("intel")} className={`nav-tab ${tab==='intel'?'active':''}`}>30 Platforms</button>
                         <button onClick={()=>setTab("extract")} className={`nav-tab ${tab==='extract'?'active':''}`}>Extract</button>
                     </nav>
 
@@ -204,9 +199,10 @@
                         {tab === 'sector' && (
                             <div className="btn-grid">
                                 {sectors.map((s, i) => (
-                                    <button key={i} className={`btn-v22 ${activeSector===s?'active':''}`} onClick={()=>{setActiveSector(s); executeSearch(s);}}>
+                                    <button key={i} className={`btn-v22 ${activeSector===s?'active':''}`} 
+                                            onClick={()=>{setActiveSector(s); executeSearch(s);}}>
                                         <span>{i+1}. {s}</span>
-                                        {activeSector===s && <span className="gold">✅</span>}
+                                        <span className="gold">🔍</span>
                                     </button>
                                 ))}
                             </div>
@@ -222,16 +218,9 @@
                             </div>
                         )}
 
-                        {tab === 'assets' && (
-                            <div style={{textAlign: 'center'}}>
-                                <img src="flyer_local.png" className="asset-img" alt="Flyer 1" />
-                                <img src="flyer_investor.png" className="asset-img" alt="Flyer 2" />
-                            </div>
-                        )}
-
                         {tab === 'extract' && (
                             <div>
-                                <textarea placeholder="Paste search text here..."></textarea>
+                                <textarea placeholder="Paste search text here to extract contacts..."></textarea>
                                 <div style={{padding:'0 15px'}}><button className="btn-v24" style={{width:'100%', textAlign:'center'}}>⚡ EXTRACT CONTACTS</button></div>
                             </div>
                         )}
