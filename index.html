@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BALEE GARDEN - OMNI SEMANTIC SNIPER v10.0</title>
+    <title>BALEE GARDEN - ALAGARKOVIL MADURAI PROJECT</title>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -11,34 +11,25 @@
         body { margin: 0; font-family: 'Inter', sans-serif; background: #050505; color: #f0ebe0; -webkit-font-smoothing: antialiased; }
         .gold { color: #C8A84B; }
         .sniper-panel { background: #1a1408; padding: 15px; border-bottom: 2px solid #C8A84B; position: sticky; top: 0; z-index: 120; box-shadow: 0 4px 20px rgba(0,0,0,0.8); }
-        .control-row { display: flex; flex-direction: column; gap: 8px; }
-        .label { font-size: 9px; font-weight: 900; color: #C8A84B; text-transform: uppercase; letter-spacing: 1px; }
-        select { background: #000; color: #C8A84B; border: 1px solid #C8A84B; padding: 12px; border-radius: 6px; font-size: 12px; font-weight: 700; width: 100%; outline: none; appearance: none; }
-        
         .omni-btn { 
             background: linear-gradient(135deg, #C8A84B, #8A6D29, #C8A84B, #B8860B); 
-            background-size: 300% auto;
-            color: #000; border: none; padding: 18px; font-weight: 900; border-radius: 8px; 
-            text-transform: uppercase; font-size: 11px; width: 100%; cursor: pointer; 
-            margin-bottom: 12px; box-shadow: 0 0 25px rgba(200,168,75,0.5);
-            animation: flow 4s ease infinite;
+            background-size: 300% auto; color: #000; border: none; padding: 18px; font-weight: 900; border-radius: 8px; 
+            text-transform: uppercase; font-size: 11px; width: 100%; cursor: pointer; margin-bottom: 12px; animation: flow 4s ease infinite;
         }
         @keyframes flow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-
         .sniper-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
-        .mini-btn { background: #1a1408; color: #C8A84B; border: 1px solid #C8A84B; padding: 10px; font-size: 9px; font-weight: 800; text-transform: uppercase; border-radius: 4px; cursor: pointer; transition: 0.3s; }
-        .mini-btn:active { background: #C8A84B; color: #000; }
-
-        .nav-scroll { display: flex; background: #050505; position: sticky; top: 295px; z-index: 100; border-bottom: 1px solid #333; overflow-x: auto; scrollbar-width: none; }
-        .nav-tab { flex: 1; padding: 15px 5px; border: none; background: transparent; color: #666; font-size: 9px; font-weight: 800; text-transform: uppercase; white-space: nowrap; text-align: center; cursor: pointer; }
+        .mini-btn { background: #1a1408; color: #C8A84B; border: 1px solid #C8A84B; padding: 12px 8px; font-size: 9px; font-weight: 800; text-transform: uppercase; border-radius: 4px; cursor: pointer; position: relative; line-height: 1.2; }
+        .badge { position: absolute; top: -5px; right: -5px; background: #C8A84B; color: #000; font-size: 8px; padding: 2px 5px; border-radius: 10px; font-weight: 900; }
+        .label { font-size: 9px; font-weight: 900; color: #C8A84B; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; display: block; }
+        select { background: #000; color: #C8A84B; border: 1px solid #C8A84B; padding: 12px; border-radius: 6px; font-size: 11px; font-weight: 700; width: 100%; margin-bottom: 10px; appearance: none; }
+        .nav-scroll { display: flex; background: #050505; border-bottom: 1px solid #333; overflow-x: auto; scrollbar-width: none; position: sticky; top: 320px; z-index: 100; }
+        .nav-tab { flex: 1; padding: 15px 10px; border: none; background: transparent; color: #666; font-size: 9px; font-weight: 800; text-transform: uppercase; white-space: nowrap; }
         .nav-tab.active { color: #C8A84B; border-bottom: 3px solid #C8A84B; background: #111; }
-        
         .btn-grid { display: grid; grid-template-columns: 1fr; gap: 6px; padding: 15px; }
-        .btn-v22 { background: #111; color: #C8A84B; border: 1px solid #C8A84B44; padding: 14px; font-size: 10.5px; border-radius: 5px; text-align: left; font-weight: 600; text-transform: uppercase; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-        .btn-v22.active { border: 2px solid #C8A84B; background: #1a1408; }
-        .btn-v24 { background: #1a1a1a; color: #C8A84B; border: 1px solid #C8A84B; padding: 16px; font-weight: 900; border-radius: 6px; text-transform: uppercase; font-size: 10px; text-align: left; cursor: pointer; }
-        
-        textarea { width: calc(100% - 30px); margin: 15px; background: #080808; color: #fff; border: 1px solid #333; padding: 15px; border-radius: 8px; box-sizing: border-box; font-family: monospace; font-size: 13px; min-height: 200px; }
+        .btn-v22 { background: #111; color: #C8A84B; border: 1px solid #C8A84B44; padding: 14px; font-size: 10px; border-radius: 5px; text-align: left; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; }
+        .btn-v22.active { border: 1px solid #C8A84B; background: #1a1408; }
+        textarea { width: calc(100% - 30px); margin: 15px; background: #080808; color: #fff; border: 1px solid #333; padding: 15px; border-radius: 8px; min-height: 200px; font-family: monospace; }
+        .platform-btn { background: #1a1a1a; color: #C8A84B; border: 1px solid #C8A84B; padding: 15px; font-weight: 900; border-radius: 6px; text-transform: uppercase; font-size: 10px; text-align: left; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -51,8 +42,50 @@
             const [timeFrame, setTimeFrame] = useState("m");
             const [sniperMode, setSniperMode] = useState("1");
             const [activeSector, setActiveSector] = useState("Multi Specialty Hospital");
+            const [offsets, setOffsets] = useState({0:0, 1:0, 2:0, 3:0, 4:0});
 
-            // ── 30 INCORPORATED AI SEMANTIC SNIPER OPTIONS ────────────────
+            const loc = 'Madurai "Alagar Kovil"';
+            const softExcl = '-resale';
+
+            // ROTATION LOGIC RE-IMPLEMENTED (5 Sets of 5 Queries = 25 Core Templates)
+            const rotationLibrary = {
+                0: [ // SOCIAL (Sets cycle on every click)
+                    `site:facebook.com "${loc}" (looking OR buying)`,
+                    `site:linkedin.com "${loc}" (requirement OR branch)`,
+                    `site:twitter.com "${loc}" (wanted OR buyer)`,
+                    `site:facebook.com "${loc}" (investment OR project)`,
+                    `site:linkedin.com "${loc}" (acquisition OR expansion)`
+                ],
+                1: [ // PORTALS
+                    `site:magicbricks.com "${loc}" intext:"buyer"`,
+                    `site:99acres.com "${loc}" intext:"requirement"`,
+                    `site:housing.com "${loc}" intext:"wanted"`,
+                    `site:commonfloor.com "${loc}" buyer`,
+                    `site:nobroker.in "${loc}" requirement`
+                ],
+                2: [ // B2B/MARKET
+                    `site:indiamart.com "${loc}" "buyer requirement"`,
+                    `site:olx.in "${loc}" "wanted"`,
+                    `site:tradeindia.com "${loc}" land`,
+                    `site:sulekha.com "${loc}" "wanted"`,
+                    `site:justdial.com "${loc}" "investors"`
+                ],
+                3: [ // GLOBAL/NRI
+                    `site:reddit.com "${loc}" "buy land"`,
+                    `site:quora.com "${loc}" (suggest OR investment)`,
+                    `site:skyscrapercity.com "${loc}" project`,
+                    `site:tamils.com "${loc}" buyer`,
+                    `site:nriway.com "${loc}" investment`
+                ],
+                4: [ // NATURAL LANGUAGE
+                    `"who is looking to buy land in Madurai Alagar Kovil"`,
+                    `"wanted commercial land near Alagar Kovil Madurai"`,
+                    `"I want to buy commercial plot in Madurai"`,
+                    `"requirement for land in Alagar Kovil for project"`,
+                    `"seeking investors for Alagar Kovil property"`
+                ]
+            };
+
             const sniperOptions = [
                 { id: "1", n: "1. Direct Buyer Intent", tag: '("looking for land" OR "want to buy" OR "buyer")' },
                 { id: "2", n: "2. Urgent Requirements", tag: '("urgent buyer" OR "immediate requirement")' },
@@ -63,27 +96,27 @@
                 { id: "7", n: "7. Healthcare Chains", tag: '("hospital land" OR "medical college" OR "clinic")' },
                 { id: "8", n: "8. Retail & Showrooms", tag: '("prime commercial" OR "showroom site" OR "retail")' },
                 { id: "9", n: "9. Logistics & Storage", tag: '("warehouse space" OR "godown requirement")' },
-                { id: "10", n: "10. NRI Global Investors", tag: '("NRI investment" OR "Tamil expat" OR "foreign direct")' },
-                { id: "11", n: "11. High-Net-Worth (HNI)", tag: '("wealth management" OR "premium investment")' },
-                { id: "12", n: "12. Joint Venture (JV)", tag: '("joint venture" OR "JV development" OR "partner")' },
-                { id: "13", n: "13. Agro-Tech / Organic", tag: '("farm land wanted" OR "organic farming" OR "polyhouse")' },
-                { id: "14", n: "14. Senior Living Hubs", tag: '("retirement home" OR "senior community" OR "assisted living")' },
-                { id: "15", n: "15. Education Academies", tag: '("CBSE school" OR "coaching center" OR "university")' },
-                { id: "16", n: "16. Petrol Bunk / Fuel", tag: '("petrol pump site" OR "gas station" OR "fuel outlet")' },
-                { id: "17", n: "17. Marriage / Convention", tag: '("marriage mahal" OR "convention center" OR "function hall")' },
-                { id: "18", n: "18. IT & Software Park", tag: '("IT park" OR "tech hub" OR "data center")' },
-                { id: "19", n: "19. Sports & Recreation", tag: '("sports turf" OR "badminton academy" OR "stadium")' },
-                { id: "20", n: "20. Temple & Spiritual", tag: '("ashram site" OR "spiritual center" OR "temple trust")' },
-                { id: "21", n: "21. Highway Frontage", tag: '("highway side frontage" OR "bypass land")' },
-                { id: "22", n: "22. Re-Investment Leads", tag: '("property swap" OR "cashed out" OR "reinvesting")' },
-                { id: "23", n: "23. Startup Incubators", tag: '("startup incubator" OR "coworking land" OR "lab")' },
-                { id: "24", n: "24. Food Processing", tag: '("food park" OR "cold storage" OR "processing unit")' },
-                { id: "25", n: "25. Luxury Townships", tag: '("villa project" OR "gated community" OR "layout promoter")' },
-                { id: "26", n: "26. Shopping Complexes", tag: '("market site" OR "shopping mall" OR "arcade")' },
-                { id: "27", n: "27. Textile / Garments", tag: '("textile unit" OR "garment factory" OR "spinning mill")' },
-                { id: "28", n: "28. Water & Chemical", tag: '("RO plant" OR "industrial plant" OR "processing")' },
-                { id: "29", n: "29. Real Estate Syndicates", tag: '("land pool" OR "investor group" OR "consortium")' },
-                { id: "30", n: "30. Community Advice", tag: '("suggest land" OR "recommend" OR "best area to buy")' }
+                { id: "10", n: "10. NRI Global Investors", tag: '("NRI" OR "expatriate") "investment"' },
+                { id: "11", n: "11. High-Net-Worth (HNI)", tag: '("wealth management" OR "portfolio")' },
+                { id: "12", n: "12. Joint Venture (JV)", tag: '("joint venture" OR "partner")' },
+                { id: "13", n: "13. Agro-Tech / Organic", tag: '("farm land" OR "organic farming")' },
+                { id: "14", n: "14. Senior Living Hubs", tag: '("retirement home" OR "senior community")' },
+                { id: "15", n: "15. Education Academies", tag: '("CBSE school" OR "coaching center")' },
+                { id: "16", n: "16. Petrol Bunk / Fuel", tag: '("petrol pump" OR "gas station")' },
+                { id: "17", n: "17. Marriage / Convention", tag: '("marriage mahal" OR "convention center")' },
+                { id: "18", n: "18. IT & Software Park", tag: '("IT park" OR "tech hub")' },
+                { id: "19", n: "19. Sports & Recreation", tag: '("sports turf" OR "badminton")' },
+                { id: "20", n: "20. Temple & Spiritual", tag: '("ashram site" OR "temple trust")' },
+                { id: "21", n: "21. Highway Frontage", tag: '("highway side" OR "bypass")' },
+                { id: "22", n: "22. Re-Investment Leads", tag: '("property swap" OR "cashed out")' },
+                { id: "23", n: "23. Startup Incubators", tag: '("startup incubator" OR "coworking")' },
+                { id: "24", n: "24. Food Processing", tag: '("food park" OR "cold storage")' },
+                { id: "25", n: "25. Luxury Townships", tag: '("villa project" OR "township")' },
+                { id: "26", n: "26. Shopping Complexes", tag: '("market site" OR "shopping arcade")' },
+                { id: "27", n: "27. Textile / Garments", tag: '("textile unit" OR "spinning mill")' },
+                { id: "28", n: "28. Water & Chemical", tag: '("RO plant" OR "industrial plant")' },
+                { id: "29", n: "29. Real Estate Syndicates", tag: '("land pool" OR "investor group")' },
+                { id: "30", n: "30. Community Advice", tag: '("suggest land" OR "recommend area")' }
             ];
 
             const sectors = [
@@ -95,112 +128,67 @@
                 "Badminton Academy", "Bank Zonal Office", "Central Kitchen", "Cloud Kitchen Hub", "Convention Center"
             ];
 
-            const intelSources = [
-                { n: "FB: Intent Search", s: "site:facebook.com" },
-                { n: "LI: Corporate Leads", s: "site:linkedin.com" },
-                { n: "Reddit: Discussions", s: "site:reddit.com" },
-                { n: "Quora: Investment", s: "site:quora.com" },
-                { n: "MagicBricks Buyer", s: "site:magicbricks.com" },
-                { n: "99Acres Requirement", s: "site:99acres.com" },
-                { n: "OLX Direct Buyers", s: "site:olx.in" },
-                { n: "Twitter: Real-time", s: "site:twitter.com" },
-                { n: "Insta: Visual Intent", s: "site:instagram.com" },
-                { n: "IndiaMart B2B", s: "site:indiamart.com" },
-                { n: "NoBroker Leads", s: "site:nobroker.in" },
-                { n: "CommonFloor Wanted", s: "site:commonfloor.com" },
-                { n: "Sulekha Business", s: "site:sulekha.com" },
-                { n: "SSC: Infrastructure", s: "site:skyscrapercity.com" },
-                { n: "Global Tamil NRI", s: "site:tamils.com" },
-                { n: "YouTube Investment", s: "site:youtube.com" },
-                { n: "Click.in Classifieds", s: "site:click.in" },
-                { n: "Locanto Investors", s: "site:locanto.net" },
-                { n: "PropTiger Leads", s: "site:proptiger.com" },
-                { n: "SquareYards", s: "site:squareyards.com" },
-                { n: "Housing.com Hot", s: "site:housing.com" },
-                { n: "Angel Investor Net", s: "site:investmentnetwork.in" },
-                { n: "Gumtree NRI Hub", s: "site:gumtree.com" },
-                { n: "Makaan.com", s: "site:makaan.com" },
-                { n: "JustDial Leads", s: "site:justdial.com" },
-                { n: "SBNRI investment", s: "site:sbnri.com" },
-                { n: "TradeIndia B2B", s: "site:tradeindia.com" },
-                { n: "NRIway Madurai", s: "site:nriway.com" },
-                { n: "PropertyWala", s: "site:propertywala.com" },
-                { n: "Google Natural Web", s: "" }
-            ];
-
-            const loc = 'Madurai "Alagar Kovil"';
-            const softExcl = '-resale -broker';
-
-            const executeOmniSearch = (index) => {
-                const tf = `&tbs=qdr:${timeFrame}`;
+            const rotateSearch = (btnIndex) => {
+                const currentOffset = offsets[btnIndex];
                 const mode = sniperOptions.find(o => o.id === sniperMode);
-                const intent = mode ? mode.tag : '("looking for land" OR "buyer")';
+                const queryBase = rotationLibrary[btnIndex][currentOffset % 5];
+                const fullQuery = `${queryBase} ${mode.tag} ${softExcl}`;
                 
-                const queries = [
-                    `site:facebook.com ${loc} ${intent} ${softExcl}`,
-                    `site:magicbricks.com ${loc} intext:"buyer" ${softExcl}`,
-                    `site:olx.in ${loc} "wanted" ${softExcl}`,
-                    `site:reddit.com ${loc} "investment" ${softExcl}`,
-                    `"who is looking to buy land in Madurai Alagar Kovil" ${softExcl}`
-                ];
-
-                window.open(`https://www.google.com/search?q=${encodeURIComponent(queries[index])}${tf}`, '_blank');
+                window.open(`https://www.google.com/search?q=${encodeURIComponent(fullQuery)}&tbs=qdr:${timeFrame}`, '_blank');
+                setOffsets(prev => ({ ...prev, [btnIndex]: (currentOffset + 1) }));
             };
 
-            const launchAll = () => {
-                [0, 1, 2, 3, 4].forEach((i) => setTimeout(() => executeOmniSearch(i), i * 1500));
-            };
-
-            const executeSearch = (sector, platform = "") => {
+            const executeSectorSearch = (sector, platform = "") => {
                 const mode = sniperOptions.find(o => o.id === sniperMode);
                 const query = `${platform} ${loc} "${sector}" ${mode.tag} ${softExcl}`;
                 window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}&tbs=qdr:${timeFrame}`, '_blank');
             };
 
+            const launchAll = () => {
+                [0, 1, 2, 3, 4].forEach((i) => setTimeout(() => rotateSearch(i), i * 1500));
+            };
+
             return (
                 <div>
                     <div className="sniper-panel">
-                        <header style={{textAlign:'center', marginBottom:'12px'}}>
-                            <div className="gold" style={{fontWeight:900, fontSize:'20px', letterSpacing:'1px'}}>BALEE GARDEN</div>
-                            <div style={{fontSize:'10px', color:'#888', fontWeight:'800', textTransform:'uppercase'}}>AI SEMANTIC OMNI-SNIPER v10.0</div>
+                        <header style={{textAlign:'center', marginBottom:'15px'}}>
+                            <div className="gold" style={{fontWeight:900, fontSize:'20px'}}>BALEE GARDEN</div>
+                            <div style={{fontSize:'10px', color:'#888', fontWeight:'800'}}>ALAGARKOVIL MADURAI PROJECT</div>
                         </header>
                         
-                        <button className="omni-btn" onClick={launchAll}>🚀 LAUNCH FULL BUYER RADAR (SEMANTIC SCAN)</button>
+                        <button className="omni-btn" onClick={launchAll}>🚀 LAUNCH ROTATION SCAN (ALL 5 CLUSTERS)</button>
 
                         <div className="sniper-grid">
-                            <button className="mini-btn" onClick={() => executeOmniSearch(0)}>1. SOCIAL<br/><span style={{fontSize:'7px',opacity:0.7}}>FB+LI+X</span></button>
-                            <button className="mini-btn" onClick={() => executeOmniSearch(1)}>2. RE PORTALS<br/><span style={{fontSize:'7px',opacity:0.7}}>99acres+MB</span></button>
-                            <button className="mini-btn" onClick={() => executeOmniSearch(2)}>3. B2B & OLX<br/><span style={{fontSize:'7px',opacity:0.7}}>OLX+IndiaMart</span></button>
-                            <button className="mini-btn" onClick={() => executeOmniSearch(3)}>4. GLOBAL/NRI<br/><span style={{fontSize:'7px',opacity:0.7}}>Reddit+Quora</span></button>
-                            <button className="mini-btn" style={{gridColumn: 'span 2'}} onClick={() => executeOmniSearch(4)}>5. NATURAL LANGUAGE SCANNER</button>
+                            <button className="mini-btn" onClick={() => rotateSearch(0)}>1. SOCIAL<span className="badge">SET {(offsets[0]%5)+1}</span></button>
+                            <button className="mini-btn" onClick={() => rotateSearch(1)}>2. PORTALS<span className="badge">SET {(offsets[1]%5)+1}</span></button>
+                            <button className="mini-btn" onClick={() => rotateSearch(2)}>3. B2B/OLX<span className="badge">SET {(offsets[2]%5)+1}</span></button>
+                            <button className="mini-btn" onClick={() => rotateSearch(3)}>4. GLOBAL/NRI<span className="badge">SET {(offsets[3]%5)+1}</span></button>
+                            <button className="mini-btn" style={{gridColumn:'span 2'}} onClick={() => rotateSearch(4)}>5. NATURAL LANGUAGE SCANNER <span className="badge">SET {(offsets[4]%5)+1}</span></button>
                         </div>
 
-                        <div className="control-row">
-                            <span className="label">1. Lock Semantic Intent (30 Options)</span>
-                            <select value={sniperMode} onChange={(e)=>setSniperMode(e.target.value)}>
-                                {sniperOptions.map(o => <option key={o.id} value={o.id}>{o.n}</option>)}
-                            </select>
-                            <span className="label">2. Lead Freshness</span>
-                            <select value={timeFrame} onChange={(e)=>setTimeFrame(e.target.value)}>
-                                <option value="w">Last 1 Week</option>
-                                <option value="m">Last 1 Month</option>
-                                <option value="y">Last 1 Year</option>
-                            </select>
-                        </div>
+                        <span className="label">1. Lock Sniper Intent (30 Options)</span>
+                        <select value={sniperMode} onChange={(e)=>setSniperMode(e.target.value)}>
+                            {sniperOptions.map(o => <option key={o.id} value={o.id}>{o.n}</option>)}
+                        </select>
+
+                        <span className="label">2. Freshness</span>
+                        <select value={timeFrame} onChange={(e)=>setTimeFrame(e.target.value)}>
+                            <option value="w">Last 1 Week</option>
+                            <option value="m">Last 1 Month</option>
+                            <option value="y">Last 1 Year</option>
+                        </select>
                     </div>
 
                     <nav className="nav-scroll">
                         <button onClick={()=>setTab("sector")} className={`nav-tab ${tab==='sector'?'active':''}`}>30 Sectors</button>
-                        <button onClick={()=>setTab("intel")} className={`nav-tab ${tab==='intel'?'active':''}`}>30 Platforms</button>
-                        <button onClick={()=>setTab("extract")} className={`nav-tab ${tab==='extract'?'active':''}`}>Extract</button>
+                        <button onClick={()=>setTab("extract")} className={`nav-tab ${tab==='extract'?'active':''}`}>Extract leads</button>
                     </nav>
 
                     <main>
                         {tab === 'sector' && (
                             <div className="btn-grid">
                                 {sectors.map((s, i) => (
-                                    <button key={i} className={`btn-v22 ${activeSector===s?'active':''}`} 
-                                            onClick={()=>{setActiveSector(s); executeSearch(s);}}>
+                                    <button key={i} className={`btn-v22 ${activeSector===s?'active':''}`} onClick={()=>{setActiveSector(s); executeSectorSearch(s);}}>
                                         <span>{i+1}. {s}</span>
                                         <span className="gold">🔍</span>
                                     </button>
@@ -208,20 +196,10 @@
                             </div>
                         )}
 
-                        {tab === 'intel' && (
-                            <div className="btn-grid">
-                                {intelSources.map((is, i) => (
-                                    <button key={i} className="btn-v24" onClick={()=>executeSearch(activeSector, is.s)}>
-                                        {i+1}. {is.n}
-                                    </button>
-                                ))}
-                            </div>
-                        )}
-
                         {tab === 'extract' && (
                             <div>
-                                <textarea placeholder="Paste search text here to extract contacts..."></textarea>
-                                <div style={{padding:'0 15px'}}><button className="btn-v24" style={{width:'100%', textAlign:'center'}}>⚡ EXTRACT CONTACTS</button></div>
+                                <textarea placeholder="Paste result text here..."></textarea>
+                                <div style={{padding:'0 15px'}}><button className="omni-btn" style={{width:'100%'}}>⚡ EXTRACT CONTACTS</button></div>
                             </div>
                         )}
                     </main>
