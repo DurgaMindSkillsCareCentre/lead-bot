@@ -63,15 +63,50 @@ textarea{width:100%;background:#080808;color:#fff;border:1px solid #333;padding:
 
 /* ADD-ON BUTTONS ONLY */
 .addon-row{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:0 0 10px;}
+.addon-row2{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:0 0 10px;}
 .addon-btn{background:linear-gradient(135deg,#2d8cff,#0a66c2,#2d8cff);background-size:300% auto;color:#fff;border:none;padding:12px;font-weight:900;border-radius:8px;text-transform:uppercase;font-size:10px;width:100%;cursor:pointer;letter-spacing:.5px;animation:flow 4s ease infinite;}
 .addon-btn.alt{background:linear-gradient(135deg,#27ae60,#145a32,#27ae60);}
 .addon-btn.third{background:linear-gradient(135deg,#e67e22,#8a4f13,#e67e22);}
 .score-card{background:#080808;border:1px solid #C8A84B44;border-radius:8px;padding:14px;margin-top:8px;font-family:monospace;font-size:11px;line-height:1.8;white-space:pre-wrap;color:#C8A84B;min-height:60px;}
+
+/* ADD-ON MODAL */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.78);display:none;align-items:center;justify-content:center;padding:14px;z-index:2000;}
+.modal-backdrop.show{display:flex;}
+.modal-card{width:min(100%,760px);max-height:92vh;overflow:auto;background:#0b0b0b;border:1px solid #C8A84B55;border-radius:14px;box-shadow:0 20px 80px rgba(0,0,0,.7);padding:14px;}
+.modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;}
+.modal-title{font-size:14px;font-weight:900;color:#C8A84B;letter-spacing:.5px;}
+.modal-close{background:#1a1408;color:#C8A84B;border:1px solid #C8A84B55;border-radius:8px;padding:8px 10px;font-weight:900;cursor:pointer;}
+.modal-body .mini-card{background:#111;border:1px solid #C8A84B33;border-radius:10px;padding:12px;margin-bottom:10px;}
+.modal-body .mini-label{font-size:9px;font-weight:900;color:#C8A84B;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;display:block;}
+.modal-body .mini-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.modal-body .mini-stat{background:#080808;border:1px solid #C8A84B33;border-radius:8px;padding:10px;font-size:11px;color:#f0ebe0;}
+.modal-body .mini-list{margin-top:8px;display:grid;gap:8px;}
+.modal-body .lead-item{background:#080808;border:1px solid #333;border-radius:8px;padding:10px;}
+.modal-body .lead-item .top{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:6px;}
+.modal-body .lead-item .ts{font-size:9px;color:#888;white-space:nowrap;}
+.modal-body .lead-item .text{font-family:monospace;font-size:11px;color:#ddd;line-height:1.55;white-space:pre-wrap;word-break:break-word;}
+.modal-body .lead-item .actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px;}
+.modal-body .lead-item .actions button{width:100%;padding:9px;border:none;border-radius:8px;font-weight:900;cursor:pointer;font-size:10px;}
+.modal-body .lead-item .actions .use{background:#1a1408;color:#C8A84B;border:1px solid #C8A84B55;}
+.modal-body .lead-item .actions .del{background:#300;color:#ffb3b3;border:1px solid #7a2a2a;}
+.modal-body textarea{min-height:170px;}
 </style>
 </head>
 <body>
 <div id="root"></div>
 <div class="toast" id="toast"></div>
+
+<!-- ADD-ON MODAL (separate, non-invasive) -->
+<div id="addonModal" class="modal-backdrop" aria-hidden="true">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div class="modal-title" id="addonModalTitle">Add-on</div>
+      <button class="modal-close" onclick="closeAddonModal()">✕</button>
+    </div>
+    <div class="modal-body" id="addonModalBody"></div>
+  </div>
+</div>
+
 <script>
 // ═══════════════════════════════════════════════════════════
 // HELPERS
@@ -95,6 +130,20 @@ function normalizeIntent(tag){
     .replace(/\bOR\b/g,' ')
     .replace(/\s+/g,' ')
     .trim();
+}
+
+function escHtml(s){
+  return String(s || '')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;');
+}
+
+function currentPasteText(){
+  const el = document.getElementById('extIn');
+  return el ? (el.value || '').trim() : '';
 }
 
 // ADD-ON: semantic search, extra button only
@@ -174,6 +223,227 @@ function scoreCurrentPaste(){
     `Matched signals:\n${res.hits.length ? res.hits.join('\n') : 'None'}\n\n` +
     `Action:\n${res.label.startsWith('HOT') ? 'Contact now.' : res.label.startsWith('WARM') ? 'Follow up soon.' : 'Low priority.'}`;
   if(res.label.startsWith('HOT')) toast('🔥 HOT LEAD FOUND');
+}
+
+// ═══════════════════════════════════════════════════════════
+// ADD-ON: WhatsApp responder + lead tracking dashboard
+// ═══════════════════════════════════════════════════════════
+const LEAD_DB_KEY = 'baleeLeadTrackV1';
+let leadDb = [];
+
+function loadLeadDb(){
+  try{
+    const raw = localStorage.getItem(LEAD_DB_KEY);
+    leadDb = raw ? JSON.parse(raw) : [];
+    if(!Array.isArray(leadDb)) leadDb = [];
+  }catch(e){
+    leadDb = [];
+  }
+}
+function saveLeadDb(){
+  try{ localStorage.setItem(LEAD_DB_KEY, JSON.stringify(leadDb)); }catch(e){}
+}
+function closeAddonModal(){
+  const modal = document.getElementById('addonModal');
+  if(modal){
+    modal.classList.remove('show');
+    modal.setAttribute('aria-hidden','true');
+  }
+}
+function openAddonModal(title, bodyHtml){
+  const modal = document.getElementById('addonModal');
+  const titleEl = document.getElementById('addonModalTitle');
+  const bodyEl = document.getElementById('addonModalBody');
+  if(!modal || !titleEl || !bodyEl) return;
+  titleEl.textContent = title;
+  bodyEl.innerHTML = bodyHtml;
+  modal.classList.add('show');
+  modal.setAttribute('aria-hidden','false');
+}
+
+function buildReplyText(){
+  const sector = activeSector || 'commercial land';
+  const mode = SNIPERS.find(s => s.id === sm());
+  const intent = normalizeIntent(mode ? mode.tag : '');
+  return (
+`Hi, thanks for your enquiry.
+
+We have a prime corner commercial plot at Alagarkovil Highway Junction, Madurai.
+
+• 23.5 cents
+• 46 ft frontage
+• Direct owner
+• No brokers
+
+Suitable for ${sector}.
+
+If your requirement is still active, I can share location and brochure.
+
+Best regards`
+  );
+}
+
+function openWhatsAppResponder(){
+  const text = currentPasteText();
+  const res = scoreLeadText(text);
+  const reply = buildReplyText();
+
+  openAddonModal(
+    'Auto WhatsApp Responder',
+    `
+      <div class="mini-card">
+        <span class="mini-label">Current lead status</span>
+        <div class="mini-row">
+          <div class="mini-stat">Score: <b>${res.score}/100</b></div>
+          <div class="mini-stat">Label: <b>${res.label}</b></div>
+        </div>
+        <div class="mini-stat" style="margin-top:8px;white-space:pre-wrap;">${escHtml(res.hits.length ? 'Matched: ' + res.hits.join(', ') : 'Paste buyer text in Extract tab to generate a score and reply.')}</div>
+      </div>
+
+      <div class="mini-card">
+        <span class="mini-label">Generated reply</span>
+        <textarea id="replyBox">${escHtml(reply)}</textarea>
+        <div class="addon-row2" style="margin-top:8px;">
+          <button class="addon-btn third" onclick="copyReplyText()">📋 Copy Reply</button>
+          <button class="addon-btn alt" onclick="openReplyWhatsApp()">📲 Open WhatsApp</button>
+        </div>
+        <div class="addon-row2" style="margin-top:8px;">
+          <button class="addon-btn" onclick="saveCurrentLead()">💾 Save Current Lead</button>
+          <button class="addon-btn" style="background:linear-gradient(135deg,#6c5ce7,#3b3b98,#6c5ce7);" onclick="openLeadDashboard()">📊 Dashboard</button>
+        </div>
+      </div>
+    `
+  );
+}
+
+function copyReplyText(){
+  const ta = document.getElementById('replyBox');
+  if(!ta) return;
+  navigator.clipboard?.writeText(ta.value || ta.textContent || '');
+  toast('✅ Reply copied');
+}
+
+function openReplyWhatsApp(){
+  const ta = document.getElementById('replyBox');
+  if(!ta) return;
+  const msg = ta.value || ta.textContent || '';
+  window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+}
+
+function saveCurrentLead(){
+  const text = currentPasteText();
+  if(!text){
+    toast('Paste lead text first');
+    return;
+  }
+  const res = scoreLeadText(text);
+  const item = {
+    id: Date.now(),
+    text,
+    score: res.score,
+    label: res.label,
+    hits: res.hits,
+    ts: new Date().toISOString()
+  };
+
+  loadLeadDb();
+  if(!leadDb.some(x => x.text === item.text)){
+    leadDb.unshift(item);
+    if(leadDb.length > 80) leadDb.length = 80;
+    saveLeadDb();
+    toast('✅ Lead saved');
+  }else{
+    toast('ℹ️ Already saved');
+  }
+  openLeadDashboard();
+}
+
+function deleteLead(id){
+  loadLeadDb();
+  leadDb = leadDb.filter(x => x.id !== id);
+  saveLeadDb();
+  openLeadDashboard();
+}
+
+function useLeadInPaste(text){
+  const el = document.getElementById('extIn');
+  if(el){
+    el.value = text;
+    toast('✅ Lead loaded');
+    scoreCurrentPaste();
+  }
+}
+
+function clearLeadDashboard(){
+  leadDb = [];
+  saveLeadDb();
+  openLeadDashboard();
+  toast('🧹 Dashboard cleared');
+}
+
+function openLeadDashboard(){
+  loadLeadDb();
+
+  const stats = leadDb.reduce((acc, item) => {
+    if((item.label || '').startsWith('HOT')) acc.hot += 1;
+    else if((item.label || '').startsWith('WARM')) acc.warm += 1;
+    else acc.cold += 1;
+    return acc;
+  }, {hot:0,warm:0,cold:0});
+
+  const current = currentPasteText();
+  const currentScore = current ? scoreLeadText(current) : {label:'NONE',score:0,hits:[]};
+
+  const items = leadDb.length
+    ? leadDb.map(item => `
+      <div class="lead-item">
+        <div class="top">
+          <div style="font-weight:900;color:${item.label.startsWith('HOT') ? '#ff6b6b' : item.label.startsWith('WARM') ? '#ffd166' : '#C8A84B'};">${escHtml(item.label)} • ${item.score}/100</div>
+          <div class="ts">${escHtml(new Date(item.ts).toLocaleString())}</div>
+        </div>
+        <div class="text">${escHtml(item.text.slice(0, 260))}${item.text.length > 260 ? '…' : ''}</div>
+        <div class="actions">
+          <button class="use" onclick='useLeadInPaste(${JSON.stringify(item.text)})'>Use</button>
+          <button class="del" onclick='deleteLead(${item.id})'>Delete</button>
+        </div>
+      </div>
+    `).join('')
+    : '<div class="mini-stat">No saved leads yet.</div>';
+
+  openAddonModal(
+    'Lead Tracking Dashboard',
+    `
+      <div class="mini-card">
+        <span class="mini-label">Live summary</span>
+        <div class="mini-row">
+          <div class="mini-stat">HOT: <b>${stats.hot}</b></div>
+          <div class="mini-stat">WARM: <b>${stats.warm}</b></div>
+        </div>
+        <div class="mini-row" style="margin-top:8px;">
+          <div class="mini-stat">COLD: <b>${stats.cold}</b></div>
+          <div class="mini-stat">Saved: <b>${leadDb.length}</b></div>
+        </div>
+      </div>
+
+      <div class="mini-card">
+        <span class="mini-label">Current pasted lead</span>
+        <div class="mini-stat" style="white-space:pre-wrap;">${escHtml(current ? currentScore.label + ' • ' + currentScore.score + '/100\n\n' + current.slice(0, 240) : 'Paste a buyer text in Extract tab and tap Auto Score, then Save Current Lead.')}</div>
+        <div class="addon-row2" style="margin-top:8px;">
+          <button class="addon-btn third" onclick="saveCurrentLead()">💾 Save Current Lead</button>
+          <button class="addon-btn alt" onclick="openWhatsAppResponder()">💬 Open Responder</button>
+        </div>
+        <div class="addon-row2" style="margin-top:8px;">
+          <button class="addon-btn" style="background:linear-gradient(135deg,#27ae60,#145a32,#27ae60);" onclick="clearLeadDashboard()">🧹 Clear Dashboard</button>
+          <button class="addon-btn" style="background:linear-gradient(135deg,#6c5ce7,#3b3b98,#6c5ce7);" onclick="closeAddonModal()">✅ Close</button>
+        </div>
+      </div>
+
+      <div class="mini-card">
+        <span class="mini-label">Saved leads</span>
+        <div class="mini-list">${items}</div>
+      </div>
+    `
+  );
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -467,6 +737,8 @@ function showTab(id){
 // BUILD DOM
 // ═══════════════════════════════════════════════════════════
 window.addEventListener('DOMContentLoaded',()=>{
+  loadLeadDb();
+
   const root=document.getElementById('root');
 
   const panel=document.createElement('div');
@@ -482,6 +754,11 @@ window.addEventListener('DOMContentLoaded',()=>{
     <div class="addon-row">
       <button class="addon-btn" onclick="semanticAddonSearch()">🧠 AI SEMANTIC SEARCH — EXTRA</button>
       <button class="addon-btn alt" onclick="dynamicRelaxerSearch()">🔁 DYNAMIC QUERY RELAXER — EXTRA</button>
+    </div>
+
+    <div class="addon-row2">
+      <button class="addon-btn third" onclick="openWhatsAppResponder()">💬 AUTO WHATSAPP RESPONDER</button>
+      <button class="addon-btn" style="background:linear-gradient(135deg,#6c5ce7,#3b3b98,#6c5ce7);" onclick="openLeadDashboard()">📊 LEAD TRACK DASHBOARD</button>
     </div>
 
     <div class="cluster-grid">
