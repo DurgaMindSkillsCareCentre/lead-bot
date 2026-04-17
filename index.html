@@ -60,6 +60,13 @@ textarea{width:100%;background:#080808;color:#fff;border:1px solid #333;padding:
   background:#C8A84B;color:#000;padding:10px 20px;border-radius:20px;
   font-size:11px;font-weight:900;z-index:999;display:none;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.6);}
 .toast.show{display:block;}
+
+/* ADD-ON BUTTONS ONLY */
+.addon-row{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:0 0 10px;}
+.addon-btn{background:linear-gradient(135deg,#2d8cff,#0a66c2,#2d8cff);background-size:300% auto;color:#fff;border:none;padding:12px;font-weight:900;border-radius:8px;text-transform:uppercase;font-size:10px;width:100%;cursor:pointer;letter-spacing:.5px;animation:flow 4s ease infinite;}
+.addon-btn.alt{background:linear-gradient(135deg,#27ae60,#145a32,#27ae60);}
+.addon-btn.third{background:linear-gradient(135deg,#e67e22,#8a4f13,#e67e22);}
+.score-card{background:#080808;border:1px solid #C8A84B44;border-radius:8px;padding:14px;margin-top:8px;font-family:monospace;font-size:11px;line-height:1.8;white-space:pre-wrap;color:#C8A84B;min-height:60px;}
 </style>
 </head>
 <body>
@@ -81,6 +88,93 @@ function FBG(q){ return 'https://www.facebook.com/search/groups/?q='+encodeURICo
 function RD(sub,q){ return 'https://www.reddit.com/r/'+sub+'/search/?q='+encodeURIComponent(q)+'&sort=new&t=month'; }
 function LI(q){  return 'https://www.linkedin.com/search/results/content/?keywords='+encodeURIComponent(q)+'&datePosted=past-month'; }
 function TW(q){  return 'https://x.com/search?q='+encodeURIComponent(q)+'&f=live'; }
+
+function normalizeIntent(tag){
+  return (tag || 'buyer requirement investment')
+    .replace(/[()"']/g,' ')
+    .replace(/\bOR\b/g,' ')
+    .replace(/\s+/g,' ')
+    .trim();
+}
+
+// ADD-ON: semantic search, extra button only
+function semanticAddonSearch() {
+  const mode = SNIPERS.find(s => s.id === sm());
+  const sector = activeSector || 'commercial land';
+  const intent = normalizeIntent(mode ? mode.tag : '');
+
+  const queries = [
+    `Madurai Alagar Kovil ${sector} buyer requirement`,
+    `commercial land buyer near Alagar Kovil Madurai ${sector} ${intent}`,
+    `Madurai highway corner land investment ${sector} wanted`
+  ];
+
+  queries.forEach((q, i) => {
+    setTimeout(() => window.open(G(q), '_blank'), i * 700);
+  });
+  toast('🧠 AI semantic search opened');
+}
+
+// ADD-ON: dynamic query relaxer, extra button only
+function dynamicRelaxerSearch() {
+  const mode = SNIPERS.find(s => s.id === sm());
+  const sector = activeSector || 'commercial land';
+  const intent = normalizeIntent(mode ? mode.tag : '');
+
+  const queries = [
+    `Madurai "Alagar Kovil" "${sector}" ${intent}`,
+    `Madurai Alagar Kovil ${sector} commercial land buyer requirement`,
+    `Madurai ${sector} commercial land highway investment buyer`,
+    `Madurai commercial land ${sector} investment opportunity`
+  ];
+
+  queries.forEach((q, i) => {
+    setTimeout(() => window.open(G(q), '_blank'), i * 800);
+  });
+  toast('🔁 Query relaxer opened');
+}
+
+// ADD-ON: lead scoring + highlight for pasted text
+function scoreLeadText(text){
+  const t = (text || '').toLowerCase();
+  let score = 0;
+  const hits = [];
+
+  const add = (cond, val, label) => {
+    if (cond) { score += val; hits.push(label); }
+  };
+
+  add(t.includes('urgent'), 20, 'urgent');
+  add(t.includes('immediate'), 20, 'immediate');
+  add(t.includes('need land') || t.includes('land required') || t.includes('require land'), 20, 'need land');
+  add(t.includes('buyer') || t.includes('want to buy') || t.includes('looking for land'), 15, 'buyer intent');
+  add(t.includes('commercial'), 10, 'commercial');
+  add(t.includes('land') || t.includes('plot'), 10, 'land/plot');
+  add(t.includes('madurai'), 10, 'madurai');
+  add(t.includes('alagar kovil') || t.includes('alagarkovil'), 10, 'alagar kovil');
+  add(t.includes('highway') || t.includes('junction'), 10, 'highway/junction');
+  add(t.includes('investment'), 10, 'investment');
+
+  if(score >= 60) return { label: 'HOT 🔥', score, hits };
+  if(score >= 30) return { label: 'WARM 🟡', score, hits };
+  return { label: 'COLD ⚫', score, hits };
+}
+
+function scoreCurrentPaste(){
+  const input = document.getElementById('extIn');
+  const out = document.getElementById('scoreOut');
+  if(!input || !out) return;
+
+  const res = scoreLeadText(input.value || '');
+  out.style.color = res.label.startsWith('HOT') ? '#ff6b6b' : res.label.startsWith('WARM') ? '#ffd166' : '#C8A84B';
+  out.style.borderColor = res.label.startsWith('HOT') ? '#ff6b6b66' : res.label.startsWith('WARM') ? '#ffd16666' : '#C8A84B44';
+  out.textContent =
+    `Lead Score: ${res.label}\n` +
+    `Score: ${res.score}/100\n\n` +
+    `Matched signals:\n${res.hits.length ? res.hits.join('\n') : 'None'}\n\n` +
+    `Action:\n${res.label.startsWith('HOT') ? 'Contact now.' : res.label.startsWith('WARM') ? 'Follow up soon.' : 'Low priority.'}`;
+  if(res.label.startsWith('HOT')) toast('🔥 HOT LEAD FOUND');
+}
 
 // ═══════════════════════════════════════════════════════════
 // 30 SNIPER INTENTS
@@ -157,7 +251,7 @@ const INTEL = [
   {n:'Quora — Investment Advice',         col:'#B92B27',tag:'FORUM',   url:(s,m)=>G('site:quora.com ("Madurai" OR "Tamil Nadu") "'+s+'" '+m+' '+EXCL)},
   {n:'SkyscraperCity — Projects',         col:'#2196F3',tag:'FORUM',   url:(s,m)=>G('site:skyscrapercity.com Madurai "'+s+'" '+m+' '+EXCL)},
   {n:'Locanto — Classifieds',             col:'#E91E63',tag:'CLASSD',  url:(s,m)=>G('site:locanto.in Madurai "'+s+'" ("wanted" OR "buyer") '+EXCL)},
-  {n:'ClickIndia — Buyers',              col:'#9C27B0',tag:'CLASSD',  url:(s,m)=>G('site:clickindia.com Madurai "'+s+'" ("wanted" OR "buyer") '+EXCL)},
+  {n:'ClickIndia — Buyers',               col:'#9C27B0',tag:'CLASSD',  url:(s,m)=>G('site:clickindia.com Madurai "'+s+'" ("wanted" OR "buyer") '+EXCL)},
   {n:'FranchiseIndia — Land Wanted',      col:'#F44336',tag:'CLASSD',  url:(s,m)=>'https://www.franchiseindia.com/land-property'},
   {n:'SBNRI — NRI Real Estate',           col:'#1565C0',tag:'NRI',     url:(s,m)=>'https://sbnri.com/blog/real-estate'},
   {n:'NRI One — Investment Platform',     col:'#1976D2',tag:'NRI',     url:(s,m)=>'https://nrione.in'},
@@ -168,13 +262,9 @@ const INTEL = [
 
 // ═══════════════════════════════════════════════════════════
 // 5 CLUSTERS × 5 SETS × 4 TABS = 100 SEARCHES
-// KEY FIX: NO site:twitter.com / site:linkedin.com / site:facebook.com in Google
-//          → These return 0 results (confirmed). Use DIRECT URLs instead.
-//          → site:reddit.com, site:quora.com, site:99acres.com etc. WORK FINE.
 // ═══════════════════════════════════════════════════════════
 function buildClusters(){
   return [
-  // ── CLUSTER 0: SOCIAL ─────────────────────────────────────────────────────
   [
     [ FB('commercial land Madurai wanted buyer highway Alagar Kovil'),
       G('site:reddit.com r/IndiaInvestments ("Madurai" OR "Tamil Nadu") ("commercial land" OR "highway land") (invest OR buy OR wanted)'),
@@ -197,7 +287,6 @@ function buildClusters(){
       TW('NRI invest Tamil Nadu commercial land Madurai wanted buyer'),
       FBG('Tamil Nadu investors NRI property direct sale') ],
   ],
-  // ── CLUSTER 1: RE PORTALS ─────────────────────────────────────────────────
   [
     [ 'https://www.99acres.com/commercial-land-in-madurai-ffid',
       G('site:99acres.com Madurai ("commercial land" OR "highway land") ("buyer" OR "requirement" OR "wanted") '+EXCL),
@@ -220,7 +309,6 @@ function buildClusters(){
       G('site:proptiger.com ("Madurai" OR "Tamil Nadu") "highway land" (buyer OR wanted) '+EXCL),
       'https://www.commonfloor.com/madurai-property/for-sale/commercial' ],
   ],
-  // ── CLUSTER 2: B2B & OLX ─────────────────────────────────────────────────
   [
     [ G('site:indiamart.com ("commercial land" OR "highway land" OR "industrial land") Madurai (requirement OR buyer) '+EXCL),
       G('site:olx.in Madurai ("commercial land" OR plot) ("wanted" OR "buyer") '+EXCL),
@@ -243,8 +331,6 @@ function buildClusters(){
       G('site:clickindia.com OR site:locanto.in ("commercial land" OR "highway land") Madurai buyer '+EXCL),
       G('site:tradeindia.com OR site:exportersindia.com ("commercial land") Madurai (requirement OR buyer) '+EXCL) ],
   ],
-  // ── CLUSTER 3: GLOBAL / NRI ───────────────────────────────────────────────
-  // FIXED: No dead site: — uses Reddit (works), Quora (works), direct NRI platform URLs
   [
     [ RD('IndiaInvestments','madurai commercial land invest buy highway'),
       G('site:reddit.com r/IndiaInvestments ("commercial land" OR "Tamil Nadu" OR Madurai) (invest OR buy OR wanted)'),
@@ -267,7 +353,6 @@ function buildClusters(){
       RD('NRI','Tamil Nadu Madurai property investment buy commercial'),
       G('site:sbnri.com OR site:nrione.in OR site:wisenri.com ("Tamil Nadu" OR Madurai) "commercial land" '+EXCL) ],
   ],
-  // ── CLUSTER 4: NATURAL LANGUAGE — Deep Semantic Intent (Pure Google) ──────
   [
     [ G('"commercial land wanted" Madurai ("Alagar Kovil" OR highway) '+EXCL),
       G('"looking to buy land" ("Madurai" OR "Alagar Kovil") commercial highway '+EXCL),
@@ -318,7 +403,6 @@ function clusterClick(idx){
 
 function launchAll(){
   const C = buildClusters();
-  // Open first URL from each cluster immediately (5 tabs, browser-safe)
   const urls = [0,1,2,3,4].map(i=>C[i][offsets[i]%5][0]);
   openTabs(urls);
   [0,1,2,3,4].forEach(i=>offsets[i]++);
@@ -362,6 +446,10 @@ function extractContacts(){
   document.getElementById('extOut').textContent=out;
 }
 
+function scorePasteLead(){
+  scoreCurrentPaste();
+}
+
 function toast(msg){
   const t=document.getElementById('toast');
   t.textContent=msg; t.classList.add('show');
@@ -381,7 +469,6 @@ function showTab(id){
 window.addEventListener('DOMContentLoaded',()=>{
   const root=document.getElementById('root');
 
-  // ── PANEL ──
   const panel=document.createElement('div');
   panel.className='panel';
   panel.innerHTML=`
@@ -390,6 +477,13 @@ window.addEventListener('DOMContentLoaded',()=>{
       <div class="sub">Alagarkovil Madurai — Buyer Radar v3.0</div>
     </div>
     <button class="omni-btn" onclick="launchAll()">🚀 LAUNCH ROTATION SCAN — ALL 5 CLUSTERS (5 tabs)</button>
+
+    <!-- ADD-ON BUTTONS ONLY -->
+    <div class="addon-row">
+      <button class="addon-btn" onclick="semanticAddonSearch()">🧠 AI SEMANTIC SEARCH — EXTRA</button>
+      <button class="addon-btn alt" onclick="dynamicRelaxerSearch()">🔁 DYNAMIC QUERY RELAXER — EXTRA</button>
+    </div>
+
     <div class="cluster-grid">
       <button class="cluster-btn" onclick="clusterClick(0)">
         <span class="set-badge" id="badge0">SET 1/5</span>
@@ -428,7 +522,6 @@ window.addEventListener('DOMContentLoaded',()=>{
     </select>`;
   root.appendChild(panel);
 
-  // ── NAV ──
   const nav=document.createElement('nav');
   nav.className='nav';
   nav.innerHTML=`
@@ -438,10 +531,8 @@ window.addEventListener('DOMContentLoaded',()=>{
     <button class="nav-btn" data-t="extract" onclick="showTab('extract')">Extract</button>`;
   root.appendChild(nav);
 
-  // ── MAIN ──
   const main=document.createElement('main');
 
-  // SECTOR PANE
   const ps=document.createElement('div');
   ps.id='pane-sector'; ps.className='tab-pane';
   ps.innerHTML=`<div class="grid">${
@@ -450,7 +541,6 @@ window.addEventListener('DOMContentLoaded',()=>{
   }</div>`;
   main.appendChild(ps);
 
-  // INTEL PANE
   const pi=document.createElement('div');
   pi.id='pane-intel'; pi.className='tab-pane'; pi.style.display='none';
   pi.innerHTML=`
@@ -467,7 +557,6 @@ window.addEventListener('DOMContentLoaded',()=>{
   }</div>`;
   main.appendChild(pi);
 
-  // ASSETS PANE
   const pa=document.createElement('div');
   pa.id='pane-assets'; pa.className='tab-pane'; pa.style.display='none';
   pa.innerHTML=`<div style="padding:14px;">
@@ -505,7 +594,6 @@ window.addEventListener('DOMContentLoaded',()=>{
   </div>`;
   main.appendChild(pa);
 
-  // EXTRACT PANE
   const pe=document.createElement('div');
   pe.id='pane-extract'; pe.className='tab-pane'; pe.style.display='none';
   pe.innerHTML=`<div style="padding:14px;">
@@ -514,7 +602,10 @@ window.addEventListener('DOMContentLoaded',()=>{
     </div>
     <textarea id="extIn" placeholder="Paste any text here — Google search results, Facebook posts, WhatsApp messages, forum discussions...&#10;&#10;Extracts: Phone numbers, Emails, Names (Dr./Prof./Mr.)"></textarea>
     <button class="omni-btn" style="margin:10px 0 8px;" onclick="extractContacts()">⚡ EXTRACT CONTACTS NOW</button>
-    <div style="color:#C8A84B;font-size:10px;font-weight:800;margin-bottom:6px;text-transform:uppercase;">Extracted Contacts:</div>
+    <button class="addon-btn third" style="margin:0 0 8px;" onclick="scorePasteLead()">🔥 AUTO SCORE / HIGHLIGHT LEAD</button>
+    <div style="color:#C8A84B;font-size:10px;font-weight:800;margin-bottom:6px;text-transform:uppercase;">Lead Score:</div>
+    <div class="score-card" id="scoreOut">Paste text and tap “AUTO SCORE / HIGHLIGHT LEAD”.</div>
+    <div style="color:#C8A84B;font-size:10px;font-weight:800;margin-bottom:6px;text-transform:uppercase;margin-top:10px;">Extracted Contacts:</div>
     <div class="extract-results" id="extOut">Results will appear here...</div>
     <button class="copy-btn" onclick="navigator.clipboard&&navigator.clipboard.writeText(document.getElementById('extOut').textContent).then(()=>toast('✅ Copied!'))">📋 COPY ALL EXTRACTED CONTACTS</button>
   </div>`;
